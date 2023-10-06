@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles/styles.css" type="text/css">
+    <link rel="stylesheet" href="./styles/styles.css" type="text/css">
     <title>LyfeRisk</title>
   </head>
   
