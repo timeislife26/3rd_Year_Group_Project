@@ -1,8 +1,8 @@
 <?php
 
-function emptyInputSignup($name,$email,$password,$cpassword){
+function emptyInputSignup($name,$email,$imc,$password,$cpassword){
     $result;
-    if (empty($name) || empty($email) || empty($password) || empty($cpassword)){
+    if (empty($name) || empty($email) || empty($imc) || empty($password) || empty($cpassword)){
         $result = true;
     }
     else{
@@ -56,8 +56,8 @@ function emailExists($conn,$email){
     mysqli_stmt_close($stmt);
 }
 
-function createUser($conn,$name, $email, $password){
-    $sql = "INSERT INTO users (name, email, password) VALUES (?,?,?);";
+function createUser($conn,$name, $imc, $email, $password){
+    $sql = "INSERT INTO users (full_Name, email, IMC_Num,  password) VALUES (?,?,?, ?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)){
         header("location: ../views/signup.html?error=stmtfailed");
@@ -66,7 +66,7 @@ function createUser($conn,$name, $email, $password){
 
     $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
     
-    mysqli_stmt_bind_param($stmt, "sss", $name, $email, $hashedPwd);//change $password to hashedPWD to encrypt
+    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $imc, $hashedPwd);//change $password to hashedPWD to encrypt
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("location: ../views/index.php");

@@ -1,22 +1,48 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-    <nav>
-	    <a href="index.php">Home</a>
-	    <a href="login.php">Login</a>
-      <a href="signup.php">signup</a>
-    </nav>
+    <link rel="stylesheet" type="text/css" href="../styles/baseStyle.css">
+    <title>LyfeRisk</title>
   </head>
   
   <body>
-    <h1>Home</h1>
+    <div id="header">
+      <h1>LyfeRisk</h1>
+
+      <div id="navbar">
+        <ul>
+          <li><a href="predict.php">Predicting Algorithm</a></li>
+          <li><a href="profiling.php">Profiling Algorithm</a></li>
+          <li><a href="export.php">Export Information</a></li>
+        </ul>
+      </div>
+    </div>
+    
     <main>
-      <h2>HelthAI</h2>
-      <p>
-        This is a temporary home test change
-      </p>
+      <div id="container">
+        <h2>Menu</h2>
+        <p>
+          You can check your patients risk profiles with our prediction algorithm.
+        </p>
+        <p>
+          You can run reports establishing the levels of risk for all categories with our profiling algorithm.
+        </p>
+        <p>
+          You can export patient information with our export option.
+        </p>
+        <p>
+          <a href="predict.php">Predicting Algorithm</a>
+          <a href="profiling.php">Profiling Algorithm</a>
+          <a href="export.php">Export Information</a>
+        </p>
+      </div>
     </main>
   </body>
-</html>
+
+
+<?php
+  include_once 'footer.php';
+?>
+
