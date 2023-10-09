@@ -78,6 +78,10 @@ a:hover {
     padding: 10px;
 }
 
+label {
+    display: inline-block;
+}
+
 footer {
     background-color: darkgreen;
     position: fixed;
