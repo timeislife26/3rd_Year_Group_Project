@@ -10,7 +10,7 @@
           <p><label>Password*:&nbsp;<input type="password" name="password" required></label></p>
           <p>Fields marked with * are mandatory</p>
         </form>
-        <p><a href="menu.html">Login</a></p>
+        <p><a href="menu.php">Login</a></p>
       </div>
     </main>
   </body>

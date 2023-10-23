@@ -1,14 +1,21 @@
+:root {
+    --primaryColour: #006400; /* background colour - darkgreen */
+    --secondaryColour: #90ee90; /* shadow colour - lightgreen */
+    --terciaryColour: #ffffff; /* letter/border colour - white */
+    --shadowStyle: 0px 0px 10px; /* shadow formatting */
+}
+
 body, html {
     background-image: url(../images/Background.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 #header {
-    background-color: darkgreen;
+    background-color: var(--primaryColour);
 	background-image: url(../images/LyfeRiskLogo.jpg);
 	background-position: left;
 	background-repeat: no-repeat;
@@ -25,8 +32,8 @@ body, html {
 
 #header h1 {
     text-align: center;
-    text-shadow: 0px 0px 10px lightgreen;
-    color: white;
+    text-shadow: var(--shadowStyle) var(--secondaryColour);
+    color: var(--terciaryColour);
     padding-left: 80px;
     padding-right: 80px;
 }
@@ -48,44 +55,44 @@ body, html {
 
 a:link, a:visited {
 	padding: 5px;
-	color: white;
-	background-color: darkgreen;
+	color: var(--terciaryColour);
+	background-color: var(--primaryColour);
 	text-decoration: none;
 }
 
 a:hover {
-	background-color: darkgreen;
-	color: white;
-    border-color: white;
+	background-color: var(--primaryColour);
+	color: var(--terciaryColour);
+    border-color: var(--terciaryColour);
     border: 2px solid;
 }
 
 button {
 	padding: 5px;
-	color: white;
-	background-color: darkgreen;
+	color: var(--terciaryColour);
+	background-color: var(--primaryColour);
 	text-decoration: none;
 }
 
 button:hover {
-	background-color: darkgreen;
-	color: white;
-    border-color: white;
+	background-color: var(--primaryColour);
+	color: var(--terciaryColour);
+    border-color: var(--terciaryColour);
     border: 2px solid;
 }
 
 #container {
     border-style: solid;
-    border-color: darkgreen;
+    border-color: var(--primaryColour);
     border-radius: 20px;
-    background-color: white;
+    background-color: var(--terciaryColour);
     margin-top: 80px;
 }
 
 #container h2 {
     text-align: center;
-    text-shadow: 0px 0px 20px lightgreen;
-    color: darkgreen;
+    text-shadow: 0px 0px 20px var(--secondaryColour);
+    color: var(--primaryColour);
 }
 
 #container p {
@@ -98,7 +105,7 @@ label {
 }
 
 footer {
-    background-color: darkgreen;
+    background-color: var(--primaryColour);
     position: fixed;
     right: 0;
     width: 100%;
@@ -107,7 +114,7 @@ footer {
 
 footer p {
     font-size: smaller;
-    color: white;
+    color: var(--terciaryColour);
 }
 
 footer a {
