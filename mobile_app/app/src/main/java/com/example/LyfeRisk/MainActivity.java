@@ -2,7 +2,9 @@ package com.example.LyfeRisk;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,13 +14,15 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //makes nav bar invisible
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        //step 1 find the view
+        // Makes the app in portrait mode only
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        // step 1 find the view
         Button loginBtn = findViewById(R.id.loginBtn);
         //step 2 set on click method
         loginBtn.setOnClickListener(new View.OnClickListener() {

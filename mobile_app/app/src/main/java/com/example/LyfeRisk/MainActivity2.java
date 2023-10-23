@@ -2,8 +2,10 @@ package com.example.LyfeRisk;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -15,15 +17,15 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity2 extends AppCompatActivity {
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        //makes nav bar invisible
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        // Makes the app in portrait mode only
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //step 1 find the view
         Button btn1 = findViewById(R.id.loginBtn);
-        TabLayout tl = findViewById(R.id.tabLayout);
         //step 2 set on click method
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
