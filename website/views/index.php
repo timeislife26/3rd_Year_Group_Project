@@ -1,8 +1,8 @@
 <?php
   include_once 'header.php';
 ?>
+
   
-  <body>
     <main>
       <div id="container">
         <h2>Vision Statement</h2>
