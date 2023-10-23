@@ -3,7 +3,7 @@
 ?>
   
     <main>
-      <div id="container">
+      <div id="container" style="overflow:auto">
         <h2>Login</h2>
         <p>
         <form action="../includes/register.inc.php" method="POST">
