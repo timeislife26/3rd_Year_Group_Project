@@ -13,6 +13,24 @@
         android:theme="@style/Theme.LyfeRisk"
         tools:targetApi="31">
         <activity
+            android:name=".RecordsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MedicalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreditsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ContactActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MenuActivity"
             android:exported="false" />
         <activity
