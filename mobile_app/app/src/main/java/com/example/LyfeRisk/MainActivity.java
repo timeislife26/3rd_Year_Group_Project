@@ -7,10 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //step 3 create on intent
-                Intent intent1 = new Intent(MainActivity.this,MainActivity2.class);
+                Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
                 //step3 start activity
                 startActivity(intent1);
             }
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //step 3 create on intent
-                Intent intent2 = new Intent(MainActivity.this,MainActivity3.class);
+                Intent intent2 = new Intent(MainActivity.this, RegisterActivity.class);
                 //step3 start activity
                 startActivity(intent2);
             }

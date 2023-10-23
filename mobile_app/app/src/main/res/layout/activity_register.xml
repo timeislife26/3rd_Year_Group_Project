@@ -6,26 +6,26 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:backgroundTint="#006400"
-    tools:context=".MainActivity2">
+    tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo"
         android:layout_width="173dp"
         android:layout_height="131dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="236dp"
         android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toTopOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo_no_background" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/textBox"
         android:layout_width="314dp"
         android:layout_height="574dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="56dp"
         android:background="#006400"
         android:src="@drawable/textbubble"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,10 +45,10 @@
         android:textColorHighlight="@android:color/white"
         android:textColorLink="@android:color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        app:layout_constraintTop_toTopOf="@+id/textBox" />
 
     <TextView
         android:id="@+id/loginTV"
@@ -60,7 +60,7 @@
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/logo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.045" />
 
@@ -78,10 +78,10 @@
         android:textAlignment="center"
         android:textColor="#006400"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toTopOf="@+id/textBox"
         app:layout_constraintVertical_bias="0.232" />
 
     <EditText
@@ -97,11 +97,11 @@
         android:inputType="textEmailAddress"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextEmailAddress2"
         app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toTopOf="@+id/textBox"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
@@ -119,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/textBox"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
@@ -129,11 +129,11 @@
         android:layout_marginTop="152dp"
         android:layout_marginEnd="272dp"
         android:layout_marginBottom="374dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintHorizontal_bias="0.961"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/textBox"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/patienticon" />
 
@@ -148,7 +148,7 @@
         android:inputType="textPassword"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
@@ -162,11 +162,11 @@
         android:layout_marginTop="304dp"
         android:layout_marginEnd="268dp"
         android:layout_marginBottom="219dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/textBox"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_secure" />
 
@@ -181,7 +181,7 @@
         android:inputType="textPassword"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.652"
         app:layout_constraintStart_toStartOf="parent"
@@ -195,11 +195,11 @@
         android:layout_marginTop="384dp"
         android:layout_marginEnd="266dp"
         android:layout_marginBottom="132dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/textBox"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_lock_lock" />
 
@@ -210,11 +210,11 @@
         android:layout_marginTop="228dp"
         android:layout_marginEnd="272dp"
         android:layout_marginBottom="290dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/textBox"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/sym_action_email" />
 
