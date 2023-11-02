@@ -1,3 +1,7 @@
+<?php
+  session_start();
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -13,13 +17,24 @@
   <body>
     <title>LyfeRisk</title>
     <div id="header">
-      <h1>LyfeRisk</h1>
+      <h1><a href='index.php'>LyfeRisk</a></h1>
 
       <div id="navbar">
         <ul>
           <li><a href="index.php">Home</a></li>
-          <li><a href="login.php">Login</a></li>
-          <li><a href="register.php">Register</a></li>
+          <?php
+          if(isset($_SESSION["id"])){
+            echo "<li><a href='menu.php'>Menu</a></li>";
+            echo "<li><a href='predict.php'>Predicting Algorithm</a></li>";
+            echo "<li><a href='profiling.php'>Profiling Algorithm</a></li>";
+            echo "<li><a href='export.php'>Export Information</a></li>";
+            echo "<li><a href='../includes/logout.inc.php'>Logout</a></li>";
+          }
+          else {
+            echo "<li><a href='login.php'>Login</a></li>";
+            echo "<li><a href='register.php'>Register</a></li>";
+          }
+          ?>
         </ul>
       </div>
     </div>

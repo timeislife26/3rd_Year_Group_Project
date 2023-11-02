@@ -37,7 +37,7 @@ function emailExists($conn,$email){
     $sql = "SELECT * FROM users WHERE EMAIL = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)){
-        header("location: ../views/signup.html?error=stmtfailed");
+        header("location: ../views/register.php?error=stmtfailed");
         exit();
     }
     
@@ -60,7 +60,7 @@ function createUser($conn,$name, $imc, $email, $password){
     $sql = "INSERT INTO users (full_Name, email, IMC_Num,  password) VALUES (?,?,?, ?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)){
-        header("location: ../views/signup.html?error=stmtfailed");
+        header("location: ../views/register.php?error=stmtfailed");
         exit();
     }
 
@@ -69,7 +69,12 @@ function createUser($conn,$name, $imc, $email, $password){
     mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $imc, $hashedPwd);//change $password to hashedPWD to encrypt
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: ../views/index.php");
+    $emailExists = emailExists($conn, $email);
+    session_start();
+    foreach ($emailExists as $key => $value) {
+        $_SESSION[$key] = $value;
+    }
+    header("location: ../views/menu.php");
     exit();
 }
 
@@ -87,13 +92,14 @@ function emptyInputLogin($email,$password){
 
 function loginUser($conn, $email, $password){
     $emailExists = emailExists($conn, $email);
-
+    /*
     if ($emailExists === false){
         header("location: ../views/login.php?error=noemail");
         exit();
     }
-    /*
-    $dbPassword = $emailExists["password"];
+    
+    $dbPassword = $emailExists["Password"];
+    $dbEmail = $emailExists["Email"];
 
     if ($dbPassword === $password){
         session_start();
@@ -101,13 +107,13 @@ function loginUser($conn, $email, $password){
         header("location: ../views/index.php?");
         exit();
     }
-    else if ($dbPassword != $password){
-        header("location: ../views/login.php?error=wronglogin");
+    else if ($dbPassword !== $password){
+        header("location: ../views/login.php?error=$dbPassword");
         exit();
     }
     */
     //For Hashed passwords
-    $pwdHashed = $emailExists["password"];
+    $pwdHashed = $emailExists["Password"];
     $checkPwd = password_verify($password, $pwdHashed);
 
     if ($checkPwd === false){
@@ -116,8 +122,10 @@ function loginUser($conn, $email, $password){
     }
     else if ($checkPwd === true){
         session_start();
-        $_SESSION["id"] = $emailExists["id"];
-        header("location: ../views/index.php");
+        foreach ($emailExists as $key => $value) {
+            $_SESSION[$key] = $value;
+        }
+        header("location: ../views/menu.php");
         exit();
     }
     

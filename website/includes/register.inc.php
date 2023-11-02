@@ -13,26 +13,42 @@ if(isset($_POST["submit"])){
 
 
     if (emptyInputSignup($name,$email, $imc, $password,$cpassword) !== false){
-        header("location: ../views/signup.php?error=emptyinput");
+        header("location: ../views/register.php?error=emptyinput");
         exit();
     }
     if (invalidEmail($email) !== false){
-        header("location: ../views/signup.php?error=invalidemail");
+        header("location: ../views/register.php?error=invalidemail");
         exit();
     }
     if (passwordMatch($password,$cpassword) !== false){
-        header("location: ../views/signup.php?error=passwordsdifferent");
+        header("location: ../views/register.php?error=passwordsdifferent");
         exit();
     }
     if (emailExists($conn,$email) !== false){
-        header("location: ../views/signup.php?error=emailexists");
+        header("location: ../views/register.php?error=emailexists");
+        exit();
+    }
+    if (ValidPassword($password)){
+
+    createUser($conn,$name,$imc,$email,$password);
+    }
+    else {
+        header("location: ../views/register.php?error=invalidpassword");
         exit();
     }
 
-    createUser($conn,$name,$imc,$email,$password);
-
 }
 else{
-    header("location: ../views/signup.php");
+    header("location: ../views/register.php");
     exit();
+}
+
+function ValidPassword($password){
+    if(strlen($password) >= 8 && preg_match('/[!@#\$%^&*()_+|~\-={}\[\]:;"\'<>,.?\/]/', $password) && preg_match('/[0-9]/', $password) && preg_match('/[A-Z]/', $password) && preg_match('/[a-z]/', $password)){
+        return TRUE;
+    }
+    else {
+    return FALSE;
+    }
+    
 }
