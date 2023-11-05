@@ -6,7 +6,10 @@
       <div id="container">
         <h2>Menu</h2>
         <p>
-          Welcome <?php echo $_SESSION['full_Name']; ?>
+          Welcome 
+          <?php 
+          echo $_SESSION['fullName']; 
+          ?>
         </p>
         <p>
           You can check your patients risk profiles with our prediction algorithm.

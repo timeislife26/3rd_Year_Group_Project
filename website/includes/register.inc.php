@@ -8,10 +8,10 @@ if(isset($_POST["submit"])){
     $password = $_POST["password"];
     $cpassword = $_POST["confirm-password"];
 
-    require_once 'dbh.inc.php';
+    require_once '../php-firebase/dbcon.php';//'dbh.inc.php';
     require_once 'function.inc.php';
 
-
+    
     if (emptyInputSignup($name,$email, $imc, $password,$cpassword) !== false){
         header("location: ../views/register.php?error=emptyinput");
         exit();
@@ -24,13 +24,13 @@ if(isset($_POST["submit"])){
         header("location: ../views/register.php?error=passwordsdifferent");
         exit();
     }
-    if (emailExists($conn,$email) !== false){
+    if (emailExists($database,$email) !== false){
         header("location: ../views/register.php?error=emailexists");
         exit();
     }
     if (ValidPassword($password)){
 
-    createUser($conn,$name,$imc,$email,$password);
+    createUser($database,$name,$imc,$email,$password);
     }
     else {
         header("location: ../views/register.php?error=invalidpassword");
