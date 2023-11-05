@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="options">
+        <item>Doctor</item>
+        <item>Patient</item>
+        <item>Insurance</item>
+    </string-array>
+</resources>

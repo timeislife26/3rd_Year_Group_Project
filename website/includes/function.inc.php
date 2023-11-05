@@ -33,44 +33,46 @@ function passwordMatch($password,$cpassword){
     return $result;
 }
 
-function emailExists($conn,$email){
-    $sql = "SELECT * FROM users WHERE EMAIL = ?;";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)){
-        header("location: ../views/signup.html?error=stmtfailed");
-        exit();
-    }
-    
-    mysqli_stmt_bind_param($stmt, "s", $email);
-    mysqli_stmt_execute($stmt);
+function emailExists($database,$email){
+    $refTable = "DoctorUsers";
+    $result = $database->getReference($refTable)->getValue();
 
-    $resultData = mysqli_stmt_get_result($stmt);
-    if ($row = mysqli_fetch_assoc($resultData)){
-        return $row;
+    if($result > 0){
+        foreach ($result as $key => $value)
+        if ($value["email"] === $email){
+            return $value;
+        }
+        return false;
     }
     else{
-        $result = false;
-        return $result;
+        return false;
     }
-
-    mysqli_stmt_close($stmt);
 }
 
-function createUser($conn,$name, $imc, $email, $password){
-    $sql = "INSERT INTO users (full_Name, email, IMC_Num,  password) VALUES (?,?,?, ?);";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)){
-        header("location: ../views/signup.html?error=stmtfailed");
+function createUser($database,$name, $imc, $email, $password){
+    $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
+    $postData = [
+        'fullName'=>$name,
+        'imc'=>$imc,
+        'email'=>$email,
+        'password'=>$hashedPwd,
+    ];
+    
+    $refTable = "DoctorUsers";
+    $postRef = $database->getReference($refTable)->push($postData);
+    $emailExists = emailExists($database, $email);
+    if($postRef){
+        session_start();
+        $_SESSION['email'] = $postData['email'];
+        $_SESSION['fullName'] = $postData['fullName'];
+        $_SESSION['imc'] = $postData['imc'];
+        header("location: ../views/menu.php");
         exit();
     }
-
-    $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-    
-    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $imc, $hashedPwd);//change $password to hashedPWD to encrypt
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
-    header("location: ../views/index.php");
-    exit();
+    else{
+        header("location: ../views/menu.php?error=failedconnection");
+        exit();
+    }
 }
 
 
@@ -85,15 +87,16 @@ function emptyInputLogin($email,$password){
     return $result;
 }
 
-function loginUser($conn, $email, $password){
-    $emailExists = emailExists($conn, $email);
-
+function loginUser($database, $email, $password){
+    $emailExists = emailExists($database, $email);
+    /*
     if ($emailExists === false){
         header("location: ../views/login.php?error=noemail");
         exit();
     }
-    /*
-    $dbPassword = $emailExists["password"];
+    
+    $dbPassword = $emailExists["Password"];
+    $dbEmail = $emailExists["Email"];
 
     if ($dbPassword === $password){
         session_start();
@@ -101,8 +104,8 @@ function loginUser($conn, $email, $password){
         header("location: ../views/index.php?");
         exit();
     }
-    else if ($dbPassword != $password){
-        header("location: ../views/login.php?error=wronglogin");
+    else if ($dbPassword !== $password){
+        header("location: ../views/login.php?error=$dbPassword");
         exit();
     }
     */
@@ -116,8 +119,11 @@ function loginUser($conn, $email, $password){
     }
     else if ($checkPwd === true){
         session_start();
-        $_SESSION["id"] = $emailExists["id"];
-        header("location: ../views/index.php");
+        $_SESSION['id'] = $emailExists['id'];
+        $_SESSION['email'] = $emailExists['email'];
+        $_SESSION['fullName'] = $emailExists['fullName'];
+        $_SESSION['imc'] = $emailExists['imc'];
+        header("location: ../views/menu.php");
         exit();
     }
     
