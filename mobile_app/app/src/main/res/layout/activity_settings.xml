@@ -123,7 +123,7 @@
         android:id="@+id/saveButton"
         android:layout_width="156dp"
         android:layout_height="51dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="20dp"
         android:backgroundTint="#90ee90"
         android:onClick="saveAndQuit"
         android:text="@string/save_amp_quit"
@@ -134,7 +134,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
+        app:layout_constraintVertical_bias="0.884" />
 
     <Button
         android:id="@+id/contact5Button"

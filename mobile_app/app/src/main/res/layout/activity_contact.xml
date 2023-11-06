@@ -144,8 +144,8 @@
 
     <Button
         android:id="@+id/contact4Button"
-        android:layout_width="129dp"
-        android:layout_height="77dp"
+        android:layout_width="135dp"
+        android:layout_height="70dp"
         android:layout_marginEnd="20dp"
         android:backgroundTint="#90ee90"
         android:onClick="callInsurance"

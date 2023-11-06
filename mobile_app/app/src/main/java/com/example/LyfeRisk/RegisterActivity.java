@@ -1,23 +1,108 @@
 package com.example.LyfeRisk;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    @SuppressLint("SourceLockedOrientationActivity")
+    private EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
+    private Button submitButton;
+    private DatabaseReference mDatabase;
+
+    @SuppressLint({"SourceLockedOrientationActivity", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        // Makes the app in portrait mode only
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        mDatabase = FirebaseDatabase.getInstance("https://test-cec07-default-rtdb.europe-west1.firebasedatabase.app").getReference("users");
+
+        nameEditText = findViewById(R.id.editTextTextName);
+        emailEditText = findViewById(R.id.editTextTextEmailAddress);
+        passwordEditText = findViewById(R.id.editTextTextPassword);
+        confirmPasswordEditText = findViewById(R.id.editTextTextPassword2);
+        submitButton = findViewById(R.id.registerBtn);
+
+        submitButton.setOnClickListener(view -> submitRegistration());
     }
 
+    private void submitRegistration() {
+        String name = nameEditText.getText().toString().trim();
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
+        String confirmPassword = confirmPasswordEditText.getText().toString().trim();
+
+        if (emptyInputSignup(name, email, password, confirmPassword)) {
+            Toast.makeText(RegisterActivity.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (invalidEmail(email)) {
+            Toast.makeText(RegisterActivity.this, "Please enter a valid email address.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (passwordMatch(password, confirmPassword)) {
+            Toast.makeText(RegisterActivity.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!validPassword(password)) {
+            Toast.makeText(RegisterActivity.this, "Password must contain:", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Min 8 chars, uppercase, number, special char.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Replace this logic with Firebase Authentication
+        Map<String, Object> userValues = new HashMap<>();
+        userValues.put("name", name);
+        userValues.put("email", email);
+        userValues.put("password", password);
+
+        mDatabase.child(email.replace(".", ",")).setValue(userValues)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("RegisterActivity", "User registered successfully.");
+                    Toast.makeText(RegisterActivity.this, "User registered successfully.", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("RegisterActivity", "Failed to register user", e);
+                    Toast.makeText(RegisterActivity.this, "Failed to register user: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
+    }
+
+        private boolean emptyInputSignup(String name, String email, String password, String confirmPassword) {
+        return name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty();
+    }
+
+    private boolean invalidEmail(String email) {
+        return !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private boolean passwordMatch(String password, String confirmPassword) {
+        return !password.equals(confirmPassword);
+    }
+
+    private boolean validPassword(String password) {
+        Pattern passwordPattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,}$");
+        return passwordPattern.matcher(password).matches();
+    }
 }
