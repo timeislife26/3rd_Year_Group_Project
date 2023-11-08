@@ -8,17 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
     private Button loginButton;
-    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -27,7 +25,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
 
         emailEditText = findViewById(R.id.editTextTextEmailAddress);
         passwordEditText = findViewById(R.id.editTextTextPassword);
@@ -45,39 +44,18 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        mDatabase.child(email.replace(".", ",")).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Retrieve user data from database
-                    String storedPassword = dataSnapshot.child("password").getValue(String.class);
-
-                    // Compare the passwords
-                    if (storedPassword != null && storedPassword.equals(password)) {
-                        // Passwords match, proceed to login
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success
+                        FirebaseUser user = mAuth.getCurrentUser();
                         goToMainMenu();
                     } else {
-                        // Passwords do not match
-                        Toast.makeText(LoginActivity.this, "Incorrect password.", Toast.LENGTH_SHORT).show();
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    // No user found with the entered email address
-                    userNotFound();
-                }
-            }
-
-            private void userNotFound() {
-                // You can handle any additional logic here if needed
-                Toast.makeText(LoginActivity.this, "No account registered with this email.", Toast.LENGTH_LONG).show();
-            }
-
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(LoginActivity.this, "Failed to read user data.", Toast.LENGTH_SHORT).show();
-            }
-        });
+                });
     }
 
     private void goToMainMenu() {
