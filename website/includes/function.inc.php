@@ -34,6 +34,8 @@ function passwordMatch($password,$cpassword){
 }
 
 function emailExists($database,$email){
+    
+    /*
     $refTable = "DoctorUsers";
     $result = $database->getReference($refTable)->getValue();
 
@@ -46,31 +48,37 @@ function emailExists($database,$email){
     }
     else{
         return false;
-    }
+    }*/
 }
 
-function createUser($database,$name, $imc, $email, $password){
+function createUser($auth,$database,$name, $imc, $email, $password){
     $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-    $postData = [
+    $userProperties = [
         'fullName'=>$name,
+        'emailVerified'=> false,
         'imc'=>$imc,
         'email'=>$email,
-        'password'=>$hashedPwd,
+        'password'=>$password,
     ];
     
     $refTable = "DoctorUsers";
-    $postRef = $database->getReference($refTable)->push($postData);
-    $emailExists = emailExists($database, $email);
-    if($postRef){
+    $newUser = $auth->createUser($userProperties);
+    //$emailExists = emailExists($database, $email);
+    if($newUser){
         session_start();
-        $_SESSION['email'] = $postData['email'];
-        $_SESSION['fullName'] = $postData['fullName'];
-        $_SESSION['imc'] = $postData['imc'];
+        loginUser($auth,$database,$email,$password, false);
+        $postData = [
+            'fID'=>$_SESSION['verified_uid'],
+            'fullName'=>$name,
+            'emailVerified'=> false,
+            'imc'=>$imc,
+        ];
+        $postRef = $database->getReference($refTable)->push($postData);
         header("location: ../views/menu.php");
         exit();
     }
     else{
-        header("location: ../views/menu.php?error=failedconnection");
+        header("location: ../views/index.php?error=failedconnection");
         exit();
     }
 }
@@ -87,8 +95,8 @@ function emptyInputLogin($email,$password){
     return $result;
 }
 
-function loginUser($database, $email, $password){
-    $emailExists = emailExists($database, $email);
+function loginUser($auth,$database, $email, $password, $redirect){
+    /*$emailExists = emailExists($database, $email);
     /*
     if ($emailExists === false){
         header("location: ../views/login.php?error=noemail");
@@ -108,7 +116,7 @@ function loginUser($database, $email, $password){
         header("location: ../views/login.php?error=$dbPassword");
         exit();
     }
-    */
+
     //For Hashed passwords
     $pwdHashed = $emailExists["password"];
     $checkPwd = password_verify($password, $pwdHashed);
@@ -126,5 +134,54 @@ function loginUser($database, $email, $password){
         header("location: ../views/menu.php");
         exit();
     }
+    */
     
+    //For Authentication
+    try {
+        //$user = $auth->getUserByEmail($email);
+        
+        $signInResult = $auth->signInWithEmailAndPassword($email, $password);
+        $idToken = $signInResult->idToken();
+        
+
+        try {
+            $verifiedIdToken = $auth->verifyIdToken($idToken);
+            $uid = $verifiedIdToken->claims()->get('sub');
+
+            session_start();
+            $_SESSION['verified_uid'] = $uid;
+            $_SESSION['idToken'] = $idToken;
+            $value = getUserData($uid, $database);
+            $_SESSION['fID'] = $value['fID'];
+            $_SESSION['fullName'] = $value['fullName'];
+            $_SESSION['imc'] = $value['imc'];
+            if ($redirect){
+                header("location: ../views/menu.php");
+                exit();
+            }
+
+        } catch (FailedToVerifyToken $e) {
+            echo 'The token is invalid: '.$e->getMessage();
+        }
+    } catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
+        //echo $e->getMessage();
+        header("location: ../views/login.php?error=wronglogin");
+        exit();
+    }
+
+}
+function getUserData($uid, $database){
+    $refTable = "DoctorUsers";
+    $result = $database->getReference($refTable)->getValue();
+
+    if($result > 0){
+        foreach ($result as $key => $value)
+        if ($value["fID"] === $uid){
+            return $value;
+        }
+        return false;
+    }
+    else{
+        return false;
+    }
 }

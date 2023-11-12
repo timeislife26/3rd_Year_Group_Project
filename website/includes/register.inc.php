@@ -11,7 +11,7 @@ if(isset($_POST["submit"])){
     require_once '../php-firebase/dbcon.php';//'dbh.inc.php';
     require_once 'function.inc.php';
 
-    
+    /*
     if (emptyInputSignup($name,$email, $imc, $password,$cpassword) !== false){
         header("location: ../views/register.php?error=emptyinput");
         exit();
@@ -27,10 +27,10 @@ if(isset($_POST["submit"])){
     if (emailExists($database,$email) !== false){
         header("location: ../views/register.php?error=emailexists");
         exit();
-    }
+    }*/
     if (ValidPassword($password)){
 
-    createUser($database,$name,$imc,$email,$password);
+    createUser($auth,$database,$name,$imc,$email,$password);
     }
     else {
         header("location: ../views/register.php?error=invalidpassword");

@@ -11,7 +11,7 @@ if (isset($_POST["submit"])){
         header("location: ../views/login.php?error=emptyinput");
         exit();
     }
-    loginUser($database, $email,$password);
+    loginUser($auth,$database, $email,$password, true);
 }
 else{
     header("location: ../views/login.php");

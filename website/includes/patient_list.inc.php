@@ -12,7 +12,6 @@ $result = $database->getReference($refTable)->getValue();
 $patientList = array();
 
 // Getting names and storing them in array
-while ($row = $result->fetch_assoc()) {
+foreach ($result as $key => $row)
     $patientList[] = $row["fullName"];
-}
 ?>

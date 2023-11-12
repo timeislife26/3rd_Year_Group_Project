@@ -1,5 +1,7 @@
 <?php
   session_start();
+  
+  require_once '../php-firebase/dbcon.php';
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +25,14 @@
         <ul>
           <li><a href="index.php">Home</a></li>
           <?php
-          if(isset($_SESSION["id"])){
+          if(isset($_SESSION["verified_uid"])){
+            //Check if token has expired
+            try {
+              $verifiedIdToken = $auth->verifyIdToken($_SESSION['idToken']);
+            } catch (FailedToVerifyToken $e) {
+              header("location: ../includes/logout.inc.php");
+              exit();
+            }
             echo "<li><a href='menu.php'>Menu</a></li>";
             echo "<li><a href='predict.php'>Predicting Algorithm</a></li>";
             echo "<li><a href='profiling.php'>Profiling Algorithm</a></li>";
