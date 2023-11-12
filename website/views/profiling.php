@@ -2,11 +2,8 @@
   include_once 'header.php';
 
   include '../includes/patient_list.inc.php';
+?>
 
-  if (isset($_POST['generate'])) {
-    displayPatientProfile($database, $patientList);
-  }
-?>    
     <main>
       <div id="container">
         <h2>User Profiling</h2>
@@ -19,11 +16,17 @@
               }
               ?>
             </select>
+            <button type="submit" name="generate">Generate</button>
           </label>
-          <input type="submit" name="generate" value="Generate">
         </form>
-        <label><p>Profile</p>
-					<textarea name="info" rows="10" cols="80"></textarea>
+        <label id="textlabel"><p>Profile</p>
+					<textarea name="info" rows="10" cols="80">
+            <?php
+            if (isset($_POST['generate'])) {
+              displayPatientProfile($database, $patientList);
+            }
+            ?>
+          </textarea>
         </label>
       </div>
     </main>

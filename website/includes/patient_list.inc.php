@@ -26,16 +26,16 @@ function displayPatientProfile($database, $patientList) {
         if ($result) {
           foreach ($result as $entry) {
             if (strcasecmp(trim($entry['fullName']), $targetFullName) === 0) {
-              // Match found, you can print or work with the entry data
+              // Match found, printing the entry data
               echo "\n\tEmail Verified: " . $entry['emailVerified'] . "\n";
               echo "\tFull Name: " . $entry['fullName'] . "\n";
               echo "\tfID: " . $entry['fID'] . "\n";
               echo "\tIMC: " . $entry['imc'] . "\n";
-              break; // You can exit the loop since you found the match
+              break; // Exit loop when match is found
             }
           }
         } else {
-          echo "No results found for the specified table.";
+            echo "No results found for the specified table.";
         }
     }
 }

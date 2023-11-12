@@ -70,7 +70,7 @@ button {
 	padding: 5px;
 	color: var(--terciaryColour);
 	background-color: var(--primaryColour);
-	text-decoration: none;
+	/*text-decoration: none;*/
 }
 
 button:hover {
@@ -116,6 +116,11 @@ input {
     height: 20px;
     flex: 0 0 200px;
     margin-left: auto;
+}
+
+#textlabel {
+    display: flex;
+    flex-direction: column;
 }
 
 textarea {
