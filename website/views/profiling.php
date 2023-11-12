@@ -3,8 +3,8 @@
 
   include '../includes/patient_list.inc.php';
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+  if (isset($_POST['generate'])) {
+    displayPatientProfile($database, $patientList);
   }
 ?>    
     <main>
@@ -12,19 +12,19 @@
         <h2>User Profiling</h2>
         <form method="post">
           <label for="patient_list">Patient Name*: 
-            <select id="patient_list" name="Patient List">
+            <select id="patient_list" name="selectedPatient">
               <?php
               foreach ($patientList as $patient) {
-                echo '<option value>' , $patient , '</option>';
+                echo '<option value="' . $patient . '">' , $patient , '</option>';
               }
               ?>
             </select>
           </label>
-          <input type="submit" value="Generate">
+          <input type="submit" name="generate" value="Generate">
         </form>
-        <p><label>Profile<br>
-					<textarea name="info" cols="80" rows="100"></textarea></label>
-        </p>
+        <label><p>Profile</p>
+					<textarea name="info" rows="10" cols="80"></textarea>
+        </label>
       </div>
     </main>
   </body>
@@ -33,4 +33,3 @@
 <?php
   include_once 'footer.php';
 ?>
-

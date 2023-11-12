@@ -112,10 +112,17 @@ label {
     margin-right: auto;
 }
   
-input, #patient_list {
+input {
     height: 20px;
     flex: 0 0 200px;
     margin-left: auto;
+}
+
+textarea {
+    display: flex;
+    height: auto;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 footer {
