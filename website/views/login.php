@@ -11,7 +11,7 @@
             <label>Password*:&nbsp;<input type="password" name="password" required></label>
           </p>
           <p>Fields marked with * are mandatory</p>
-          <p><button type="submit" name="submit">Register</button></p>
+          <p><button type="submit" name="submit">Login</button></p>
         </form>
       </div>
     </main>

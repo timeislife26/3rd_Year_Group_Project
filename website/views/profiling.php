@@ -1,17 +1,29 @@
 <?php
   include_once 'header.php';
+
+  include '../includes/patient_list.inc.php';
+
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+  }
 ?>    
     <main>
       <div id="container">
         <h2>User Profiling</h2>
-        <p>
-          <form method="post">
-            <p><label>Patient Name*:&nbsp;<input type="text" name="firstname" required autocomplete="on"></label></p>
-          </form>
-        </p>
-        <p><a href="">Generate</a></p>
+        <form method="post">
+          <label for="patient_list">Patient Name*: 
+            <select id="patient_list" name="Patient List">
+              <?php
+              foreach ($patientList as $patient) {
+                echo '<option value>' , $patient , '</option>';
+              }
+              ?>
+            </select>
+          </label>
+          <input type="submit" value="Generate">
+        </form>
         <p><label>Profile<br>
-					<textarea name="info" cols="80" rows="10"></textarea></label>
+					<textarea name="info" cols="80" rows="100"></textarea></label>
         </p>
       </div>
     </main>

@@ -112,7 +112,7 @@ label {
     margin-right: auto;
 }
   
-input {
+input, #patient_list {
     height: 20px;
     flex: 0 0 200px;
     margin-left: auto;
