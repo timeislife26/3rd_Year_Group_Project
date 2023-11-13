@@ -6,8 +6,8 @@ use Kreait\Firebase\Factory;
 use Kreait\Firebase\Contract\Auth;
 
 $factory = (new Factory)
-    ->withServiceAccount('../php-firebase/group14-3rd-year-project-firebase-adminsdk-7v2dl-f57a5789f4.json')
-    ->withDatabaseUri('https://group14-3rd-year-project-default-rtdb.europe-west1.firebasedatabase.app/');
+    ->withServiceAccount('../php-firebase/lyferisk-76065-firebase-adminsdk-fzn3c-e57685df6d.json')
+    ->withDatabaseUri('https://lyferisk-76065-default-rtdb.europe-west1.firebasedatabase.app/');
 
 $database = $factory->createDatabase();
 $auth = $factory->createAuth();
