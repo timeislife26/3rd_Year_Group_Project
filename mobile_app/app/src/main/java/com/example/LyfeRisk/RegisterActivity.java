@@ -82,10 +82,10 @@ public class RegisterActivity extends AppCompatActivity {
                         // Store additional user information in the database
                         Map<String, Object> userValues = new HashMap<>();
                         userValues.put("name", name);
-                        userValues.put("email", email); // Do not store the password in the database
+                        userValues.put("email", email);
 
                         // Use the user's UID as the key for the database entry
-                        mDatabase.child("users").child(user.getUid()).setValue(userValues)
+                        mDatabase.child("PatientUsers").child(user.getUid()).setValue(userValues)
                                 .addOnSuccessListener(aVoid -> {
                                     Log.d("RegisterActivity", "User data saved successfully.");
                                     Toast.makeText(RegisterActivity.this, "Registration successful.", Toast.LENGTH_SHORT).show();
