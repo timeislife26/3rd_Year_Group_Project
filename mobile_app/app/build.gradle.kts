@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.example.LyfeRisk"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.LyfeRisk"
         minSdk = 29
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -33,8 +33,8 @@ android {
 }
 
 dependencies {
-    implementation("'com.braintreepayments.api:braintree:3.20.1")
-    implementation("com.braintreepayments.api:drop-in:6.13.0")
+    implementation("com.google.android.gms:play-services-ads:22.5.0")
+    implementation("com.braintreepayments.api:braintree:3.20.1")
     implementation("com.github.kittinunf.fuel:fuel:2.3.1")
     implementation("com.stripe:stripe-android:20.34.4")
     implementation ("com.stripe:stripe-java:24.0.0")

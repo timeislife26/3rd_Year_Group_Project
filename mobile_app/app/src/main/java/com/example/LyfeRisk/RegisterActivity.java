@@ -65,7 +65,6 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-
         if (!validPassword(password)) {
             Toast.makeText(RegisterActivity.this, "Password must contain: Min 8 chars, uppercase, number, special char.", Toast.LENGTH_LONG).show();
             return;
@@ -81,8 +80,10 @@ public class RegisterActivity extends AppCompatActivity {
 
                         // Store additional user information in the database
                         Map<String, Object> userValues = new HashMap<>();
+                        userValues.put("userId", user.getUid());
                         userValues.put("name", name);
                         userValues.put("email", email);
+                        userValues.put("isPaid", false);
 
                         // Use the user's UID as the key for the database entry
                         mDatabase.child("PatientUsers").child(user.getUid()).setValue(userValues)
@@ -103,6 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
