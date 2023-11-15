@@ -10,6 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.LyfeRisk"
         minSdk = 29
+        //noinspection EditedTargetSdkVersion
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -33,7 +34,6 @@ android {
 }
 
 dependencies {
-    implementation("com.google.android.gms:play-services-ads:22.5.0")
     implementation("com.braintreepayments.api:braintree:3.20.1")
     implementation("com.github.kittinunf.fuel:fuel:2.3.1")
     implementation("com.stripe:stripe-android:20.34.4")
