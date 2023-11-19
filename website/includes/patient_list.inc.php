@@ -89,8 +89,12 @@ function displayPatientExport($database, $patientList) {
                   header('Pragma: no-cache');
                   header('Expires: 0');
 
+                  // Making sure only the info we want is on the file
+                  ob_end_clean();
+                  
                   // Output the data
                   echo $exportData;
+
                   exit;
               }
           }
