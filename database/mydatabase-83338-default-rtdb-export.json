@@ -1,0 +1,66 @@
+{
+  "CustomFeature": {
+    "component": "",
+    "featureDescription": "",
+    "featureID": "",
+    "featureName": ""
+  },
+  "LLMIntegration": {
+    "advice": "",
+    "llmIntegrationID": "",
+    "llmType": "",
+    "symptomCheckerResult": "",
+    "userID": ""
+  },
+  "MachineLearningModel": {
+    "accuracy": "",
+    "modelDescription": "",
+    "modelID": "",
+    "modelName": ""
+  },
+  "MedicalProfessional": {
+    "accessRestrictions": "",
+    "professionalID": "",
+    "userID": ""
+  },
+  "NewPatientData": {
+    "data": "",
+    "patientID": "",
+    "userID": ""
+  },
+  "PatientDetails": {
+    "GPDetails": "",
+    "MedicalHistory": "",
+    "patientID": "",
+    "userID": ""
+  },
+  "Review": {
+    "rating": "",
+    "reviewDate": "",
+    "reviewID": "",
+    "reviewText": "",
+    "userID": ""
+  },
+  "RiskPrediction": {
+    "colonCancerRisk": "",
+    "heartDiseaseRisk": "",
+    "lungCancerRisk": "",
+    "predictionDate": "",
+    "riskPredID": ""
+  },
+  "Subscription": {
+    "paymentMethod": "",
+    "subscriptionID": "",
+    "sunscriptionDate": "",
+    "userID": ""
+  },
+  "User": {
+    "email": "",
+    "insuranceCompany": "",
+    "password": "",
+    "socialMediaLogin": "",
+    "userID": "",
+    "userName": "",
+    "userType": ""
+  }
+}
