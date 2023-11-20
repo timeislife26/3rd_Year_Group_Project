@@ -1,19 +1,37 @@
 <?php
   include_once 'header.php';
+
+  include '../includes/patient_list.inc.php';
 ?>
     
     <main>
       <div id="container">
         <h2>AI Predict</h2>
         <p>
-          <form method="post">
-            <p><label>Patient Name*:&nbsp;<input type="text" name="firstname" required autocomplete="on"></label></p>
-          </form>
+          Select one of your patients from the drop down menu and click on "Generate" to receive a prediction 
+          for the selected the selected person.
         </p>
-        <p><a href="">Generate</a></p>
-        <p><label>Predictions<br>
-					<textarea name="info" cols="80" rows="10"></textarea></label>
-        </p>
+        <form method="post">
+          <label for="patient_list">Patient Name*: 
+            <select id="patient_list" name="selectedPatient">
+              <?php
+              foreach ($patientList as $patient) {
+                echo '<option value="' . $patient . '">' , $patient , '</option>';
+              }
+              ?>
+            </select>
+            <button type="submit" name="generate">Generate</button>
+          </label>
+        </form>
+        <label id="textlabel"><p>Profile</p>
+					<textarea name="info" rows="10" cols="80">
+            <?php
+            if (isset($_POST['generate'])) {
+              displayPatientPrediction($database, $patientList);
+            }
+            ?>
+          </textarea>
+        </label>
       </div>
     </main>
   </body>

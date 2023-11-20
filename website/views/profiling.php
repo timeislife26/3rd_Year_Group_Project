@@ -7,6 +7,10 @@
     <main>
       <div id="container">
         <h2>User Profiling</h2>
+        <p>
+          Select one of your patients from the drop down menu and click on "Generate" to receive the full 
+          profile of the selected person.
+        </p>
         <form method="post">
           <label for="patient_list">Patient Name*: 
             <select id="patient_list" name="selectedPatient">
@@ -20,7 +24,7 @@
           </label>
         </form>
         <label id="textlabel"><p>Profile</p>
-					<textarea name="info" rows="10" cols="80">
+					<textarea name="info" rows="10" cols="800">
             <?php
             if (isset($_POST['generate'])) {
               displayPatientProfile($database, $patientList);
