@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.LyfeRisk"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        tools:ignore="Instantiatable,MissingClass">
         <activity
             android:name=".PaymentActivity"
             android:exported="false" />
@@ -43,9 +44,7 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.LyfeRisk" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -55,6 +54,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2888245574219076~9462277266"/>
     </application>
 
 </manifest>

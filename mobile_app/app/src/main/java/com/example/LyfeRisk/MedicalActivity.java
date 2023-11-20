@@ -26,7 +26,7 @@ public class MedicalActivity extends AppCompatActivity {
 
         medicalRecordsEditText = findViewById(R.id.editTextTextMultiLine2);
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        mDatabase = FirebaseDatabase.getInstance().getReference("PatientUsers");
     }
 
     public void saveAndQuit(View view) {
