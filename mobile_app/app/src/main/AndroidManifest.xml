@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
         android:allowBackup="true"
@@ -38,7 +39,17 @@
             android:exported="false" />
         <activity
             android:name=".MenuActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="lyferisk.page.link/Email"
+                    android:scheme="https"
+                    tools:ignore="AppLinkUrlError" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />

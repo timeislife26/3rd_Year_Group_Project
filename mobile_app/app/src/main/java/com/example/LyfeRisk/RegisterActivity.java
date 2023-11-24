@@ -66,7 +66,8 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (!validPassword(password)) {
-            Toast.makeText(RegisterActivity.this, "Password must contain: Min 8 chars, uppercase, number, special char.", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterActivity.this, "Password must contain:", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterActivity.this, "Min 8 chars, uppercase, number, special char.", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -84,6 +85,8 @@ public class RegisterActivity extends AppCompatActivity {
                         userValues.put("name", name);
                         userValues.put("email", email);
                         userValues.put("isPaid", false);
+                        userValues.put("auth", 0);
+
 
                         // Use the user's UID as the key for the database entry
                         mDatabase.child("PatientUsers").child(user.getUid()).setValue(userValues)

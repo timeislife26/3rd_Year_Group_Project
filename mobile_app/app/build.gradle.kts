@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.biometric:biometric:1.2.0-alpha05")
     implementation("com.google.android.gms:play-services-ads:22.5.0")
     implementation("com.braintreepayments.api:braintree:3.20.1")
     implementation("com.github.kittinunf.fuel:fuel:2.3.1")
