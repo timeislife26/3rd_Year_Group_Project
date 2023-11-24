@@ -105,7 +105,7 @@ label {
     flex-direction: row;
     justify-content: flex-end;
     text-align: right;
-    width: 400px;
+    width: 600px;
     line-height: 26px;
     margin-bottom: 10px;
     margin-left: auto;
@@ -116,6 +116,17 @@ input {
     height: 20px;
     flex: 0 0 200px;
     margin-left: auto;
+}
+
+input[type="radio"] {
+    margin-right: 0%;
+}
+
+fieldset {
+    width: min-content;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #textlabel {
