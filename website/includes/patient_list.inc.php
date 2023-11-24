@@ -29,7 +29,6 @@ function displayPatientProfile($database, $patientList) {
           // Match found, printing the entry data
           echo "\n\tFull Name: " . $entry['name'] . "\n";
           echo "\tEmail: " . $entry['email'] . "\n";
-          echo "\tMedical Records: " . $entry['medicalRecords'] . "\n";
           break; // Exit loop when match is found
         }
       }
@@ -54,7 +53,6 @@ function displayPatientPrediction($database, $patientList) {
           // Match found, printing the entry data
           echo "\n\tFull Name: " . $entry['name'] . "\n";
           echo "\tEmail: " . $entry['email'] . "\n";
-          echo "\tMedical Records: " . $entry['medicalRecords'] . "\n";
           break; // Exit loop when match is found
         }
       }
@@ -74,11 +72,10 @@ function displayPatientExport($database, $patientList) {
 
       if ($result) {
           foreach ($result as $entry) {
-              if (strcasecmp(trim($entry['fullName']), $targetFullName) === 0) {
+              if (strcasecmp(trim($entry['name']), $targetFullName) === 0) {
                   // Match found, prepare the data for export
                   $exportData =  "Full Name: " . $entry['name'] . "\n";
                   $exportData .= "Email: " . $entry['email'] . "\n";
-                  $exportData .= "Medical Records: " . $entry['medicalRecords'] . "\n";
                   
                   // Set the headers to trigger a download
                   header('Content-Type: application/octet-stream');
