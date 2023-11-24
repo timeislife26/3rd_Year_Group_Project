@@ -6,7 +6,7 @@
 
     <main>
       <div id="container">
-        <h2>User Profiling</h2>
+        <h2>Profile Update</h2>
         <p>
           Select one of your patients from the drop down menu and click on "Fill Form" to enter the data 
           of the selected person into the fields. If any changes are made you can then click on "Update" 
