@@ -12,9 +12,18 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,11 +36,13 @@ import com.google.firebase.database.ValueEventListener;
 public class MenuActivity extends AppCompatActivity {
 
     private boolean hasPaid = false; // Flag to track if the user has paid
+    private InterstitialAd interstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        MobileAds.initialize(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Check if the user has paid
@@ -55,27 +66,27 @@ public class MenuActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle the error
+
             }
         });
     }
 
-
     private void showPaymentPopup() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.activity_subscription); // Replace with your XML layout for the payment popup
-        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.activity_subscription);
+        dialog.setCancelable(false);
+
+        // Disable the ability to dismiss the dialog by tapping outside of it
+        dialog.setCanceledOnTouchOutside(false);
+
 
         Button payButton = dialog.findViewById(R.id.payButton);
-        Button continueButton = dialog.findViewById(R.id.freeButton);
+        Button freeButton = dialog.findViewById(R.id.freeButton);
 
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Implement the logic to handle payment
-                // For example, redirect the user to the payment gateway or any other payment process
-                // Upon successful payment, update the 'isPaid' field in the database to true
 
                 // Get the current user's ID
                 String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -101,17 +112,57 @@ public class MenuActivity extends AppCompatActivity {
                         });
             }
         });
-        continueButton.setOnClickListener(new View.OnClickListener() {
+
+        freeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // User chooses to continue with the free version
-                dialog.dismiss();
+                // Load and display the interstitial ad only when the continue button is pressed
+                loadAndDisplayInterstitialAd(dialog);
             }
         });
 
         dialog.show();
     }
 
+    private void loadAndDisplayInterstitialAd(final Dialog dialog) {
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this,"ca-app-pub-3940256099942544/8691691433", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd ad) {
+                        // The interstitialAd reference will be null until an ad is loaded.
+                        interstitialAd = ad;
+                        if (interstitialAd != null) {
+                            interstitialAd.show(MenuActivity.this);
+                            interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                                @Override
+                                public void onAdDismissedFullScreenContent() {
+                                    continueWithFreeVersion(dialog);
+                                }
+
+                                @Override
+                                public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                    continueWithFreeVersion(dialog);
+                                }
+                            });
+                        } else {
+                            continueWithFreeVersion(dialog);
+                        }
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        continueWithFreeVersion(dialog);
+                    }
+                });
+    }
+
+
+    private void continueWithFreeVersion(Dialog dialog) {
+        // User chooses to continue with the free version
+        dialog.dismiss();
+    }
 
     public void manualPaymentPopup(View view){
         showPaymentPopup();
@@ -158,25 +209,19 @@ public class MenuActivity extends AppCompatActivity {
         dialog.show();
     }
 
-
-
-    // This method will be called when the user clicks on "Ts & Cs apply."
     public void showTermsAndConditions(View view) {
         // Start the Terms and Conditions activity
-        Intent intent = new Intent(this, CreditsActivity.class);
-        updateContactLayout();
-        startActivity(intent);
-    }
-
-    // Method to update the title and text of the "activity_contact" layout
-    private void updateContactLayout() {
+        Intent intent = new Intent(MenuActivity.this, CreditsActivity.class);
         TextView titleTextView = findViewById(R.id.editTextText3);
         TextView contentTextView = findViewById(R.id.textView3);
 
         // Set the new title and text
         titleTextView.setText("Terms &amp; Conditions");
         contentTextView.setText("Lorem Ipsum");
+
+        startActivity(intent);
     }
+
 
     public void goToCredits(View view) {
         Intent intent = new Intent(MenuActivity.this, CreditsActivity.class);
