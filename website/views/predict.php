@@ -27,7 +27,6 @@
           Select one of your patients from the drop down menu and click on "Generate" to receive a prediction 
           for the selected the selected person.
         </p>
-        <form action="../includes/predict.inc.php" method="POST">
         <label for="patient_list">Patient Name*: 
             <select id="patient_list" name="selectedPatient" onchange="updateSelectedUserID()">
             <?php
@@ -38,19 +37,14 @@
                     ?>
             </select>
             <input type="hidden" name="selectedUserID" id="selectedUserID">
-            <button type="submit" name="generate">Fill Form</button>
+            <button onclick="getPrediction()" name="generate">Fill Form</button>
           </label>
-        </form>
         <label id="textlabel"><p>Profile</p>
-					<textarea name="info" rows="10" cols="80">
-            <?php
-            if (isset($_POST['generate'])) {
-              displayPatientPrediction($database, $patientList);
-            }
-            ?>
+        <textarea id="info" rows="10" cols="80">
           </textarea>
         </label>
       </div>
+      <div id="output"></div>
     </main>
   </body>
   <script>
@@ -66,6 +60,26 @@
         console.log("Selected Patient ID: ", patientID);
         document.getElementById("selectedUserID").value = patientID;
     }
+
+    //Ajax
+    function getPrediction(){
+      console.log("Clicked");
+      var x = new XMLHttpRequest();
+      var url = "../includes/predict.inc.php?userID=" + patientID;
+      
+      console.log("Selected Patient ID: ", patientID);
+
+
+      x.open("GET", url);
+        x.onreadystatechange = function () {
+          if (x.readyState == 4 && x.status == 200) {
+            // Handle the response if needed
+            document.getElementById("info").value = x.responseText;
+          }
+        };
+      x.send();
+      }
+
     </script>
 
 <?php

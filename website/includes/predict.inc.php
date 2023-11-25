@@ -1,7 +1,7 @@
 <?php
     require_once '../php-firebase/dbcon.php';
-    if(isset($_POST["generate"])){
-        $userID = $_POST["selectedUserID"];
+    $userID = isset($_GET["userID"]) ? $_GET["userID"] : null;
+
 
         $medKey = existingPatientInfo($userID, $database);
         if ($medKey != false){
@@ -96,13 +96,16 @@
                 $gender = 0;
             }
             $Heart_Disease_data = [[$Age, $ca, $chol, $cp, $exang, $fbs, $oldpeak, $restecg, $gender, $slope, $thal, $thalach, $trewstbps]];
+            $heart_Disease = json_encode($Heart_Disease_data);
+            $command = "python heart_main.py \"$heart_Disease\" 2>&1";
+            $output = shell_exec($command);
+            echo "Output: $output\n";
         }
-        $heart_Disease = json_encode($Heart_Disease_data);
-        $command = "python heart_main.py \"$heart_Disease\" 2>&1";
-        $output = shell_exec($command);
-        echo "Output: $output\n";
+        else{
+            echo "No data found";
+        }
 
-    }
+
     function existingPatientInfo($id, $database){
         $refTable = "MedicalRecords";
         $result = $database->getReference($refTable)->getValue();
