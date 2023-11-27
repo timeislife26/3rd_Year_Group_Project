@@ -45,7 +45,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:host="lyferisk.page.link/Email"
+                    android:host="lyferisk.page.link"
                     android:scheme="https"
                     tools:ignore="AppLinkUrlError" />
             </intent-filter>
@@ -58,7 +58,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="false"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

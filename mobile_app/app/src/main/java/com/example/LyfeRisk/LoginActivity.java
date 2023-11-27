@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private boolean isEmailVerificationButtonEnabled = true;
+
 
 
 
@@ -135,8 +138,11 @@ public class LoginActivity extends AppCompatActivity {
     private void sendEmailVerification() {
         FirebaseUser user = mAuth.getCurrentUser();
 
-        if (user != null) {
+        if (user != null && isEmailVerificationButtonEnabled) {
             String email = user.getEmail();
+
+            // Disable the button to prevent multiple clicks
+            isEmailVerificationButtonEnabled = false;
 
             // Build the email link without a verification code
             String emailLink = "https://lyferisk.page.link/Email";
@@ -152,6 +158,9 @@ public class LoginActivity extends AppCompatActivity {
 
             mAuth.sendSignInLinkToEmail(email, actionCodeSettings)
                     .addOnCompleteListener(this, task -> {
+                        // Enable the button regardless of the result to allow future attempts
+                        isEmailVerificationButtonEnabled = true;
+
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Login link sent to your email", Toast.LENGTH_SHORT).show();
                             // Now, when the user opens the link, you can log them in directly
@@ -185,29 +194,27 @@ public class LoginActivity extends AppCompatActivity {
         dialog.show();
     }*/
 private void handleDynamicLink(Uri data) {
-    mAuth.checkActionCode(data.toString())
+    Log.d("DynamicLink", "Handling dynamic link: " + data.toString());
+
+    mAuth.signInWithEmailLink(mAuth.getCurrentUser().getEmail(), data.toString())
             .addOnCompleteListener(this, task -> {
                 if (task.isSuccessful()) {
-                    // Link is valid
-                    mAuth.applyActionCode(data.toString())
-                            .addOnCompleteListener(this, applyTask -> {
-                                if (applyTask.isSuccessful()) {
-                                    // Sign in success
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    if (user != null) {
-                                        // Now, you can proceed to the MenuActivity
-                                        goToMainMenu();
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, "Failed to sign in", Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    // If applyActionCode fails, display a message to the user.
-                                    Toast.makeText(LoginActivity.this, "Failed to apply action code.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                    // Sign in success
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if (user != null) {
+                        // Now, you can proceed to the MenuActivity
+                        Log.d("DynamicLink", "Sign in successful. Opening MenuActivity.");
+                        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                        startActivity(intent);
+                        finish(); // Optional: Close the LoginActivity if needed
+                    } else {
+                        Log.e("DynamicLink", "Failed to sign in: User is null.");
+                        Toast.makeText(LoginActivity.this, "Failed to sign in", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    // If checkActionCode fails, display a message to the user.
-                    Toast.makeText(LoginActivity.this, "Invalid action code.", Toast.LENGTH_SHORT).show();
+                    // If sign-in fails, display a message to the user.
+                    Log.e("DynamicLink", "Failed to sign in with email link.", task.getException());
+                    Toast.makeText(LoginActivity.this, "Failed to sign in with email link.", Toast.LENGTH_SHORT).show();
                 }
             });
 }

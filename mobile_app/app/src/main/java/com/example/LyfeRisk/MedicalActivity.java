@@ -1,11 +1,13 @@
 package com.example.LyfeRisk;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.annotation.SuppressLint;
+
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +29,31 @@ public class MedicalActivity extends AppCompatActivity {
         medicalRecordsEditText = findViewById(R.id.editTextTextMultiLine2);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("PatientUsers");
+
+/*        CheckBox checkBoxChestPain = findViewById(R.id.checkBoxChestPain);
+        Spinner spinnerChestPain = findViewById(R.id.spinnerChestPain);
+
+        checkBoxChestPain.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                spinnerChestPain.setVisibility(View.VISIBLE);
+            } else {
+                spinnerChestPain.setVisibility(View.GONE);
+            }
+        });
+        CheckBox checkBoxMale = findViewById(R.id.checkBoxMale);
+        CheckBox checkBoxFemale = findViewById(R.id.checkBoxFemale);
+
+        checkBoxMale.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                checkBoxFemale.setChecked(false);
+            }
+        });
+
+        checkBoxFemale.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                checkBoxMale.setChecked(false);
+            }
+        });*/
     }
 
     public void saveAndQuit(View view) {

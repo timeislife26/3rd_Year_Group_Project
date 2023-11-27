@@ -209,19 +209,6 @@ public class MenuActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void showTermsAndConditions(View view) {
-        // Start the Terms and Conditions activity
-        Intent intent = new Intent(MenuActivity.this, CreditsActivity.class);
-        TextView titleTextView = findViewById(R.id.editTextText3);
-        TextView contentTextView = findViewById(R.id.textView3);
-
-        // Set the new title and text
-        titleTextView.setText("Terms &amp; Conditions");
-        contentTextView.setText("Lorem Ipsum");
-
-        startActivity(intent);
-    }
-
 
     public void goToCredits(View view) {
         Intent intent = new Intent(MenuActivity.this, CreditsActivity.class);

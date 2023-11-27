@@ -14,88 +14,12 @@
         android:layout_height="131dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="236dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo_no_background" />
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="310dp"
-        android:layout_height="643dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="46dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/textBox"
-            android:layout_width="310dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="2dp"
-            android:background="@drawable/textbubble"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            tools:ignore="NotSibling">
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="0dp"
-                android:layout_height="69dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="108dp"
-                android:layout_marginEnd="50dp"
-                android:text="Please Enter any medical history you have, eg heart,eyes,disability etc."
-                android:textAlignment="center"
-                android:textSize="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextText3"
-                android:layout_width="272dp"
-                android:layout_height="67dp"
-                android:layout_marginTop="36dp"
-                android:editable="false"
-                android:ems="10"
-                android:text="Medical Records"
-                android:textAlignment="center"
-                android:textColor="#006400"
-                android:textSize="34dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editTextTextMultiLine2"
-                android:layout_width="241dp"
-                android:layout_height="98dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="56dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                app:layout_constraintBottom_toTopOf="@+id/saveButton"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <Button
-                android:id="@+id/saveButton"
-                android:layout_width="156dp"
-                android:layout_height="51dp"
-                android:backgroundTint="#90ee90"
-                android:onClick="saveAndQuit"
-                android:text="@string/save_amp_quit"
-                android:textColor="#006400"
-                android:textColorHighlight="@android:color/white"
-                android:textColorLink="@android:color/white"
-                android:textSize="18dp"
-                tools:layout_editor_absoluteX="80dp"
-                tools:layout_editor_absoluteY="467dp" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
 
     <TextView
         android:id="@+id/loginTV"
@@ -111,5 +35,85 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.045" />
+
+    <ImageView
+        android:id="@+id/textBox"
+        android:layout_width="314dp"
+        android:layout_height="574dp"
+        android:layout_marginTop="20dp"
+        android:background="#006400"
+        android:src="@drawable/textbubble"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginTV" />
+    <EditText
+        android:id="@+id/editTextText3"
+        android:layout_width="272dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginBottom="431dp"
+        android:editable="false"
+        android:ems="10"
+        android:text="Medical Records"
+        android:textAlignment="center"
+        android:textColor="#006400"
+        android:textSize="34dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toTopOf="@+id/textBox" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine2"
+        android:layout_width="244dp"
+        android:layout_height="216dp"
+        android:layout_marginTop="188dp"
+        android:layout_marginBottom="170dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textBox"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="207dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="17dp"
+        android:text="Please Enter any medical history you have, eg heart,eyes,disability etc."
+        android:textAlignment="center"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine2"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText3"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="156dp"
+        android:layout_height="51dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#90ee90"
+        android:onClick="saveAndQuit"
+        android:text="@string/save_and_quit"
+        android:textColor="#006400"
+        android:textColorHighlight="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="@+id/textBox" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

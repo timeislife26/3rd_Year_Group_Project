@@ -69,6 +69,22 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <Button
+        android:id="@+id/biometricsButton"
+        android:layout_width="138dp"
+        android:layout_height="73dp"
+        android:layout_marginEnd="164dp"
+        android:backgroundTint="#90ee90"
+        android:text="Biometrics"
+        android:textColor="#006400"
+        android:textColorHighlight="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.67" />
+
+    <Button
         android:id="@+id/saveButton"
         android:layout_width="156dp"
         android:layout_height="51dp"
@@ -86,10 +102,26 @@
         app:layout_constraintVertical_bias="0.884" />
 
     <Button
+        android:id="@+id/authAppButton"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="#90ee90"
+        android:text="Auth App"
+        android:textColor="#006400"
+        android:textColorHighlight="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.523" />
+
+    <Button
         android:id="@+id/emailButton"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
         android:backgroundTint="#90ee90"
         android:text="Email"
         android:textColor="#006400"
@@ -99,13 +131,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62" />
+        app:layout_constraintVertical_bias="0.523" />
 
     <Button
         android:id="@+id/no2faButton"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="12dp"
         android:backgroundTint="#90ee90"
         android:text="No 2FA"
         android:textColor="#006400"
@@ -115,7 +147,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62" />
+        app:layout_constraintVertical_bias="0.678" />
 
     <TextView
         android:id="@+id/textView2"
