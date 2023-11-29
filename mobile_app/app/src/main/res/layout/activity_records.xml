@@ -98,6 +98,7 @@
         android:layout_height="216dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="18dp"
+        android:scrollbars = "vertical"
         app:layout_constraintBottom_toBottomOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintHorizontal_bias="1.0"

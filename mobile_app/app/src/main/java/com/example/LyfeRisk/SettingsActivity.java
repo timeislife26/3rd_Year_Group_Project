@@ -35,9 +35,9 @@ public class SettingsActivity extends AppCompatActivity {
         // Add click listeners to your authentication buttons
         Button emailButton = findViewById(R.id.emailButton);
         Button no2faButton = findViewById(R.id.no2faButton);
-    /*    Button biometricsButton = findViewById(R.id.biometricsButton);
+        Button biometricsButton = findViewById(R.id.biometricsButton);
         Button authAppButton = findViewById(R.id.authAppButton);
-*/
+
         no2faButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
                 manageAuth(1);
             }
         });
-/*
+
         biometricsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +64,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 manageAuth(3);
             }
-        });*/
+        });
     }
 
     private void manageAuth(int authType) {
