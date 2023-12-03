@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,12 +15,652 @@
         android:layout_height="131dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="236dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo_no_background" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="314dp"
+        android:layout_height="574dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/textbubble"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/loginTV">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollableContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="390dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="50dp"
+                android:text="Please Enter any medical history you have"
+                android:textAlignment="center"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editTextText3"
+                android:layout_width="272dp"
+                android:layout_height="67dp"
+                android:layout_marginTop="16dp"
+                android:editable="false"
+                android:ems="10"
+                android:text="Medical Records"
+                android:textAlignment="center"
+                android:textColor="#006400"
+                android:textSize="34dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteY="167dp" />
+
+            <EditText
+                android:id="@+id/editAge"
+                android:layout_width="217dp"
+                android:layout_height="44dp"
+                android:ems="10"
+                android:hint="Age"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textViewGender"
+                android:layout_width="146dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="116dp"
+                android:text="Select your gender:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editAge" />
+
+            <CheckBox
+                android:id="@+id/checkBoxMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.182"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGender" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
+                app:layout_constraintStart_toEndOf="@+id/checkBoxMale"
+                app:layout_constraintTop_toBottomOf="@+id/textViewGender" />
+
+            <TextView
+                android:id="@+id/textViewChestPain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Do you experience chest pain?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.392"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxFemale" />
+
+            <CheckBox
+                android:id="@+id/checkBoxChestPain"
+                android:layout_width="120dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="8dp"
+                android:text="Chest Pain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.252"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewChestPain" />
+
+            <Spinner
+                android:id="@+id/spinnerChestPain"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxChestPain" />
+
+            <TextView
+                android:id="@+id/textViewRestingBP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter your resting blood pressure:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.471"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerChestPain" />
+
+            <EditText
+                android:id="@+id/editTrewstbps"
+                android:layout_width="215dp"
+                android:layout_height="44dp"
+                android:ems="10"
+                android:hint="Resting Blood Pressure"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.454"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRestingBP" />
+
+            <TextView
+                android:id="@+id/textViewCholestoral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Enter your serum cholestoral level:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.48"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTrewstbps" />
+
+            <EditText
+                android:id="@+id/editChol"
+                android:layout_width="228dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Serum Cholestoral (mg/dl)"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCholestoral" />
+
+            <TextView
+                android:id="@+id/textViewThalach"
+                android:layout_width="215dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="8dp"
+                android:text="Enter your maximum heart rate in bpm "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.474"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editChol" />
+
+            <EditText
+                android:id="@+id/editThalach"
+                android:layout_width="237dp"
+                android:layout_height="38dp"
+                android:ems="10"
+                android:hint="Maximum Heart Rate Achieved"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.558"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewThalach" />
+
+            <TextView
+                android:id="@+id/textViewExang"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:text="Do you experience exercise-induced angina?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.702"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editThalach" />
+
+            <CheckBox
+                android:id="@+id/checkBoxExang"
+                android:layout_width="206dp"
+                android:layout_height="42dp"
+                android:text="Exercise Induced Angina"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.398"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewExang" />
+
+            <TextView
+                android:id="@+id/textViewOldpeak"
+                android:layout_width="259dp"
+                android:layout_height="34dp"
+                android:text="Enter the ST depression induced by exercise relative to rest:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.818"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBoxExang" />
+
+            <EditText
+                android:id="@+id/editOldpeak"
+                android:layout_width="215dp"
+                android:layout_height="44dp"
+                android:ems="10"
+                android:hint="ST Depression Induced by Exercise"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.343"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewOldpeak" />
+
+            <TextView
+                android:id="@+id/textViewFbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter your fasting blood sugar (mg/dl):"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.444"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editOldpeak" />
+
+            <EditText
+                android:id="@+id/editFbs"
+                android:layout_width="215dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Fasting Blood Sugar (mg/dl)"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.343"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFbs" />
+
+            <TextView
+                android:id="@+id/textViewRestecg"
+                android:layout_width="221dp"
+                android:layout_height="44dp"
+                android:text="Select your resting electrocardiographic results:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.376"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editFbs" />
+
+            <Spinner
+                android:id="@+id/spinnerRestecg"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRestecg" />
+
+            <TextView
+                android:id="@+id/textViewSlope"
+                android:layout_width="229dp"
+                android:layout_height="46dp"
+                android:text="Select the slope of the peak exercise ST segment:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.435"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerRestecg" />
+
+            <Spinner
+                android:id="@+id/spinnerSlope"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSlope" />
+
+            <TextView
+                android:id="@+id/textViewCa"
+                android:layout_width="231dp"
+                android:layout_height="40dp"
+                android:text="Select the number of major vessels colored by flourosopy:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.369"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerSlope" />
+
+            <Spinner
+                android:id="@+id/spinnerCa"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCa" />
+
+            <TextView
+                android:id="@+id/textViewThal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select the Thal condition:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.244"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerCa" />
+
+            <Spinner
+                android:id="@+id/spinnerThal"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewThal" />
+
+            <TextView
+                android:id="@+id/textViewSmoking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Do you smoke?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.188"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerThal" />
+
+            <Spinner
+                android:id="@+id/spinnerSmoking"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSmoking" />
+
+            <TextView
+                android:id="@+id/textViewYellowFingers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Do you have yellow fingers?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.269"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerSmoking" />
+
+            <Spinner
+                android:id="@+id/spinnerYellowFingers"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewYellowFingers" />
+
+            <TextView
+                android:id="@+id/textViewAnxiety"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Do you have Anxiety ?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.269"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerYellowFingers" />
+
+            <Spinner
+                android:id="@+id/spinnerAnxiety"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAnxiety" />
+
+            <TextView
+                android:id="@+id/textViewChronicDisease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Do you have a chronic disease?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.269"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAnxiety" />
+
+            <Spinner
+                android:id="@+id/spinnerChronicDisease"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewChronicDisease" />
+
+            <TextView
+                android:id="@+id/textViewFatigue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Do you have fatigue?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.269"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerChronicDisease" />
+
+            <Spinner
+                android:id="@+id/spinnerFatigue"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFatigue" />
+
+            <TextView
+                android:id="@+id/textViewAllergy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Do you have any allergies?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.269"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerFatigue" />
+
+            <Spinner
+                android:id="@+id/spinnerAllergy"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAllergy" />
+
+            <TextView
+                android:id="@+id/textViewWheezing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Do you have Wheezing in your breathing?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.593"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerAllergy" />
+
+            <Spinner
+                android:id="@+id/spinnerWheezing"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWheezing" />
+
+            <TextView
+                android:id="@+id/textViewSwallowingDifficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Do you experience swallowing difficulty?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.555"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerWheezing" />
+
+            <Spinner
+                android:id="@+id/spinnerSwallowingDifficulty"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSwallowingDifficulty" />
+
+            <TextView
+                android:id="@+id/textViewHypertension"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Do you have hypertension?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.269"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerSwallowingDifficulty" />
+
+            <Spinner
+                android:id="@+id/spinnerHypertension"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHypertension" />
+
+            <TextView
+                android:id="@+id/textViewHeartDisease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Do you have heart disease?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.269"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerHypertension" />
+
+            <Spinner
+                android:id="@+id/spinnerHeartDisease"
+                android:layout_width="229dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeartDisease" />
+
+            <TextView
+                android:id="@+id/textViewBMI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter your BMI:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.168"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerHeartDisease" />
+
+            <EditText
+                android:id="@+id/editBMI"
+                android:layout_width="215dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="BMI"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.343"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBMI" />
+
+            <TextView
+                android:id="@+id/textViewHbA1cLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter your Hemoglobin A1c level:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.296"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editBMI" />
+
+            <EditText
+                android:id="@+id/editHbA1cLevel"
+                android:layout_width="215dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="HbA1c Level"
+                android:inputType="numberDecimal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.343"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHbA1cLevel" />
+
+            <TextView
+                android:id="@+id/textViewBloodGlucoseLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter your blood glucose level:"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.282"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editHbA1cLevel" />
+
+            <EditText
+                android:id="@+id/editBloodGlucoseLevel"
+                android:layout_width="215dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Blood Glucose Level"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.343"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBloodGlucoseLevel" />
+
+            <EditText
+                android:id="@+id/editTextTextMultiLine2"
+                android:layout_width="241dp"
+                android:layout_height="98dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="36dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Notes"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editBloodGlucoseLevel"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="156dp"
+                android:layout_height="51dp"
+                android:backgroundTint="#90ee90"
+                android:onClick="saveAndQuit"
+                android:text="@string/save_and_quit"
+                android:textColor="#006400"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <TextView
         android:id="@+id/loginTV"
@@ -35,84 +676,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.045" />
-
-    <ImageView
-        android:id="@+id/textBox"
-        android:layout_width="314dp"
-        android:layout_height="574dp"
-        android:layout_marginTop="20dp"
-        android:background="#006400"
-        android:src="@drawable/textbubble"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginTV" />
-
-    <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="272dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="33dp"
-        android:layout_marginEnd="69dp"
-        android:layout_marginBottom="400dp"
-        android:editable="false"
-        android:ems="10"
-        android:text="Medical Records"
-        android:textAlignment="center"
-        android:textColor="#006400"
-        android:textSize="34dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textBox"
-        app:layout_constraintStart_toStartOf="@+id/textBox"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
-
-    <EditText
-        android:id="@+id/editTextTextMultiLine2"
-        android:layout_width="244dp"
-        android:layout_height="216dp"
-        android:layout_marginTop="188dp"
-        android:layout_marginBottom="170dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="@+id/textBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textBox" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="207dp"
-        android:layout_height="69dp"
-        android:layout_marginBottom="30dp"
-        android:text="Please Enter any medical history you have, eg heart,eyes,disability etc."
-        android:textAlignment="center"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textBox"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="156dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="76dp"
-        android:backgroundTint="#90ee90"
-        android:onClick="saveAndQuit"
-        android:text="@string/save_amp_quit"
-        android:textColor="#006400"
-        android:textColorHighlight="@android:color/white"
-        android:textColorLink="@android:color/white"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textBox"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.818" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

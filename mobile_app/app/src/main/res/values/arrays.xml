@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="options">
+        <item>Patient Info</item>
+        <item>Doctor</item>
+        <item>Insurance</item>
+    </string-array>
+
+    <string-array name="insurance_companies">
+        <item>Laya Healthcare </item>
+        <item>LyfeRisk Healthcare </item>
+        <item>Chill Insurance </item>
+    </string-array>
+
+
+    <string-array name="chest_pain">
+        <item>Not Bad</item>
+        <item>Bad</item>
+        <item>Awful</item>
+        <item>Verge of Death</item>
+
+    </string-array>
+
+    <string-array name="restecg">
+        <item>0</item>
+        <item>1 </item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="slope">
+        <item>0 </item>
+        <item>1 </item>
+        <item>2 </item>
+    </string-array>
+
+    <string-array name="ca">
+        <item>0 </item>
+        <item>1 </item>
+        <item>2 </item>
+        <item>3 </item>
+    </string-array>
+
+    <string-array name="thal">
+        <item>Normal </item>
+        <item>Fixed Defect </item>
+        <item>Reversible Defect </item>
+        <item>3 </item>
+    </string-array>
+
+    <string-array name="yesno">
+        <item>No</item>
+        <item>Yes</item>
+    </string-array>
+    <string-array name="doctors">
+        <item>John Wilson</item>
+        <item>Tom Jefferson</item>
+        <item>Bob O\'Sullivan </item>
+    </string-array>
+
+
+</resources>

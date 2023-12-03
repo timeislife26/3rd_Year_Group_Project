@@ -1,7 +1,23 @@
 <?php
   include_once 'header.php';
 
-  include '../includes/patient_list.inc.php';
+  // Database connection
+  require_once '../php-firebase/dbcon.php'; //'dbh.inc.php';
+  
+  // Query to fetch the list of names from DB
+  $refTable = "PatientUsers";
+  
+  $result = $database->getReference($refTable)->getValue();
+  
+  // Array to store names
+  $patientList = array();
+  $patientID = array();
+  
+  // Getting names and storing them in array
+  foreach ($result as $key => $row){
+      $patientList[] = $row["name"];
+      $patientID[] = $row["userId"];
+  }
 ?>
 
     <main>
@@ -16,18 +32,19 @@
         <form method="post">
           <div class="dropdown_list">
           <label for="patient_list">Patient Name*:&emsp;
-            <select id="patient_list" name="selectedPatient">
-              <?php
-              foreach ($patientList as $patient) {
-                echo '<option value="' . $patient . '">' , $patient , '</option>';
-              }
-              ?>
+            <select id="patient_list" name="selectedPatient" onchange="updateSelectedUserID()">
+            <?php
+                    // Loop through names and corresponding userIDs
+                    for ($i = 0; $i < count($patientList); $i++) {
+                        echo '<option value="' . $patientID[$i] . '">' , $patientList[$i] , '</option>';
+                    }
+                    ?>
             </select>
             <button type="submit" name="generate">Fill Form</button>
           </label>
           </div>
         </form>
-        <form method="post">
+        <form action="../includes/update.inc.php" method="POST">
             <p>
                 <label>Name: <input type="text" name="name" required autocomplete="on"></label>
                 <label>Email: <input type="email" name="email" autocomplete="on"></label>
@@ -45,7 +62,7 @@
                 <label>Resting Electocardiographic Results: <input type="number" name="restecg" min="0" max="2" required autocomplete="on"></label>
                 <label>Maximum Heart Rate Achieved: <input type="number" name="thalach" required autocomplete="on"></label>
                 <label>ST Depression Induced by Exercise Relative to Rest: <input type="number" name="oldpeak" required autocomplete="on"></label>
-                <label>Serum Cholestoral: <input type="number" name="chol" required autocomplete="on"></label>
+                <!--<label>Serum Cholestoral: <input type="number" name="chol" required autocomplete="on"></label>-->
                 <label>Slope of the Peak Exercise ST Segment: <input type="number" name="slope" min="0" max="2" required autocomplete="on"></label>
                 <label>Number of Major Vessels Coloured by Flourosopy: <input type="number" name="ca" min="0" max="3" required autocomplete="on"></label>
                 <label>Body Mass Index: <input type="number" step="0.01" name="bmi" required autocomplete="on"></label>
@@ -124,33 +141,44 @@
                 </fieldset>
                 <fieldset>
                     <legend>Chest Pain:</legend>
-                    <div class="radio_btn">
-					            <label><input type="radio" name="Chest_pain" value="True">Yes</label>
-					            <label><input type="radio" name="Chest_pain" value="False">No</label>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Hypertension:</legend>
-                    <div class="radio_btn">
-					            <label><input type="radio" name="hypertension" value="True">Yes</label>
-					            <label><input type="radio" name="hypertension" value="False">No</label>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Heart Disease:</legend>
-                    <div class="radio_btn">
-					            <label><input type="radio" name="heart_disease" value="True">Yes</label>
-					            <label><input type="radio" name="heart_disease" value="False">No</label>
-                    </div>
+					<label><input type="radio" name="Chest_pain" value="True">Yes</label>
+					<label><input type="radio" name="Chest_pain" value="False">No</label>
                 </fieldset>
             </p>
             <p>
+            <input type="hidden" name="selectedUserID" id="selectedUserID">
                 <button type="submit" name="update">Update</button>
             </p><p></p>
         </form>
       </div>
     </main>
   </body>
+  <script>
+    var patientID;
+
+    window.onload = function() {
+        patientID = document.getElementById("patient_list").value;
+        console.log("Initial Patient ID: ", patientID);
+        document.getElementById("selectedUserID").value = patientID;
+    };
+    function updateSelectedUserID() {
+        patientID = document.getElementById("patient_list").value;
+        console.log("Selected Patient ID: ", patientID);
+        document.getElementById("selectedUserID").value = patientID;
+    }
+    function toggleChestPainType() {
+        var chestPainRadio = document.querySelector('input[name="Chest_pain"]:checked');
+        var chestPainTypeField = document.getElementById('cpField');
+
+        if (chestPainRadio && chestPainRadio.value === 'True') {
+            chestPainTypeField.style.display = 'block';
+        } else {
+            chestPainTypeField.style.display = 'none';
+            // If chest pain is false, set chest pain type to 0
+            document.getElementById('cp').value = '0';
+        }
+    }
+    </script>
 
 
 <?php

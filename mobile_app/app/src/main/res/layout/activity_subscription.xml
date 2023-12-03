@@ -40,11 +40,10 @@
         android:layout_below="@id/txtSubCost"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
+        android:clickable="true"
         android:text="This Subscription helps us fund the app allowing us to add new features and allows you to have an ad-free experience! \n Ts &amp; Cs apply."
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:clickable="true"
-        android:onClick="showTermsAndConditions" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
 

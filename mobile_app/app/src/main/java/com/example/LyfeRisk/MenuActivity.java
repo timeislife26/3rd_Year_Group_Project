@@ -76,8 +76,6 @@ public class MenuActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_subscription);
         dialog.setCancelable(false);
-
-        // Disable the ability to dismiss the dialog by tapping outside of it
         dialog.setCanceledOnTouchOutside(false);
 
 
@@ -207,19 +205,6 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         dialog.show();
-    }
-
-    public void showTermsAndConditions(View view) {
-        // Start the Terms and Conditions activity
-        Intent intent = new Intent(MenuActivity.this, CreditsActivity.class);
-        TextView titleTextView = findViewById(R.id.editTextText3);
-        TextView contentTextView = findViewById(R.id.textView3);
-
-        // Set the new title and text
-        titleTextView.setText("Terms &amp; Conditions");
-        contentTextView.setText("Lorem Ipsum");
-
-        startActivity(intent);
     }
 
 
