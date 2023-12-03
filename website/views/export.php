@@ -12,7 +12,8 @@
           profile of the selected person in a text file.
         </p>
         <form method="post">
-          <label for="patient_list">Patient Name*: 
+          <div class="dropdown_list">
+          <label for="patient_list">Patient Name*:&emsp;
             <select id="patient_list" name="selectedPatient">
               <?php
               foreach ($patientList as $patient) {
@@ -22,6 +23,7 @@
             </select>
             <button type="submit" name="export">Export</button>
           </label>
+          </div>
         </form>
         <?php
           if (isset($_POST['export'])) {

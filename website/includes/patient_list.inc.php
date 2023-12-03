@@ -19,16 +19,33 @@ foreach ($result as $key => $row)
 function displayPatientProfile($database, $patientList) {
   if (isset($_POST['generate'])) {
     $refTable = "PatientUsers";
+    $secondTable = "MedicalRecords";
     $targetFullName = $_POST['selectedPatient'];
     
     $result = $database->getReference($refTable)->getValue();
+    $secondResult = $database->getReference($secondTable)->getValue();
     
     if ($result) {
       foreach ($result as $entry) {
         if (strcasecmp(trim($entry['name']), $targetFullName) === 0) {
+          $targetID = $entry['userId'];
           // Match found, printing the entry data
           echo "\n\tFull Name: " . $entry['name'] . "\n";
           echo "\tEmail: " . $entry['email'] . "\n";
+          echo "\tInsurance: " . $entry['Insurance'] . "\n";
+          echo "\tDoctor: " . $entry['Doctor'] . "\n";
+          if ($entry['medicalRecords'] === 'yes') {
+            foreach ($secondResult as $entry) {
+              if (strcasecmp(trim($entry['userId']), $targetID) === 0) {
+                echo "\tAge: " . $entry['Age'] . "\n";
+                echo "\tAllergy: " . $entry['Allergy'] . "\n";
+                echo "\tAnxiety: " . $entry['Anxiety'] . "\n";
+                /*
+                needs to be filled with the rest, some entries appear to be duplicated in DB
+                */
+              }
+            }
+          }
           break; // Exit loop when match is found
         }
       }
@@ -63,6 +80,7 @@ function displayPatientPrediction($database, $patientList) {
 }
 
 // Function that will export the information of the patient into an txt file
+// Basically similar to the first function, needs to be updated once the first is done
 function displayPatientExport($database, $patientList) {
   if (isset($_POST['export'])) {
       $refTable = "PatientUsers";
@@ -99,28 +117,5 @@ function displayPatientExport($database, $patientList) {
   }
 }
 
-/*
-Age - int
-gender - bool
-cp (Chest Pain) - int (0 to 3)
-trewstbps (resting blood pressure) - int 
-chol(Serum Cholestoral in mg/dl) - int
-fbs(fasting blood sugar > 120 mg/dl) - int
-restecg(resting electocardiographic results - int (0 to 2)
-thalach(maximum heart rate achieved) - int
-exang(exercise induced angina) - bool
-oldpeak(oldpeak = ST depression induced by exercise relative to rest) - float
-slope (the slope of the peak exercise ST segment) - int (0 to 2)
-ca(number of major vessels (0-3) colored by flourosopy) - int (0 to 3)
-thal(thal: 0 = normal; 1 = fixed defect; 2 = reversable defect) - int (0 to 3)
-Smoking - bool
-Yellow_Fingers - bool
-Anxiety - bool
-Chronic_Disease - bool
-Fatigue - bool
-Allergy - bool
-Wheezing - bool
-Swallowing_Difficulty - bool
-Chest_pain - bool
-*/
+
 ?>

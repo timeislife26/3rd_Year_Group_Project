@@ -12,7 +12,8 @@
           for the selected the selected person.
         </p>
         <form method="post">
-          <label for="patient_list">Patient Name*: 
+          <div class="dropdown_list">
+          <label for="patient_list">Patient Name*:&emsp;
             <select id="patient_list" name="selectedPatient">
               <?php
               foreach ($patientList as $patient) {
@@ -22,6 +23,7 @@
             </select>
             <button type="submit" name="generate">Generate</button>
           </label>
+          </div>
         </form>
         <label id="textlabel"><p>Profile</p>
 					<textarea name="info" rows="10" cols="80">
