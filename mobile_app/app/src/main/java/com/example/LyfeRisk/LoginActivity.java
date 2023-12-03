@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,10 +14,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -33,12 +41,15 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private boolean isEmailVerificationButtonEnabled = true;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
+
+    private EditText phoneNumberEditText;
+    private Button sendCodeButton;
+    private String verificationId;
 
 
-
-
-
-    @SuppressLint("SourceLockedOrientationActivity")
+    @SuppressLint({"SourceLockedOrientationActivity", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +63,10 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.editTextTextEmailAddress);
         passwordEditText = findViewById(R.id.editTextTextPassword);
         loginButton = findViewById(R.id.loginBtn);
-
         loginButton.setOnClickListener(view -> attemptLogin());
 
         Intent intent = getIntent();
         if (intent != null && intent.getData() != null) {
-            // User opened the link, handle the authentication
             handleDynamicLink(intent.getData());
         }
     }
@@ -84,6 +93,35 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        biometricPrompt = new BiometricPrompt(this, ContextCompat.getMainExecutor(this),
+                new BiometricPrompt.AuthenticationCallback() {
+                    @Override
+                    public void onAuthenticationError(int errorCode, CharSequence errString) {
+                        super.onAuthenticationError(errorCode, errString);
+                    }
+
+                    @Override
+                    public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
+                        super.onAuthenticationSucceeded(result);
+                        // Handle authentication success
+                        goToMainMenu();
+                    }
+
+                    @Override
+                    public void onAuthenticationFailed() {
+                        super.onAuthenticationFailed();
+                        // Handle authentication failure
+                        Toast.makeText(LoginActivity.this, "Biometric authentication failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        // Customize promptInfo for different biometric methods
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric login")
+                .setSubtitle("Authenticate")
+                .setNegativeButtonText("Cancel")
+                .build();
     }
 
     private void checkAuthLevel(String userUid) {
@@ -99,7 +137,6 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Handle error
             }
         });
     }
@@ -113,16 +150,9 @@ public class LoginActivity extends AppCompatActivity {
                 sendEmailVerification();
                 break;
             case 2:
-                Toast.makeText(this, "BIOMETRICS", Toast.LENGTH_SHORT).show();
-                goToMainMenu();
+                performBiometricAuthentication();
                 break;
-            case 3:
-                Toast.makeText(this, "AUTH APP", Toast.LENGTH_SHORT).show();
-                goToMainMenu();
-                break;
-            // Add cases for other auth levels as needed
             default:
-                // Handle default case or unexpected auth levels
                 break;
         }
     }
@@ -133,6 +163,12 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
         startActivity(intent);
         finish();
+    }
+
+
+    private void performBiometricAuthentication() {
+        // Display biometric authentication prompt
+        biometricPrompt.authenticate(promptInfo);
     }
 
     private void sendEmailVerification() {
@@ -152,8 +188,8 @@ public class LoginActivity extends AppCompatActivity {
                     .setHandleCodeInApp(true)
                     .setAndroidPackageName(
                             "com.example.LyfeRisk",
-                            false, /* installIfNotAvailable */
-                            "12" /* minimumVersion */)
+                            false,
+                            "12" )
                     .build();
 
             mAuth.sendSignInLinkToEmail(email, actionCodeSettings)
@@ -172,27 +208,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-/*
-    private void show2faDialog() {
-        // Create a dialog
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.activity_authemail);
-
-        EditText codeEditText = dialog.findViewById(R.id.codeEditText);
-        Button sendTextButton = dialog.findViewById(R.id.sendTextButton);
-
-        sendTextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Dismiss the dialog
-                dialog.dismiss();
-            }
-        });
-
-        // Show the dialog
-        dialog.show();
-    }*/
 private void handleDynamicLink(Uri data) {
     Log.d("DynamicLink", "Handling dynamic link: " + data.toString());
 

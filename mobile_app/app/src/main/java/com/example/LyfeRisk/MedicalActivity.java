@@ -198,7 +198,7 @@ public class MedicalActivity extends AppCompatActivity {
         mDatabase.child(userUid).child("Age").setValue(age);
         mDatabase.child(userUid).child("gender").setValue(gender);
         mDatabase.child(userUid).child("cp").setValue(cp);
-        mDatabase.child(userUid).child("trewstbps ").setValue(trewstbps);
+        mDatabase.child(userUid).child("trewstbps").setValue(trewstbps);
         mDatabase.child(userUid).child("chol").setValue(chol);
         mDatabase.child(userUid).child("fbs").setValue(fbs);
         mDatabase.child(userUid).child("restecg").setValue(restecg);
@@ -209,20 +209,20 @@ public class MedicalActivity extends AppCompatActivity {
         mDatabase.child(userUid).child("ca").setValue(ca);
         mDatabase.child(userUid).child("thal").setValue(thal);
         mDatabase.child(userUid).child("Smoking").setValue(smoking);
-        mDatabase.child(userUid).child("Yellow_Fingers ").setValue(yellowFingers);
+        mDatabase.child(userUid).child("Yellow_Fingers").setValue(yellowFingers);
         mDatabase.child(userUid).child("Anxiety").setValue(anxiety);
-        mDatabase.child(userUid).child("Chronic_Disease ").setValue(chronicDisease);
-        mDatabase.child(userUid).child("Fatigue ").setValue(fatigue);
+        mDatabase.child(userUid).child("Chronic_Disease").setValue(chronicDisease);
+        mDatabase.child(userUid).child("Fatigue").setValue(fatigue);
         mDatabase.child(userUid).child("Allergy").setValue(allergy);
         mDatabase.child(userUid).child("Wheezing").setValue(wheezing);
-        mDatabase.child(userUid).child("Swallowing_Difficulty ").setValue(swallowingDifficulty);
-        mDatabase.child(userUid).child("Chest_pain ").setValue(hasChestPain);
+        mDatabase.child(userUid).child("Swallowing_Difficulty").setValue(swallowingDifficulty);
+        mDatabase.child(userUid).child("Chest_pain").setValue(hasChestPain);
         mDatabase.child(userUid).child("hypertension").setValue(hypertension);
         mDatabase.child(userUid).child("heart_disease").setValue(heartDisease);
         mDatabase.child(userUid).child("bmi").setValue(bmi);
         mDatabase.child(userUid).child("HbA1c_level").setValue(hba1cLevel);
-        mDatabase.child(userUid).child("blood_glucose_level ").setValue(bloodGlucoseLevel);
-        mDatabase.child(userUid).child("userId ").setValue(mAuth.getCurrentUser().getUid());
+        mDatabase.child(userUid).child("blood_glucose_level").setValue(bloodGlucoseLevel);
+        mDatabase.child(userUid).child("userId").setValue(mAuth.getCurrentUser().getUid());
 
 
         Toast.makeText(this, "Medical records saved", Toast.LENGTH_SHORT).show();

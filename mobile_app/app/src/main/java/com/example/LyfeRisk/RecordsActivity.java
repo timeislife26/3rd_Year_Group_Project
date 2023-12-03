@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +30,6 @@ public class RecordsActivity extends AppCompatActivity {
     private Button saveButton;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase, mMedicalDatabase;
-
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -65,97 +66,100 @@ public class RecordsActivity extends AppCompatActivity {
                     infoTextView.setVisibility(View.VISIBLE);
                     saveButton.setVisibility(View.VISIBLE);
                     spinnerDetails.setVisibility(View.GONE);
+                    String userid = mAuth.getCurrentUser().getUid();
 
                     if (mAuth.getCurrentUser() != null) {
-                        // Get the currently logged-in user's UID
-                        String userUid = mAuth.getCurrentUser().getUid();
+                        try {
+                            // Retrieve the patient's medical history from the database
+                            mMedicalDatabase.child(userid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        // Retrieve all medical record fields directly
+                                        try {
+                                            Integer age = dataSnapshot.child("Age").getValue(Integer.class);
+                                            Boolean gender = dataSnapshot.child("gender").getValue(Boolean.class);
+                                            Integer cp = dataSnapshot.child("cp").getValue(Integer.class);
+                                            Integer trewstbps = dataSnapshot.child("trewstbps").getValue(Integer.class);
+                                            Integer chol = dataSnapshot.child("chol").getValue(Integer.class);
+                                            Integer fbs = dataSnapshot.child("fbs").getValue(Integer.class);
+                                            Integer restecg = dataSnapshot.child("restecg").getValue(Integer.class);
+                                            Integer thalach = dataSnapshot.child("thalach").getValue(Integer.class);
+                                            Boolean exang = dataSnapshot.child("exang").getValue(Boolean.class);
+                                            Double oldpeak = dataSnapshot.child("oldpeak").getValue(Double.class);
+                                            Integer slope = dataSnapshot.child("slope").getValue(Integer.class);
+                                            Integer ca = dataSnapshot.child("ca").getValue(Integer.class);
+                                            Integer thal = dataSnapshot.child("thal").getValue(Integer.class);
+                                            Boolean smoking = dataSnapshot.child("Smoking").getValue(Boolean.class);
+                                            Boolean yellowFingers = dataSnapshot.child("Yellow_Fingers").getValue(Boolean.class);
+                                            Boolean anxiety = dataSnapshot.child("Anxiety").getValue(Boolean.class);
+                                            Boolean chronicDisease = dataSnapshot.child("Chronic_Disease").getValue(Boolean.class);
+                                            Boolean fatigue = dataSnapshot.child("Fatigue").getValue(Boolean.class);
+                                            Boolean allergy = dataSnapshot.child("Allergy").getValue(Boolean.class);
+                                            Boolean wheezing = dataSnapshot.child("Wheezing").getValue(Boolean.class);
+                                            Boolean swallowingDifficulty = dataSnapshot.child("Swallowing_Difficulty").getValue(Boolean.class);
+                                            Boolean hasChestPain = dataSnapshot.child("Chest_pain").getValue(Boolean.class);
+                                            Boolean hypertension = dataSnapshot.child("hypertension").getValue(Boolean.class);
+                                            Boolean heartDisease = dataSnapshot.child("heart_disease").getValue(Boolean.class);
+                                            Double bmi = dataSnapshot.child("bmi").getValue(Double.class);
+                                            Double hba1cLevel = dataSnapshot.child("HbA1c_level").getValue(Double.class);
+                                            Double bloodGlucoseLevel = dataSnapshot.child("blood_glucose_level").getValue(Double.class);
 
-                        // Retrieve the patient's medical history from the database
-                        mMedicalDatabase.child(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    // Retrieve all medical record fields directly
-                                    int age = dataSnapshot.child("Age").getValue(Integer.class);
-                                    boolean gender = dataSnapshot.child("gender").getValue(Boolean.class);
-                                    int cp = dataSnapshot.child("cp").getValue(Integer.class);
-                                    int trewstbps = dataSnapshot.child("trewstbps").getValue(Integer.class);
-                                    int chol = dataSnapshot.child("chol").getValue(Integer.class);
-                                    int fbs = dataSnapshot.child("fbs").getValue(Integer.class);
-                                    int restecg = dataSnapshot.child("restecg").getValue(Integer.class);
-                                    int thalach = dataSnapshot.child("thalach").getValue(Integer.class);
-                                    boolean exang = dataSnapshot.child("exang").getValue(Boolean.class);
-                                    double oldpeak = dataSnapshot.child("oldpeak").getValue(Double.class);
-                                    int slope = dataSnapshot.child("slope").getValue(Integer.class);
-                                    int ca = dataSnapshot.child("ca").getValue(Integer.class);
-                                    int thal = dataSnapshot.child("thal").getValue(Integer.class);
-                                    boolean smoking = dataSnapshot.child("Smoking").getValue(Boolean.class);
-                                    boolean yellowFingers = dataSnapshot.child("Yellow_Fingers").getValue(Boolean.class);
-                                    boolean anxiety = dataSnapshot.child("Anxiety").getValue(Boolean.class);
-                                    boolean chronicDisease = dataSnapshot.child("Chronic_Disease").getValue(Boolean.class);
-                                    boolean fatigue = dataSnapshot.child("Fatigue").getValue(Boolean.class);
-                                    boolean allergy = dataSnapshot.child("Allergy").getValue(Boolean.class);
-                                    boolean wheezing = dataSnapshot.child("Wheezing").getValue(Boolean.class);
-                                    boolean swallowingDifficulty = dataSnapshot.child("Swallowing_Difficulty").getValue(Boolean.class);
-                                    boolean hasChestPain = dataSnapshot.child("Chest_pain").getValue(Boolean.class);
-                                    boolean hypertension = dataSnapshot.child("hypertension").getValue(Boolean.class);
-                                    boolean heartDisease = dataSnapshot.child("heart_disease").getValue(Boolean.class);
-                                    double bmi = dataSnapshot.child("bmi").getValue(Double.class);
-                                    double hba1cLevel = dataSnapshot.child("HbA1c_level").getValue(Double.class);
-                                    double bloodGlucoseLevel = dataSnapshot.child("blood_glucose_level").getValue(Double.class);
+                                            Log.d("FirebaseData", "Age: " + age);
+                                            Log.d("FirebaseData", "Gender: " + gender);
+                                            Log.d("FirebaseData", "Chest Pain Type: " + cp);
+                                            Log.d("FirebaseData", "Resting Blood Pressure: " + trewstbps);
+                                            Log.d("FirebaseData", "Cholesterol: " + chol);
+                                            Log.d("FirebaseData", "Fasting Blood Sugar: " + fbs);
+                                            Log.d("FirebaseData", "Resting Electrocardiographic Results: " + restecg);
+                                            Log.d("FirebaseData", "Maximum Heart Rate Achieved: " + thalach);
+                                            Log.d("FirebaseData", "Exercise Induced Angina: " + exang);
+                                            Log.d("FirebaseData", "Oldpeak: " + oldpeak);
+                                            Log.d("FirebaseData", "Slope of the Peak Exercise ST Segment: " + slope);
+                                            Log.d("FirebaseData", "Number of Major Vessels Colored by Fluoroscopy: " + ca);
+                                            Log.d("FirebaseData", "Thal: " + thal);
+                                            Log.d("FirebaseData", "Smoking: " + smoking);
+                                            Log.d("FirebaseData", "Yellow Fingers: " + yellowFingers);
+                                            Log.d("FirebaseData", "Anxiety: " + anxiety);
+                                            Log.d("FirebaseData", "Chronic Disease: " + chronicDisease);
+                                            Log.d("FirebaseData", "Fatigue: " + fatigue);
+                                            Log.d("FirebaseData", "Allergy: " + allergy);
+                                            Log.d("FirebaseData", "Wheezing: " + wheezing);
+                                            Log.d("FirebaseData", "Swallowing Difficulty: " + swallowingDifficulty);
+                                            Log.d("FirebaseData", "Chest Pain: " + hasChestPain);
+                                            Log.d("FirebaseData", "Hypertension: " + hypertension);
+                                            Log.d("FirebaseData", "Heart Disease: " + heartDisease);
+                                            Log.d("FirebaseData", "BMI: " + bmi);
+                                            Log.d("FirebaseData", "HbA1c Level: " + hba1cLevel);
+                                            Log.d("FirebaseData", "Blood Glucose Level: " + bloodGlucoseLevel);
 
-                                    // Display the retrieved medical history
-                                    displayMedicalRecord(
-                                            age, gender, cp, trewstbps, chol, fbs, restecg, thalach, exang, oldpeak,
-                                            slope, ca, thal, smoking, yellowFingers, anxiety, chronicDisease, fatigue,
-                                            allergy, wheezing, swallowingDifficulty, hasChestPain, hypertension,
-                                            heartDisease, bmi, hba1cLevel, bloodGlucoseLevel
-                                    );
+
+                                            // Display the retrieved medical history
+                                            displayMedicalRecord(
+                                                    age, gender, cp, trewstbps, chol, fbs, restecg, thalach, exang, oldpeak,
+                                                    slope, ca, thal, smoking, yellowFingers, anxiety, chronicDisease, fatigue,
+                                                    allergy, wheezing, swallowingDifficulty, hasChestPain, hypertension,
+                                                    heartDisease, bmi, hba1cLevel, bloodGlucoseLevel
+                                            );
+                                        } catch (NullPointerException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
-                        });
-
-                        // Retrieve the doctor information
-                        mDatabase.child(userUid).child("Doctor").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    String doctor = dataSnapshot.getValue(String.class);
-                                    // Append the doctor information
-                                    infoTextView.append("\nDoctor: " + doctor);
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
                                 }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
-                        });
-
-                        // Retrieve the insurance company information
-                        mDatabase.child(userUid).child("Insurance").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    String insurance = dataSnapshot.getValue(String.class);
-                                    // Append the insurance company information
-                                    infoTextView.append("\nInsurance Company: " + insurance);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
-                        });
+                            });
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
                     }
-
                 } else if ("Doctor".equals(selectedOption)) {
                     // Show the save button and populate spinnerDetails with "Doctor" options
                     infoTextView.setVisibility(View.GONE);
                     saveButton.setVisibility(View.VISIBLE);
+                    detailsAdapter = ArrayAdapter.createFromResource(RecordsActivity.this, R.array.doctors , android.R.layout.simple_spinner_item);
                     // Create an ArrayAdapter with doctor names
                     spinnerDetails.setVisibility(View.VISIBLE);
                 } else if ("Insurance".equals(selectedOption)) {
@@ -196,14 +200,12 @@ public class RecordsActivity extends AppCompatActivity {
 
                 // Inform the user that data is saved
                 String message = "Data saved for " + selectedOption + ": " + selectedDetails;
-                infoTextView.setText(message);
 
                 // Show a toast message to inform the user
                 Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
     private void displayMedicalRecord(
             int age, boolean gender, int cp, int trewstbps, int chol, int fbs,
