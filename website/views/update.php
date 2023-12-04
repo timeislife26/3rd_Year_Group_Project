@@ -81,6 +81,7 @@
 					            <label><input type="radio" name="thal" value="0">Normal</label>
 					            <label><input type="radio" name="thal" value="1">Fixed Defect</label>
                       <label><input type="radio" name="thal" value="2">Reversable Defect</label>
+                      <label><input type="radio" name="thal" value="3">3</label>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -89,7 +90,7 @@
 					            <label><input type="radio" name="Smoking" value="True">Yes</label>
 					            <label><input type="radio" name="Smoking" value="False">No</label>
                     </div>
-                </fieldset>>
+                </fieldset>
                 <fieldset>
                     <legend>Yellow Fingers:</legend>
                     <div class="radio_btn">
@@ -141,8 +142,10 @@
                 </fieldset>
                 <fieldset>
                     <legend>Chest Pain:</legend>
+                    <div class="radio_btn">
 					<label><input type="radio" name="Chest_pain" value="True">Yes</label>
 					<label><input type="radio" name="Chest_pain" value="False">No</label>
+                    </div>
                 </fieldset>
             </p>
             <p>
