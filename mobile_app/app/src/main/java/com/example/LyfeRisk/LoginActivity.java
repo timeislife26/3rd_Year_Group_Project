@@ -104,15 +104,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
                         super.onAuthenticationSucceeded(result);
-                        // Handle authentication success
                         goToMainMenu();
                     }
 
                     @Override
                     public void onAuthenticationFailed() {
                         super.onAuthenticationFailed();
-                        // Handle authentication failure
-                        Toast.makeText(LoginActivity.this, "Biometric authentication failed", Toast.LENGTH_SHORT).show();
                     }
                 });
 
