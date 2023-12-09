@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MedicalActivity extends AppCompatActivity {
 
-    private EditText medicalNotes, editAge, editTrewstbps, editChol, editThalach, editOldpeak,
+    private EditText editAge, editTrewstbps, editChol, editThalach, editOldpeak,
             editFbs, editBMI, editHbA1cLevel, editBloodGlucoseLevel;
     private CheckBox checkBoxChestPain, checkBoxMale, checkBoxFemale, checkBoxExang;
     private Spinner spinnerChestPain, spinnerRestecg, spinnerSlope, spinnerCa, spinnerThal,
@@ -35,7 +35,6 @@ public class MedicalActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("MedicalRecords");
 
-        medicalNotes = findViewById(R.id.editTextTextMultiLine2);
         editAge = findViewById(R.id.editAge);
         editTrewstbps = findViewById(R.id.editTrewstbps);
         editChol = findViewById(R.id.editChol);
@@ -164,7 +163,6 @@ public class MedicalActivity extends AppCompatActivity {
     }
 
     public void saveAndQuit(View view) {
-        String medicalNotes = this.medicalNotes.getText().toString();
         int age = Integer.parseInt(this.editAge.getText().toString());
         boolean gender = checkBoxMale.isChecked();
         int trewstbps = Integer.parseInt(this.editTrewstbps.getText().toString());
@@ -194,7 +192,6 @@ public class MedicalActivity extends AppCompatActivity {
         int bloodGlucoseLevel = Integer.parseInt(this.editBloodGlucoseLevel.getText().toString());
 
         String userUid = mAuth.getCurrentUser().getUid();
-        mDatabase.child(userUid).child("notes").setValue(medicalNotes);
         mDatabase.child(userUid).child("Age").setValue(age);
         mDatabase.child(userUid).child("gender").setValue(gender);
         mDatabase.child(userUid).child("cp").setValue(cp);

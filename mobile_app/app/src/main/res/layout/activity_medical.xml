@@ -25,11 +25,14 @@
         android:layout_height="574dp"
         android:layout_marginTop="21dp"
         android:background="@drawable/textbubble"
+        android:scrollbars="vertical"
+        android:windowSoftInputMode="adjustResize"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/loginTV">
+        app:layout_constraintTop_toBottomOf="@+id/loginTV"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/scrollableContent"
