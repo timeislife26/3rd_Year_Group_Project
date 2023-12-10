@@ -1,13 +1,14 @@
 package com.example.LyfeRisk;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,35 +17,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Makes the app in portrait mode only
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,
+                new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX));
+        startService(intent);
 
-        // step 1 find the view
+
         Button loginBtn = findViewById(R.id.loginBtn);
-        //step 2 set on click method
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //step 3 create on intent
                 Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
-                //step3 start activity
                 startActivity(intent1);
             }
         });
 
-        //step 1 find the view
+
         Button registerBtn = findViewById(R.id.registerBtn);
-        //step 2 set on click method
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //step 3 create on intent
                 Intent intent2 = new Intent(MainActivity.this, RegisterActivity.class);
-                //step3 start activity
                 startActivity(intent2);
             }
         });
     }
 
-
+    @Override
+    protected void onDestroy() {
+        stopService(new Intent(this, PayPalService.class));
+        super.onDestroy();
+    }
 }
