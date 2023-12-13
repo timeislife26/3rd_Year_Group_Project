@@ -158,7 +158,7 @@
                 android:layout_width="215dp"
                 android:layout_height="44dp"
                 android:ems="10"
-                android:hint="Resting Blood Pressure"
+                android:hint="Blood Pressure(mmHg)"
                 android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.454"
