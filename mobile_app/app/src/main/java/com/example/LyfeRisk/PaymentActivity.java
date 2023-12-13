@@ -1,4 +1,5 @@
 package com.example.LyfeRisk;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,23 +15,35 @@ public class PaymentActivity extends Activity {
 
     private static final String PAYPAL_CLIENT_ID = "ASz2PyFUD-2oIrvM_7HdLP7JLT1KLPDFoaBgeuj_2tZVJxrMRY0BgWZPycX0U4hogIBVRal8tGf3xjDY";
     private static final int REQUEST_CODE_PAYMENT = 1;
+    public static final String EXTRA_PAYMENT_AMOUNT = "EXTRA_PAYMENT_AMOUNT";
+    public static final String EXTRA_PAYMENT_CURRENCY = "EXTRA_PAYMENT_CURRENCY";
+    public static final String EXTRA_PAYMENT_DESCRIPTION = "EXTRA_PAYMENT_DESCRIPTION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+
         Intent intent = new Intent(this, PayPalService.class);
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,
                 new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
                         .clientId(PAYPAL_CLIENT_ID));
         startService(intent);
-        PayPalPayment payment = new PayPalPayment(new BigDecimal("5.00"), "USD", "Premium Subscription",
+        BigDecimal paymentAmount = new BigDecimal(getIntent().getStringExtra(EXTRA_PAYMENT_AMOUNT));
+        String paymentCurrency = getIntent().getStringExtra(EXTRA_PAYMENT_CURRENCY);
+        String paymentDescription = getIntent().getStringExtra(EXTRA_PAYMENT_DESCRIPTION);
+
+        PayPalPayment payment = new PayPalPayment(paymentAmount, paymentCurrency, paymentDescription,
                 PayPalPayment.PAYMENT_INTENT_SALE);
+
         Intent paymentIntent = new Intent(this, com.paypal.android.sdk.payments.PaymentActivity.class);
         paymentIntent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,
                 new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
                         .clientId(PAYPAL_CLIENT_ID));
-        paymentIntent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+        paymentIntent.putExtra(EXTRA_PAYMENT_AMOUNT, paymentAmount.toString());
+        paymentIntent.putExtra(EXTRA_PAYMENT_CURRENCY, paymentCurrency);
+        paymentIntent.putExtra(EXTRA_PAYMENT_DESCRIPTION, paymentDescription);
+
         startActivityForResult(paymentIntent, REQUEST_CODE_PAYMENT);
     }
 
@@ -48,6 +61,7 @@ public class PaymentActivity extends Activity {
                 Toast.makeText(this, "Invalid payment", Toast.LENGTH_SHORT).show();
             }
         }
+
         stopService(new Intent(this, PayPalService.class));
         finish();
     }
