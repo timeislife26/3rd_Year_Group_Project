@@ -62,7 +62,6 @@
                 <label>Resting Electocardiographic Results: <input type="number" name="restecg" min="0" max="2" required autocomplete="on"></label>
                 <label>Maximum Heart Rate Achieved: <input type="number" name="thalach" required autocomplete="on"></label>
                 <label>ST Depression Induced by Exercise Relative to Rest: <input type="number" name="oldpeak" required autocomplete="on"></label>
-                <!--<label>Serum Cholestoral: <input type="number" name="chol" required autocomplete="on"></label>-->
                 <label>Slope of the Peak Exercise ST Segment: <input type="number" name="slope" min="0" max="2" required autocomplete="on"></label>
                 <label>Number of Major Vessels Coloured by Flourosopy: <input type="number" name="ca" min="0" max="3" required autocomplete="on"></label>
                 <label>Body Mass Index: <input type="number" step="0.01" name="bmi" required autocomplete="on"></label>
@@ -78,8 +77,8 @@
                 <fieldset>
                     <legend>Thal:</legend>
                     <div class="radio_btn">
-					            <label><input type="radio" name="thal" value="0">Normal</label>
-					            <label><input type="radio" name="thal" value="1">Fixed Defect</label>
+					    <label><input type="radio" name="thal" value="0">Normal</label>
+					    <label><input type="radio" name="thal" value="1">Fixed Defect</label>
                       <label><input type="radio" name="thal" value="2">Reversable Defect</label>
                       <label><input type="radio" name="thal" value="3">3</label>
                     </div>
@@ -145,6 +144,20 @@
                     <div class="radio_btn">
 					<label><input type="radio" name="Chest_pain" value="True">Yes</label>
 					<label><input type="radio" name="Chest_pain" value="False">No</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Hypertension:</legend>
+                    <div class="radio_btn">
+					<label><input type="radio" name="hypertension" value="True">Yes</label>
+					<label><input type="radio" name="hypertension" value="False">No</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Heart Disease:</legend>
+                    <div class="radio_btn">
+					<label><input type="radio" name="heart_disease" value="True">Yes</label>
+					<label><input type="radio" name="heart_disease" value="False">No</label>
                     </div>
                 </fieldset>
             </p>
