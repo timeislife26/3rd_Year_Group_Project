@@ -51,6 +51,14 @@
         <item>No</item>
         <item>Yes</item>
     </string-array>
+
+    <string-array name="smoking">
+        <item>No Info</item>
+        <item>Never</item>
+        <item>Formerly</item>
+        <item>Currently</item>
+    </string-array>
+
     <string-array name="doctors">
         <item>John Wilson</item>
         <item>Tom Jefferson</item>

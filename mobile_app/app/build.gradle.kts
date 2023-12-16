@@ -41,7 +41,7 @@ dependencies {
     implementation("com.braintreepayments.api:braintree:3.20.1")
     implementation("com.github.kittinunf.fuel:fuel:2.3.1")
     implementation("com.stripe:stripe-android:20.34.4")
-    implementation ("com.stripe:stripe-java:24.0.0")
+    implementation("com.stripe:stripe-java:24.0.0")
     implementation("com.stripe:stripe-android:20.34.4")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
@@ -50,7 +50,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.5.3")
     implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("com.google.firebase:firebase-auth:22.2.0")
-    testImplementation("junit:junit:4.13.2")
+    implementation("junit:junit:4.13.2")
+    implementation("com.paypal.sdk:paypal-android-sdk:2.16.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

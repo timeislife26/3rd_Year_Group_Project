@@ -92,22 +92,7 @@ public class MenuActivity extends AppCompatActivity {
                 // Reference to the user's database node
                 DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("PatientUsers").child(userId);
 
-                // Set the 'isPaid' field to true
-                userRef.child("isPaid").setValue(true)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(MenuActivity.this, "Payment successful. Thank you!", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(MenuActivity.this, "Failed to update payment status. Please try again.", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }
-                        });
+                goToPayPal();
             }
         });
 
@@ -170,6 +155,17 @@ public class MenuActivity extends AppCompatActivity {
         Intent intent = new Intent(MenuActivity.this, SettingsActivity.class);
         try {
             startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+        }
+    }
+    public void goToPayPal() {
+        Intent paymentIntent = new Intent(MenuActivity.this, PaymentActivity.class);
+        paymentIntent.putExtra(PaymentActivity.EXTRA_PAYMENT_AMOUNT, "2.00");
+        paymentIntent.putExtra(PaymentActivity.EXTRA_PAYMENT_CURRENCY, "EUR");
+        paymentIntent.putExtra(PaymentActivity.EXTRA_PAYMENT_DESCRIPTION, "LyfeRisk Subscription");
+        startActivity(paymentIntent);
+        try {
+            startActivity(paymentIntent);
         } catch (ActivityNotFoundException e) {
 
         }
