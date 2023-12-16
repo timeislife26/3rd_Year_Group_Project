@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.paypal.android.sdk.payments.PaymentActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -159,15 +160,11 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
     public void goToPayPal() {
-        Intent paymentIntent = new Intent(MenuActivity.this, PaymentActivity.class);
-        paymentIntent.putExtra(PaymentActivity.EXTRA_PAYMENT_AMOUNT, "2.00");
-        paymentIntent.putExtra(PaymentActivity.EXTRA_PAYMENT_CURRENCY, "EUR");
-        paymentIntent.putExtra(PaymentActivity.EXTRA_PAYMENT_DESCRIPTION, "LyfeRisk Subscription");
-        startActivity(paymentIntent);
+        Intent paymentIntent = new Intent(MenuActivity.this, PayActivity.class);
         try {
             startActivity(paymentIntent);
         } catch (ActivityNotFoundException e) {
-
+            e.printStackTrace(); // You can log the exception or show a message to the user
         }
     }
     public void goToReview(View view) {

@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.example.LyfeRisk"
         minSdk = 29
-        //noinspection EditedTargetSdkVersion
+        //noinspection  EditedTargetSdkVersion
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
