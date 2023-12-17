@@ -86,8 +86,11 @@
                 <fieldset>
                     <legend>Smoking:</legend>
                     <div class="radio_btn">
-					            <label><input type="radio" name="Smoking" value="True">Yes</label>
-					            <label><input type="radio" name="Smoking" value="False">No</label>
+					            <label><input type="radio" name="Smoking_history" value="0" onclick="toggleSmokingStatus(false)">No info</label>
+					            <label><input type="radio" name="Smoking_history" value="1" onclick="toggleSmokingStatus(false)">Never</label>
+                                <label><input type="radio" name="Smoking_history" value="2" onclick="toggleSmokingStatus(false)">Formerly</label>
+					            <label><input type="radio" name="Smoking_history" value="3" onclick="toggleSmokingStatus(true)">Currently</label>
+
                     </div>
                 </fieldset>
                 <fieldset>
@@ -96,6 +99,21 @@
 					            <label><input type="radio" name="Yellow_Fingers" value="True">Yes</label>
 					            <label><input type="radio" name="Yellow_Fingers" value="False">No</label>
                     </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Alcohol Consuming:</legend>
+					<label><input type="radio" name="Alcohol_Consuming" value="True">Yes</label>
+					<label><input type="radio" name="Alcohol_Consuming" value="False">No</label>
+                </fieldset>
+                <fieldset>
+                    <legend>Coughing:</legend>
+					<label><input type="radio" name="Coughing" value="True">Yes</label>
+					<label><input type="radio" name="Coughing" value="False">No</label>
+                </fieldset>
+                <fieldset>
+                    <legend>Shortness of Breath:</legend>
+					<label><input type="radio" name="Shortness_of_Breath" value="True">Yes</label>
+					<label><input type="radio" name="Shortness_of_Breath" value="False">No</label>
                 </fieldset>
                 <fieldset>
                     <legend>Anxiety:</legend>
@@ -142,9 +160,16 @@
                 <fieldset>
                     <legend>Chest Pain:</legend>
                     <div class="radio_btn">
-					<label><input type="radio" name="Chest_pain" value="True">Yes</label>
-					<label><input type="radio" name="Chest_pain" value="False">No</label>
+					<label><input type="radio" name="Chest_pain" value="True" onclick="toggleChestPainType()">Yes</label>
+					<label><input type="radio" name="Chest_pain" value="False" onclick="toggleChestPainType()">No</label>
                     </div>
+                </fieldset>
+                <fieldset id="cpField" style="display: none;">
+                    <legend>Chest Pain Type:</legend>
+                    <label><input type="radio" name="cp" value="0" checked>0</label>
+                    <label><input type="radio" name="cp" value="1">1</label>
+                    <label><input type="radio" name="cp" value="2">2</label>
+                    <label><input type="radio" name="cp" value="3">3</label>
                 </fieldset>
                 <fieldset>
                     <legend>Hypertension:</legend>
@@ -160,6 +185,7 @@
 					<label><input type="radio" name="heart_disease" value="False">No</label>
                     </div>
                 </fieldset>
+                <input type="hidden" name="smokingStatus" id="smokingStatus" value="False">
             </p>
             <p>
             <input type="hidden" name="selectedUserID" id="selectedUserID">
@@ -193,6 +219,10 @@
             // If chest pain is false, set chest pain type to 0
             document.getElementById('cp').value = '0';
         }
+    }
+    function toggleSmokingStatus(isCurrently) {
+        var smokingStatusField = document.getElementById('smokingStatus');
+        smokingStatusField.value = isCurrently ? 'True' : 'False';
     }
     </script>
 

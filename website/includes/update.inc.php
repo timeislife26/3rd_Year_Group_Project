@@ -14,7 +14,8 @@ if(isset($_POST["update"])){
     $ca = $_POST["ca"];
     $exang = $_POST["exang"];
     $thal = $_POST["thal"];
-    $Smoking = $_POST["Smoking"];
+    $Smoking_History = $_POST["Smoking_history"];
+    $Smoking = $_POST["smokingStatus"];
     $Yellow_Fingers = $_POST["Yellow_Fingers"];
     $Anxiety = $_POST["Anxiety"];
     $Chronic_Disease = $_POST["Chronic_Disease"];
@@ -24,6 +25,15 @@ if(isset($_POST["update"])){
     $Swallowing_Difficulty = $_POST["Swallowing_Difficulty"];
     $Chest_pain = $_POST["Chest_pain"];
     $cp = $_POST["cp"];
+    $alcoholC = $_POST["Alcohol_Consuming"];
+    $coughing = $_POST["Coughing"];
+    $SOB = $_POST["Shortness_of_Breath"];
+    $hypertension = $_POST["hypertension"];
+    $heart_disease = $_POST["heart_disease"];
+    $bmi = $_POST["bmi"];
+    $HbA1c_level = $_POST["HbA1c_level"];
+    $blood_glucose_level = $_POST["blood_glucose_level"];
+
     
     $postData = [
         'userID'=>$selectedUserID,
@@ -39,6 +49,7 @@ if(isset($_POST["update"])){
         'ca'=>$ca,
         'exang'=>$exang,
         'thal'=>$thal,
+        'Smoking_history'=>$Smoking_History,
         'Smoking'=>$Smoking,
         'Yellow_Fingers'=>$Yellow_Fingers,
         'Anxiety'=> $Anxiety,
@@ -49,6 +60,14 @@ if(isset($_POST["update"])){
         'Swallowing_Difficulty'=>$Swallowing_Difficulty,
         'Chest_pain'=>$Chest_pain,
         'cp'=>$cp,
+        'Alcohol_Consuming'=>$alcoholC,
+        'Coughing'=>$coughing,
+        'Shortness_of_Breath'=>$SOB,
+        'hypertension'=>$hypertension,
+        'heart_disease'=>$heart_disease,
+        'bmi'=>$bmi,
+        'HbA1c_level'=>$HbA1c_level,
+        'blood_glucose_level'=>$blood_glucose_level,
     ];
 
 

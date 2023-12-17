@@ -13,6 +13,7 @@
             $Chest_pain = $result["Chest_pain"];
             $Chronic_Disease = $result["Chronic_Disease"];
             $Fatigue = $result["Fatigue"];
+            $Smoking_History = $result["Smoking_history"];
             $Smoking = $result["Smoking"];
             $Swallowing_Difficulty = $result["Swallowing_Difficulty"];
             $Wheezing = $result["Wheezing"];
@@ -29,6 +30,14 @@
             $thal = $result["thal"];
             $thalach = $result["thalach"];
             $trewstbps = $result["trewstbps"];
+            $alcoholC = $result["Alcohol_Consuming"];
+            $coughing = $result["Coughing"];
+            $SOB = $result["Shortness_of_Breath"];
+            $hypertension = $result["hypertension"];
+            $heart_disease = $result["heart_disease"];
+            $bmi = $result["bmi"];
+            $HbA1c_level = $result["HbA1c_level"];
+            $blood_glucose_level = $result["blood_glucose_level"];
             if ($Allergy === "True"){
                 $Allergy = 1;
             }
@@ -95,11 +104,155 @@
             else{
                 $gender = 0;
             }
-            $Heart_Disease_data = [[$Age, $ca, $chol, $cp, $exang, $fbs, $oldpeak, $restecg, $gender, $slope, $thal, $thalach, $trewstbps]];
+            if ($alcoholC === "True"){
+                $alcoholC = 1;
+            }
+            else{
+                $alcoholC = 0;
+            }
+            if ($coughing === "True"){
+                $coughing = 1;
+            }
+            else{
+                $coughing = 0;
+            }
+            if ($SOB === "True"){
+                $SOB = 1;
+            }
+            else{
+                $SOB = 0;
+            }
+            if ($hypertension === "True"){
+                $hypertension = 1;
+            }
+            else{
+                $hypertension = 0;
+            }
+            if ($heart_disease === "True"){
+                $heart_disease = 1;
+            }
+            else{
+                $heart_disease = 0;
+            }
+            
+
+            $full_response = "";
+            //Sending heart disease info to the cloud function:
+            $heart_function_url = 'https://on-request-heart-ef42g3nnla-uc.a.run.app';
+
+
+            $Heart_Disease_data = [
+                "Age" => $Age,
+                "ca" => $ca,
+                "chol" => $chol,
+                "cp" => $cp,
+                "exang" => $exang,
+                "fbs" => $fbs,
+                "oldpeak" => $oldpeak,
+                "restecg" => $restecg,
+                "gender" => $gender,
+                "slope" => $slope,
+                "thal" => $thal,
+                "thalach" => $thalach,
+                "trewstbps" => $trewstbps,
+                ];
             $heart_Disease = json_encode($Heart_Disease_data);
-            $command = "python heart_main.py \"$heart_Disease\" 2>&1";
-            $output = shell_exec($command);
-            echo "Output: $output\n";
+
+                // Create HTTP context with POST data
+            $heart_options = [
+                'http' => [
+                    'header' => "Content-type: application/json\r\n",
+                    'method' => 'POST',
+                    'content' => $heart_Disease,
+                ],
+            ];
+            $heart_context = stream_context_create($heart_options);
+            $heart_response = file_get_contents($heart_function_url, false, $heart_context);
+            
+
+            if ($heart_response === FALSE) {
+                die('Error occurred while fetching data from the Heart Disease Cloud Function');
+            } else {
+                $full_response = $full_response . $heart_response;
+            }
+
+
+            //Sending lung disease info to the cloud function:
+            $lung_function_url = 'https://on-request-lung-ef42g3nnla-uc.a.run.app';
+
+            $lung_disease_data = [
+                "gender" => $gender,
+                "Age" => $Age,
+                "smoking" => $Smoking,
+                "yf" => $Yellow_Fingers,
+                "anxiety" => $Anxiety,
+                "cd" => $Chronic_Disease,
+                "fatigue" => $Fatigue,
+                "allergy" => $Allergy,
+                "wheezing" => $Wheezing,
+                "Alcohol" => $alcoholC,
+                "coughing" => $coughing,
+                "sob" => $SOB,
+                "chest_pain" => $Chest_pain,
+                "sd" => $Swallowing_Difficulty,
+            ];
+
+            $lung_Disease = json_encode($lung_disease_data);
+
+            // Create HTTP context with POST data
+            $lung_options = [
+                'http' => [
+                    'header' => "Content-type: application/json\r\n",
+                    'method' => 'POST',
+                    'content' => $lung_Disease,
+                ],
+            ];
+            $lung_context = stream_context_create($lung_options);
+            $lung_response = file_get_contents($lung_function_url, false, $lung_context);
+
+            if ($lung_response === FALSE) {
+                die('Error occurred while fetching data from the Lung Disease Cloud Function');
+            } else {
+                $full_response = $full_response . "\n" . $lung_response;
+            }
+
+            //Sending diabestes info to the cloud function:
+            $diabetes_function_url = 'https://on-request-diabetes-ef42g3nnla-uc.a.run.app';
+
+            $diabetes_data = [
+                "gender" => $gender,
+                "Age" => $Age,
+                "hypertension" => $hypertension,
+                "heart_disease" => $heart_disease,
+                "smoking_history" => $Smoking_History,
+                "bmi" => $bmi,
+                "hbA1c" => $HbA1c_level,
+                "blood_glucose_level" => $blood_glucose_level,
+            ];
+
+            $diabetes_json = json_encode($diabetes_data);
+
+            // Create HTTP context with POST data
+            $diabetes_options = [
+                'http' => [
+                    'header' => "Content-type: application/json\r\n",
+                    'method' => 'POST',
+                    'content' => $diabetes_json,
+                ],
+            ];
+            $diabetes_context = stream_context_create($diabetes_options);
+            $diabetes_response = file_get_contents($diabetes_function_url, false, $diabetes_context);
+
+            if ($diabetes_response === FALSE) {
+                die('Error occurred while fetching data from the Diabetes Cloud Function');
+            } else {
+                $full_response = $full_response . "\n" . $diabetes_response;
+            }
+            
+
+
+
+            echo $full_response;
         }
         else{
             echo "No data found";
