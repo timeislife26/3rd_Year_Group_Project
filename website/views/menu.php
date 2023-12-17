@@ -18,6 +18,7 @@
             <li>Use <b>Update Profile</b> to update your patient's profiles with more accurate data</li>
             <li>Use <b>Predicting Algorithm</b> to use our AI tools to make a prediction for a selected patient's risk of having certain diseases</li>
             <li>Use <b>Export Information</b> to download a file with information for a selected patient</li>
+            <li>Use <b>Docbot</b> to chat directly with our AI and ask them questions for quicker research information</li>
           </ul>
         </p>
         <p>
@@ -25,6 +26,7 @@
           <a href='update.php'>Update Patient Profile</a>
           <a href="predict.php">Predicting Algorithm</a>
           <a href="export.php">Export Information</a>
+          <a href='docbot.php'>Docbot</a>
         </p>
       </div>
     </main>
