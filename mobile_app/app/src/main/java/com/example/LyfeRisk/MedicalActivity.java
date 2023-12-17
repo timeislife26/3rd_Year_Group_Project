@@ -200,7 +200,7 @@ public class MedicalActivity extends AppCompatActivity {
         try {
             int age = Integer.parseInt(this.editAge.getText().toString());
             if (age < 1 || age > 110) {
-                Toast.makeText(this, "Please enter a valid age", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter an age between 1 and 110", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -208,38 +208,37 @@ public class MedicalActivity extends AppCompatActivity {
 
             int trewstbps = Integer.parseInt(this.editTrewstbps.getText().toString());
             if (trewstbps < 70 || trewstbps > 200) {
-                Toast.makeText(this, "Please enter a valid resting blood pressure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter resting blood pressure between 70 and 200 ", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-
             int chol = Integer.parseInt(this.editChol.getText().toString());
             if (chol < 70 || chol > 300) {
-                Toast.makeText(this, "Please enter a valid cholesterol", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter a valid cholesterol between 70 and 300", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            int maxHeartRate = 208 - (int) (0.7 * age);
+            int thalach = Integer.parseInt(this.editThalach.getText().toString());
+            if (thalach < 70 || thalach > maxHeartRate) {
+                Toast.makeText(this, "Enter a valid maximum heart rate between 70 and " + maxHeartRate, Toast.LENGTH_SHORT).show();
+
+                return;
+            }
+
+            float oldpeak = Float.parseFloat(this.editOldpeak.getText().toString());
+            if (oldpeak < 0 || oldpeak > 6.0) {
+                Toast.makeText(this, "Enter a valid ST Depression value between 0.0 and 6.0", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             int fbs = Integer.parseInt(this.editFbs.getText().toString());
             if (fbs < 60 || fbs > 150) {
-                Toast.makeText(this, "Please enter a valid blood sugar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter a valid blood sugar between 60 and 150", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             int restecg = mapRestecg(spinnerRestecg.getSelectedItem().toString());
-
-            int maxHeartRate = 208 - (int) (0.7 * age);
-            int thalach = Integer.parseInt(this.editThalach.getText().toString());
-            if (thalach < 70 || thalach > maxHeartRate) {
-                Toast.makeText(this, "Please enter a valid maximum heart rate", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-
-            float oldpeak = Float.parseFloat(this.editOldpeak.getText().toString());
-            if (oldpeak < -2.5 || oldpeak > 2.5) {
-                Toast.makeText(this, "Please enter a valid ST Depression value", Toast.LENGTH_SHORT).show();
-                return;
-            }
 
             int slope = mapSlope(spinnerSlope.getSelectedItem().toString());
             int ca = mapCa(spinnerCa.getSelectedItem().toString());
@@ -249,22 +248,24 @@ public class MedicalActivity extends AppCompatActivity {
 
             boolean yellowFingers = mapYesNo(spinnerYellowFingers.getSelectedItem().toString());
             float bmi = Float.parseFloat(this.editBMI.getText().toString());
-            if (bmi < 10 || bmi > 50) {
-                Toast.makeText(this, "Please enter a valid BMI", Toast.LENGTH_SHORT).show();
+            if (bmi < 10 || bmi > 70) {
+                Toast.makeText(this, "Enter a valid BMI between 10 and 70", Toast.LENGTH_SHORT).show();
+
                 return;
             }
 
 
             float hba1cLevel = Float.parseFloat(this.editHbA1cLevel.getText().toString());
-            if (hba1cLevel < 4 || hba1cLevel > 12) {
-                Toast.makeText(this, "Please enter a valid HbA1c level", Toast.LENGTH_SHORT).show();
+            if (hba1cLevel < 3 || hba1cLevel > 12) {
+                Toast.makeText(this, "Enter a valid HbA1c level between 3 and 12", Toast.LENGTH_SHORT).show();
                 return;
             }
 
 
             int bloodGlucoseLevel = Integer.parseInt(this.editBloodGlucoseLevel.getText().toString());
             if (bloodGlucoseLevel < 70 || bloodGlucoseLevel > 210) {
-                Toast.makeText(this, "Please enter a valid blood glucose level", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Enter a valid blood glucose level between 70 and 210" , Toast.LENGTH_SHORT).show();
+
                 return;
             }
 
@@ -278,7 +279,7 @@ public class MedicalActivity extends AppCompatActivity {
             mDatabase.child(userUid).child("restecg").setValue(restecg);
             mDatabase.child(userUid).child("thalach").setValue(thalach);
             mDatabase.child(userUid).child("exang").setValue(exang);
-            mDatabase.child(userUid).child("oldpeak").setValue(oldpeak);
+            mDatabase.child(userUid).child("oldpeak").setValue(String.format("%.2f", oldpeak));
             mDatabase.child(userUid).child("slope").setValue(slope);
             mDatabase.child(userUid).child("ca").setValue(ca);
             mDatabase.child(userUid).child("thal").setValue(thal);
@@ -293,8 +294,8 @@ public class MedicalActivity extends AppCompatActivity {
             mDatabase.child(userUid).child("Chest_pain").setValue(hasChestPain);
             mDatabase.child(userUid).child("hypertension").setValue(hypertension);
             mDatabase.child(userUid).child("heart_disease").setValue(heartDisease);
-            mDatabase.child(userUid).child("bmi").setValue(bmi);
-            mDatabase.child(userUid).child("HbA1c_level").setValue(hba1cLevel);
+            mDatabase.child(userUid).child("bmi").setValue(String.format("%.2f", bmi));
+            mDatabase.child(userUid).child("HbA1c_level").setValue(String.format("%.2f", hba1cLevel));
             mDatabase.child(userUid).child("blood_glucose_level").setValue(bloodGlucoseLevel);
             mDatabase.child(userUid).child("userId").setValue(mAuth.getCurrentUser().getUid());
 

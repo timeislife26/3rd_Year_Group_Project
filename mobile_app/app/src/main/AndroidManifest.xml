@@ -21,8 +21,8 @@
         <activity
             android:name=".PayActivity"
             android:exported="false"
-            tools:ignore="AppLinkUrlError">
-        </activity>
+            tools:ignore="AppLinkUrlError"/>
+        <activity
             android:name=".RecordsActivity"
             android:exported="false" />
         <activity

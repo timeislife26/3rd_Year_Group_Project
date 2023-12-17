@@ -86,7 +86,7 @@ public class RecordsActivity extends AppCompatActivity {
                                             Integer restecg = dataSnapshot.child("restecg").getValue(Integer.class);
                                             Integer thalach = dataSnapshot.child("thalach").getValue(Integer.class);
                                             Boolean exang = dataSnapshot.child("exang").getValue(Boolean.class);
-                                            Double oldpeak = dataSnapshot.child("oldpeak").getValue(Double.class);
+                                            String oldpeak = dataSnapshot.child("oldpeak").getValue(String.class);
                                             Integer slope = dataSnapshot.child("slope").getValue(Integer.class);
                                             Integer ca = dataSnapshot.child("ca").getValue(Integer.class);
                                             Integer thal = dataSnapshot.child("thal").getValue(Integer.class);
@@ -101,9 +101,9 @@ public class RecordsActivity extends AppCompatActivity {
                                             Boolean hasChestPain = dataSnapshot.child("Chest_pain").getValue(Boolean.class);
                                             Boolean hypertension = dataSnapshot.child("hypertension").getValue(Boolean.class);
                                             Boolean heartDisease = dataSnapshot.child("heart_disease").getValue(Boolean.class);
-                                            Double bmi = dataSnapshot.child("bmi").getValue(Double.class);
-                                            Double hba1cLevel = dataSnapshot.child("HbA1c_level").getValue(Double.class);
-                                            Double bloodGlucoseLevel = dataSnapshot.child("blood_glucose_level").getValue(Double.class);
+                                            String bmi = dataSnapshot.child("bmi").getValue(String.class);
+                                            String hba1cLevel = dataSnapshot.child("HbA1c_level").getValue(String.class);
+                                            Integer bloodGlucoseLevel = dataSnapshot.child("blood_glucose_level").getValue(Integer.class);
 
                                             Log.d("FirebaseData", "Age: " + age);
                                             Log.d("FirebaseData", "Gender: " + gender);
@@ -209,11 +209,11 @@ public class RecordsActivity extends AppCompatActivity {
 
     private void displayMedicalRecord(
             int age, boolean gender, int cp, int trewstbps, int chol, int fbs,
-            int restecg, int thalach, boolean exang, double oldpeak, int slope, int ca,
+            int restecg, int thalach, boolean exang, String oldpeak, int slope, int ca,
             int thal, boolean smoking, boolean yellowFingers, boolean anxiety,
             boolean chronicDisease, boolean fatigue, boolean allergy, boolean wheezing,
             boolean swallowingDifficulty, boolean hasChestPain, boolean hypertension,
-            boolean heartDisease, double bmi, double hba1cLevel, double bloodGlucoseLevel) {
+            boolean heartDisease, String bmi, String hba1cLevel, int bloodGlucoseLevel) {
 
         // Display the medical record information
         infoTextView.setText("Medical History:\n");
