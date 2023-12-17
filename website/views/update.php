@@ -102,18 +102,24 @@
                 </fieldset>
                 <fieldset>
                     <legend>Alcohol Consuming:</legend>
-					<label><input type="radio" name="Alcohol_Consuming" value="True">Yes</label>
-					<label><input type="radio" name="Alcohol_Consuming" value="False">No</label>
+                    <div class="radio_btn">
+					    <label><input type="radio" name="Alcohol_Consuming" value="True">Yes</label>
+					    <label><input type="radio" name="Alcohol_Consuming" value="False">No</label>
+                    </div>
                 </fieldset>
                 <fieldset>
                     <legend>Coughing:</legend>
-					<label><input type="radio" name="Coughing" value="True">Yes</label>
-					<label><input type="radio" name="Coughing" value="False">No</label>
+                    <div class="radio_btn">
+					    <label><input type="radio" name="Coughing" value="True">Yes</label>
+					    <label><input type="radio" name="Coughing" value="False">No</label>
+                    </div>
                 </fieldset>
                 <fieldset>
                     <legend>Shortness of Breath:</legend>
-					<label><input type="radio" name="Shortness_of_Breath" value="True">Yes</label>
-					<label><input type="radio" name="Shortness_of_Breath" value="False">No</label>
+                    <div class="radio_btn">
+					    <label><input type="radio" name="Shortness_of_Breath" value="True">Yes</label>
+					    <label><input type="radio" name="Shortness_of_Breath" value="False">No</label>
+                    </div>
                 </fieldset>
                 <fieldset>
                     <legend>Anxiety:</legend>
