@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,12 +26,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class RecordsActivity extends AppCompatActivity {
 
-    private Spinner spinnerOptions, spinnerDetails;
-    private TextView infoTextView;
-    private Button saveButton;
+    private Spinner spinnerOptions;
+    private TextView infoTextView, displayText, detailsTextView;
+    private EditText imcEditText;
+    private Button saveButton,findButton;
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase, mMedicalDatabase;
-
+    private DatabaseReference mDatabase, mMedicalDatabase,mDoctorDatabase;
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +40,20 @@ public class RecordsActivity extends AppCompatActivity {
         // Makes the app in portrait mode only
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        detailsTextView = findViewById(R.id.detailsTextView);
+        displayText = findViewById(R.id.textView6);
         spinnerOptions = findViewById(R.id.spinnerOptions);
-        spinnerDetails = findViewById(R.id.spinnerDetails);
+        imcEditText = findViewById(R.id.imcEditText);
         infoTextView = findViewById(R.id.infoTextView);
         saveButton = findViewById(R.id.saveButton);
+        findButton = findViewById(R.id.findButton);
 
         infoTextView.setMovementMethod(new ScrollingMovementMethod());
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("PatientUsers");
         mMedicalDatabase = FirebaseDatabase.getInstance().getReference("MedicalRecords");
+        mDoctorDatabase = FirebaseDatabase.getInstance().getReference("DoctorUsers");
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -59,13 +64,14 @@ public class RecordsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String selectedOption = spinnerOptions.getSelectedItem().toString();
 
-                ArrayAdapter<CharSequence> detailsAdapter = null;
-
                 // Check if "Patient Info" is selected
                 if ("Patient Info".equals(selectedOption)) {
+                    displayText.setText("Press the dropdown to get your information, choose your doctor or your Insurance company ");
                     infoTextView.setVisibility(View.VISIBLE);
                     saveButton.setVisibility(View.VISIBLE);
-                    spinnerDetails.setVisibility(View.GONE);
+                    imcEditText.setVisibility(View.GONE);
+                    detailsTextView.setVisibility(View.GONE);
+                    findButton.setVisibility(View.GONE);
                     String userid = mAuth.getCurrentUser().getUid();
 
                     if (mAuth.getCurrentUser() != null) {
@@ -75,8 +81,8 @@ public class RecordsActivity extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.exists()) {
-                                        // Retrieve all medical record fields directly
                                         try {
+
                                             Integer age = dataSnapshot.child("Age").getValue(Integer.class);
                                             Boolean gender = dataSnapshot.child("gender").getValue(Boolean.class);
                                             Integer cp = dataSnapshot.child("cp").getValue(Integer.class);
@@ -133,9 +139,8 @@ public class RecordsActivity extends AppCompatActivity {
                                             Log.d("FirebaseData", "HbA1c Level: " + hba1cLevel);
                                             Log.d("FirebaseData", "Blood Glucose Level: " + bloodGlucoseLevel);
 
-
                                             // Display the retrieved medical history
-                                            displayMedicalRecord(
+                                            displayRecords(
                                                     age, gender, cp, trewstbps, chol, fbs, restecg, thalach, exang, oldpeak,
                                                     slope, ca, thal, smoking, yellowFingers, anxiety, chronicDisease, fatigue,
                                                     allergy, wheezing, swallowingDifficulty, hasChestPain, hypertension,
@@ -156,29 +161,27 @@ public class RecordsActivity extends AppCompatActivity {
                         }
                     }
                 } else if ("Doctor".equals(selectedOption)) {
-                    // Show the save button and populate spinnerDetails with "Doctor" options
+                    displayText.setText("Please enter the Doctor's IMC");
                     infoTextView.setVisibility(View.GONE);
+                    findButton.setVisibility(View.VISIBLE);
                     saveButton.setVisibility(View.VISIBLE);
-                    detailsAdapter = ArrayAdapter.createFromResource(RecordsActivity.this, R.array.doctors , android.R.layout.simple_spinner_item);
-                    // Create an ArrayAdapter with doctor names
-                    spinnerDetails.setVisibility(View.VISIBLE);
-                } else if ("Insurance".equals(selectedOption)) {
-                    // Show the save button and populate spinnerDetails with "Insurance" options
-                    infoTextView.setVisibility(View.GONE);
-                    saveButton.setVisibility(View.VISIBLE);
-                    // Create an ArrayAdapter with insurance companies
-                    detailsAdapter = ArrayAdapter.createFromResource(RecordsActivity.this, R.array.insurance_companies, android.R.layout.simple_spinner_item);
-                    spinnerDetails.setVisibility(View.VISIBLE);
-                } else {
-                    // If any other option is selected, hide the save button and the spinnerDetails
-                    infoTextView.setVisibility(View.GONE);
-                    saveButton.setVisibility(View.GONE);
-                    spinnerDetails.setVisibility(View.GONE);
-                }
+                    imcEditText.setVisibility(View.VISIBLE);
+                    detailsTextView.setVisibility(View.VISIBLE);
+                    displayText.setVisibility(View.VISIBLE);
+                    detailsTextView.setText("");
 
-                if (detailsAdapter != null) {
-                    detailsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinnerDetails.setAdapter(detailsAdapter);
+                } else if ("Insurance".equals(selectedOption)) {
+                    infoTextView.setVisibility(View.GONE);
+                    imcEditText.setVisibility(View.GONE);
+                    findButton.setVisibility(View.GONE);
+                    detailsTextView.setVisibility(View.GONE);
+                    saveButton.setVisibility(View.VISIBLE);
+                } else {
+                    infoTextView.setVisibility(View.GONE);
+                    findButton.setVisibility(View.GONE);
+                    saveButton.setVisibility(View.GONE);
+                    imcEditText.setVisibility(View.GONE);
+                    detailsTextView.setVisibility(View.GONE);
                 }
             }
 
@@ -187,27 +190,76 @@ public class RecordsActivity extends AppCompatActivity {
             }
         });
 
+        findButton.setOnClickListener(view -> {
+            String imc = imcEditText.getText().toString().trim();
+            if (!imc.isEmpty()) {
+                mDoctorDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        boolean found = false;
+                        for (DataSnapshot doctorSnapshot : dataSnapshot.getChildren()) {
+                            String doctorImc = doctorSnapshot.child("imc").getValue(String.class);
+                            if (imc.equals(doctorImc)) {
+                                // If a doctor with the provided IMC is found
+                                String doctorName = doctorSnapshot.child("fullName").getValue(String.class);
+
+                                detailsTextView.setText("Doctor's Name: " + doctorName);
+                                infoTextView.setText("Doctor's Name: " + doctorName + "\n");
+                                infoTextView.append("Doctor's IMC: " + doctorImc + "\n");
+
+
+
+                                found = true;
+                                break;
+
+                            }
+                        }
+
+                        if (!found) {
+                            // If no doctor found with the provided IMC
+                            detailsTextView.setText("No doctors with IMC: " + imc);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        detailsTextView.setText("Error retrieving data");
+                    }
+                });
+            } else {
+                detailsTextView.setText("Please enter the IMC");
+            }
+        });
+
         saveButton.setOnClickListener(view -> {
             String selectedOption = spinnerOptions.getSelectedItem().toString();
-            String selectedDetails = spinnerDetails.getSelectedItem().toString();
 
-            if (mAuth.getCurrentUser() != null) {
-                // Get the currently logged-in user's UID
-                String userUid = mAuth.getCurrentUser().getUid();
+            if ("Doctor".equals(selectedOption)) {
+                String doctorIMC = imcEditText.getText().toString().trim();
 
-                // Save the selected information to the user's data in the database
-                mDatabase.child(userUid).child(selectedOption).setValue(selectedDetails);
+                if (!doctorIMC.isEmpty()) {
+                    // Get the currently logged-in user's UID
+                    String userUid = mAuth.getCurrentUser().getUid();
 
-                // Inform the user that data is saved
-                String message = "Data saved for " + selectedOption + ": " + selectedDetails;
+                    // Save the doctor's IMC to linkedDoctorIMC
+                    mDatabase.child(userUid).child("linkedDoctorIMC").setValue(doctorIMC);
 
-                // Show a toast message to inform the user
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Linked Doctor's IMC saved: " + doctorIMC, Toast.LENGTH_SHORT).show();
+                } else {
+                    detailsTextView.setText("Please enter the Doctor's IMC");
+                }
+            } else {
+
+                if (mAuth.getCurrentUser() != null) {
+                    String message = "Data saved for " + selectedOption;
+
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    private void displayMedicalRecord(
+    private void displayRecords(
             int age, boolean gender, int cp, int trewstbps, int chol, int fbs,
             int restecg, int thalach, boolean exang, String oldpeak, int slope, int ca,
             int thal, boolean smoking, boolean yellowFingers, boolean anxiety,
@@ -216,7 +268,7 @@ public class RecordsActivity extends AppCompatActivity {
             boolean heartDisease, String bmi, String hba1cLevel, int bloodGlucoseLevel) {
 
         // Display the medical record information
-        infoTextView.setText("Medical History:\n");
+        infoTextView.append("Medical History:\n");
         infoTextView.append("Age: " + age + "\n");
         infoTextView.append("Gender: " + (gender ? "Male" : "Female") + "\n");
         infoTextView.append("Chest Pain Type: " + cp + "\n");
