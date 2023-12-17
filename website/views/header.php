@@ -38,6 +38,7 @@
             echo "<li><a href='update.php'>Update Patient Profile</a></li>";
             echo "<li><a href='predict.php'>Predicting Algorithm</a></li>";
             echo "<li><a href='export.php'>Export Information</a></li>";
+            echo "<li><a href='docbot.php'>Docbot</a></li>";
             echo "<li><a href='../includes/logout.inc.php'>Logout</a></li>";
           }
           else {
