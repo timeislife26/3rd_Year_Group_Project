@@ -11,7 +11,7 @@
               <label>Name*: <input type="text" name="name" required autocomplete="on"></label>
               <label>Email*: <input type="email" name="email" autocomplete="on"></label>
               <label>IMC Number*: <input type="text" name="IMC" autocomplete="on"></label>
-              <label>Registration Number*: <input type="text" name="regNum" autocomplete="on"></label>
+              <label>Telephone Number*: <input type="tel" name="telNum" autocomplete="on"></label>
               <label>Password*: <input type="password" name="password" required></label>
               <label>Confirm Password*: <input type="password" name="confirm-password" required></label>
             </p>
