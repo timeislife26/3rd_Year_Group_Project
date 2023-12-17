@@ -160,10 +160,10 @@ function loginUser($auth,$database, $email, $password, $redirect){
                 exit();
             }
 
-        } catch (FailedToVerifyToken $e) {
+        } catch (\Throwable $e) { //catch (FailedToVerifyToken $e) {
             echo 'The token is invalid: '.$e->getMessage();
         }
-    } catch (\Kreait\Firebase\Exception\Auth\UserNotFound $e) {
+    } catch (\Kreait\Firebase\Exception\Auth\UserNotFound | Kreait\Firebase\Auth\SignIn\FailedToSignIn $e) {
         //echo $e->getMessage();
         header("location: ../views/login.php?error=wronglogin");
         exit();

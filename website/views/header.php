@@ -1,7 +1,7 @@
 <?php
   session_start();
   
-  require_once '../php-firebase/dbcon.php';
+  require_once '../php-firebase/dbcon.php';  
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +29,7 @@
             //Check if token has expired
             try {
               $verifiedIdToken = $auth->verifyIdToken($_SESSION['idToken']);
-            } catch (FailedToVerifyToken $e) {
+            } catch (\Kreait\Firebase\Exception\Auth\RevokedIdToken $e) { //catch (FailedToVerifyToken $e) {
               header("location: ../includes/logout.inc.php");
               exit();
             }
