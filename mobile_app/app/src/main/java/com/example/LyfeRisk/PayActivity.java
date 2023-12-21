@@ -32,29 +32,29 @@ public class PayActivity extends Activity {
         setContentView(R.layout.activity_subscription);
         Log.d("PayPal", "onCreate: Started");
 
-
         if (!paypalServiceStarted) {
-            Intent intent = new Intent(this, PayPalService.class);
-            intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,
-                    new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-                            .clientId(PAYPAL_CLIENT_ID));
-            startService(intent);
-
+            startPayPalService();
             paypalServiceStarted = true;
         }
 
         createSubscription();
     }
 
+    private void startPayPalService() {
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,
+                new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
+                        .clientId(PAYPAL_CLIENT_ID));
+        startService(intent);
+    }
+
     private void createSubscription() {
-        // Use the PayPalPayment method to create a payment
         PayPalPayment payment = new PayPalPayment(
                 new BigDecimal("2.00"),
                 "EUR",
                 "LyfeRisk Subscription",
                 PayPalPayment.PAYMENT_INTENT_SALE);
 
-        // Create and start the payment activity
         Intent paymentIntent = new Intent(this, PaymentActivity.class);
         paymentIntent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,
                 new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
@@ -67,29 +67,32 @@ public class PayActivity extends Activity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE_PAYMENT) {
-            if (resultCode == Activity.RESULT_OK) {
-                PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-                if (confirmation != null) {
-                    String paymentId = confirmation.getProofOfPayment().getPaymentId();
-                    handleSuccessfulPayment(paymentId);
-                }
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                handlePaymentCanceled();
-            } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-                handleInvalidPayment();
-            }
+    if (requestCode == REQUEST_CODE_PAYMENT) {
+        if (resultCode == Activity.RESULT_OK) {
+            handleSuccessfulPayment(data);
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            handlePaymentCanceled();
+        } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
+            handleInvalidPayment();
+        }
 
-            stopService(new Intent(this, PayPalService.class));
-            finish();
+        stopService(new Intent(this, PayPalService.class));
+        finish();
+    }
+}
+
+    private void handleSuccessfulPayment(Intent data) {
+        PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+        if (confirmation != null) {
+            String paymentId = confirmation.getProofOfPayment().getPaymentId();
+            updateSubscriptionStatus(paymentId);
         }
     }
 
-    private void handleSuccessfulPayment(String paymentId) {
-        // Update user's subscription status in the database
+    private void updateSubscriptionStatus(String paymentId) {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("PatientUsers").child(userId);
 
@@ -116,7 +119,7 @@ public class PayActivity extends Activity {
     }
 
     private void handleInvalidPayment() {
-        Toast.makeText(this, "Invalid payment", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Invalid payment. Please try again.", Toast.LENGTH_SHORT).show();
         Log.e("PayPal", "Invalid payment");
     }
 }
