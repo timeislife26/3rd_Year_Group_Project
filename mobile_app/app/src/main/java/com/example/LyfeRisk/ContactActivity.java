@@ -55,8 +55,8 @@ public class ContactActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String phoneNumber = dataSnapshot.child("doctorPhoneNumber").getValue(String.class);
-                    makeCall(phoneNumber);
+                    String telNum = dataSnapshot.child("telNum").getValue(String.class);
+                    makeCall(telNum);
                 }
             }
 
@@ -76,8 +76,8 @@ public class ContactActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        String phoneNumber = dataSnapshot.child("insurancePhoneNumber").getValue(String.class);
-                        makeCall(phoneNumber);
+                        String insuranceTelNum = dataSnapshot.child("insuranceTelNum").getValue(String.class);
+                        makeCall(insuranceTelNum);
                     }
                 }
 
@@ -90,10 +90,10 @@ public class ContactActivity extends AppCompatActivity {
         }
     }
 
-    private void makeCall(String phoneNumber) {
-        if (phoneNumber != null && !phoneNumber.isEmpty()) {
+    private void makeCall(String phoneNum) {
+        if (phoneNum != null && !phoneNum.isEmpty()) {
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
-            callIntent.setData(Uri.parse("tel:" + phoneNumber));
+            callIntent.setData(Uri.parse("tel:" + phoneNum));
             startActivity(callIntent);
         } else {
             Toast.makeText(ContactActivity.this, "Phone number not available", Toast.LENGTH_SHORT).show();

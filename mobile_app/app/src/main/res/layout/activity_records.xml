@@ -40,7 +40,7 @@
         android:id="@+id/textBox"
         android:layout_width="314dp"
         android:layout_height="574dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="20dp"
         android:background="#006400"
         android:src="@drawable/textbubble"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,37 +88,78 @@
         android:ems="10"
         android:hint="Doctor IMC"
         android:inputType="text"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/spinnerOptions"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/spinnerOptions"
         app:layout_constraintTop_toBottomOf="@+id/spinnerOptions" />
 
+    <EditText
+        android:id="@+id/insuranceEditText"
+        android:layout_width="218dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="Insurance Name"
+        android:inputType="text"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerOptions"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/spinnerOptions"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerOptions" />
+
+    <EditText
+        android:id="@+id/policyNumEditText"
+        android:layout_width="218dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="Policy Number"
+        android:inputType="number"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/insuranceEditText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/insuranceEditText"
+        app:layout_constraintTop_toBottomOf="@+id/insuranceEditText" />
+
+    <EditText
+        android:id="@+id/phoneNoEditText"
+        android:layout_width="218dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="Insurance Phone Number"
+        android:inputType="phone"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/policyNumEditText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/policyNumEditText"
+        app:layout_constraintTop_toBottomOf="@+id/policyNumEditText" />
+
 
     <TextView
         android:id="@+id/detailsTextView"
-        android:layout_width="217dp"
-        android:layout_height="52dp"
-        android:visibility="visible"
+        android:layout_width="228dp"
+        android:layout_height="57dp"
         android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="@+id/imcEditText"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:visibility="visible"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintStart_toStartOf="@+id/imcEditText"
-        app:layout_constraintTop_toBottomOf="@+id/imcEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneNoEditText"
+        app:layout_constraintVertical_bias="0.857" />
 
     <TextView
         android:id="@+id/infoTextView"
-        android:layout_width="292dp"
-        android:layout_height="216dp"
+        android:layout_width="287dp"
+        android:layout_height="355dp"
+        android:scrollbars="vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="18dp"
-        android:scrollbars = "vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="@+id/textBox"
-        app:layout_constraintVertical_bias="0.935" />
+        app:layout_constraintVertical_bias="0.931" />
 
     <TextView
         android:id="@+id/textView6"
@@ -137,7 +178,7 @@
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="108dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToRecords"
         android:text="Save"
@@ -148,7 +189,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneNoEditText" />
 
     <Button
         android:id="@+id/findButton"

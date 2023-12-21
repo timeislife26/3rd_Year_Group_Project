@@ -28,7 +28,7 @@ public class RecordsActivity extends AppCompatActivity {
 
     private Spinner spinnerOptions;
     private TextView infoTextView, displayText, detailsTextView;
-    private EditText imcEditText;
+    private EditText imcEditText,insuranceEditText,policyNumEditText,phoneNoEditText;
     private Button saveButton,findButton;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase, mMedicalDatabase,mDoctorDatabase;
@@ -47,8 +47,14 @@ public class RecordsActivity extends AppCompatActivity {
         infoTextView = findViewById(R.id.infoTextView);
         saveButton = findViewById(R.id.saveButton);
         findButton = findViewById(R.id.findButton);
+        insuranceEditText = findViewById(R.id.insuranceEditText);
+        policyNumEditText = findViewById(R.id.policyNumEditText);
+        phoneNoEditText = findViewById(R.id.phoneNoEditText);
+
 
         infoTextView.setMovementMethod(new ScrollingMovementMethod());
+        detailsTextView.setMovementMethod(new ScrollingMovementMethod());
+
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("PatientUsers");
@@ -68,15 +74,18 @@ public class RecordsActivity extends AppCompatActivity {
                 if ("Patient Info".equals(selectedOption)) {
                     displayText.setText("Press the dropdown to get your information, choose your doctor or your Insurance company ");
                     infoTextView.setVisibility(View.VISIBLE);
-                    saveButton.setVisibility(View.VISIBLE);
+                    saveButton.setVisibility(View.GONE);
                     imcEditText.setVisibility(View.GONE);
                     detailsTextView.setVisibility(View.GONE);
                     findButton.setVisibility(View.GONE);
+                    insuranceEditText.setVisibility(View.GONE);
+                    policyNumEditText.setVisibility(View.GONE);
+                    phoneNoEditText.setVisibility(View.GONE);
+
                     String userid = mAuth.getCurrentUser().getUid();
 
                     if (mAuth.getCurrentUser() != null) {
                         try {
-                            // Retrieve the patient's medical history from the database
                             mMedicalDatabase.child(userid).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -163,25 +172,85 @@ public class RecordsActivity extends AppCompatActivity {
                 } else if ("Doctor".equals(selectedOption)) {
                     displayText.setText("Please enter the Doctor's IMC");
                     infoTextView.setVisibility(View.GONE);
-                    findButton.setVisibility(View.VISIBLE);
                     saveButton.setVisibility(View.VISIBLE);
                     imcEditText.setVisibility(View.VISIBLE);
+                    findButton.setVisibility(View.VISIBLE);
                     detailsTextView.setVisibility(View.VISIBLE);
                     displayText.setVisibility(View.VISIBLE);
+                    insuranceEditText.setVisibility(View.GONE);
+                    policyNumEditText.setVisibility(View.GONE);
+                    phoneNoEditText.setVisibility(View.GONE);
                     detailsTextView.setText("");
 
+                    mDoctorDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot doctorSnapshot : dataSnapshot.getChildren()) {
+                                String doctorName = doctorSnapshot.child("fullName").getValue(String.class);
+                                String doctorIMC = doctorSnapshot.child("imc").getValue(String.class);
+                                if (doctorName != null) {
+                                    detailsTextView.setText("Name: " + doctorName + "\n");
+                                    detailsTextView.append("IMC: " + doctorIMC + "\n");
+                                } else {
+                                    detailsTextView.setText("No Doctor information found.");
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            detailsTextView.setText("Error retrieving data");
+                        }
+                    });
                 } else if ("Insurance".equals(selectedOption)) {
+                    displayText.setText("Please enter your Insurance's Info");
                     infoTextView.setVisibility(View.GONE);
                     imcEditText.setVisibility(View.GONE);
                     findButton.setVisibility(View.GONE);
-                    detailsTextView.setVisibility(View.GONE);
+                    detailsTextView.setVisibility(View.VISIBLE);
                     saveButton.setVisibility(View.VISIBLE);
+                    insuranceEditText.setVisibility(View.VISIBLE);
+                    policyNumEditText.setVisibility(View.VISIBLE);
+                    phoneNoEditText.setVisibility(View.VISIBLE);
+                    detailsTextView.setText("");
+
+                    if (mAuth.getCurrentUser() != null) {
+                        String userUid = mAuth.getCurrentUser().getUid();
+                        mDatabase.child(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    String insuranceName = dataSnapshot.child("insuranceName").getValue(String.class);
+                                    String insuranceTelNum = dataSnapshot.child("insuranceTelNum").getValue(String.class);
+                                    int insurancePolicyNum = dataSnapshot.child("insurancePolicyNum").getValue(Integer.class);
+
+                                    if (insuranceName != null) {
+                                        // Display the current insurance information in detailsTextView
+                                        detailsTextView.setText("Name: " + insuranceName + "\n");
+                                        detailsTextView.append("Phone Number: " + insuranceTelNum + "\n");
+                                        detailsTextView.append("Policy Number: " + insurancePolicyNum + "\n");
+
+                                    } else {
+                                        detailsTextView.setText("No insurance information found.");
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                detailsTextView.setText("Error retrieving insurance data");
+                            }
+                        });
+                    }
                 } else {
                     infoTextView.setVisibility(View.GONE);
                     findButton.setVisibility(View.GONE);
                     saveButton.setVisibility(View.GONE);
                     imcEditText.setVisibility(View.GONE);
                     detailsTextView.setVisibility(View.GONE);
+                    insuranceEditText.setVisibility(View.GONE);
+                    policyNumEditText.setVisibility(View.GONE);
+                    phoneNoEditText.setVisibility(View.GONE);
                 }
             }
 
@@ -207,8 +276,6 @@ public class RecordsActivity extends AppCompatActivity {
                                 infoTextView.setText("Doctor's Name: " + doctorName + "\n");
                                 infoTextView.append("Doctor's IMC: " + doctorImc + "\n");
 
-
-
                                 found = true;
                                 break;
 
@@ -227,7 +294,6 @@ public class RecordsActivity extends AppCompatActivity {
                     }
                 });
             } else {
-                detailsTextView.setText("Please enter the IMC");
             }
         });
 
@@ -247,6 +313,25 @@ public class RecordsActivity extends AppCompatActivity {
                     Toast.makeText(this, "Linked Doctor's IMC saved: " + doctorIMC, Toast.LENGTH_SHORT).show();
                 } else {
                     detailsTextView.setText("Please enter the Doctor's IMC");
+                }
+            } else if ("Insurance".equals(selectedOption)) {
+                String insuranceName = insuranceEditText.getText().toString().trim();
+                String insuranceTelNum = phoneNoEditText.getText().toString().trim();
+                int insurancePolicyNum = Integer.parseInt(policyNumEditText.getText().toString().trim());
+
+                if (!insuranceName.isEmpty() && !(insurancePolicyNum == 0) && !insuranceTelNum.isEmpty()) {
+                    // Get the currently logged-in user's UID
+                    String userUid = mAuth.getCurrentUser().getUid();
+
+                    // Save the doctor's IMC to linkedDoctorIMC
+                    mDatabase.child(userUid).child("insuranceName").setValue(insuranceName);
+                    mDatabase.child(userUid).child("insuranceTelNum").setValue(insuranceTelNum);
+                    mDatabase.child(userUid).child("insurancePolicyNum").setValue(insurancePolicyNum);
+
+
+                    Toast.makeText(this, "Insurance saved: " + insuranceName, Toast.LENGTH_SHORT).show();
+                } else {
+                    detailsTextView.setText("Please fill all the inputs");
                 }
             } else {
 
