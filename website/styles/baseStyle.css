@@ -151,6 +151,13 @@ textarea {
     margin-right: 5%;
 }
 
+#replyBox {
+    border: 1px solid var(--primaryColour);
+    padding: 10px;
+    min-height: 100px;
+    margin: 50px;
+}
+
 footer {
     background-color: var(--primaryColour);
     position: fixed;

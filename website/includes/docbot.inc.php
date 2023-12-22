@@ -22,7 +22,8 @@ $response = file_get_contents($function_url, false, $context);
 if ($response === FALSE) {
     die('Error occurred while fetching data from the Cloud Function');
 } else {
-    echo "$response\n";
+    echo "<b>Query:</b> $message<br><br>";
+    echo "<b>DocBot:</b> $response";
 }
 
 

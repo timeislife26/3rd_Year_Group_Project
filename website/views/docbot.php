@@ -10,12 +10,14 @@
                     Please use the text box below to send your query to our AI doctor which will generate an answer from 
                     our knowledge database to help assist with any issues you might have.
                 </p>
-                <label for="inputBox">Enter your query:<input type="text" id="inputBox" name="inputBox"></label>
-                <p><button onclick="getDocBotResponse()" name="send">Ask</button></p>
 
-                <label id="textlabel" for="bigTextBox"><p>DocBot Reply:</p>
-                    <textarea id="bigTextBox" name="bigTextBox" rows="10" cols="1600"></textarea>
-                </label>
+                <div id="replyBox" contenteditable="true">
+                    Please let me know how I can help today!
+                </div>
+
+                
+                <label for="inputBox">Enter your query:<input type="text" id="inputBox" name="inputBox" onkeyup="checkEnter(event)"></label>
+                <p><button onclick="getDocBotResponse()" name="send">Ask</button><br></p>
             </div>
         </main>
     </body>
@@ -33,10 +35,16 @@
                 x.onreadystatechange = function () {
                 if (x.readyState == 4 && x.status == 200) {
                     // Handle the response if needed
-                    document.getElementById("bigTextBox").value = x.responseText;
+                    document.getElementById("replyBox").innerHTML = x.responseText;
                 }
             };
             x.send();
+        }
+
+        function checkEnter(event) {
+            if (event.keyCode === 13) {
+                getDocBotResponse();
+            }
         }
     </script>
 
