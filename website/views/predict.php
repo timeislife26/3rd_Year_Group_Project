@@ -38,7 +38,7 @@
                     ?>
             </select>
             <input type="hidden" name="selectedUserID" id="selectedUserID">
-            <button onclick="getPrediction()" name="generate">Fill Form</button>
+            <button onclick="getPrediction()" name="generate">Generate</button>
           </label>
           </div>
         <label id="textlabel"><p>Profile</p>

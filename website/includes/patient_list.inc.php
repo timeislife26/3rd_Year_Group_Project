@@ -76,67 +76,6 @@ function displayPatientProfile($database, $patientList) {
   }
 }
 
-// Function that will make the request for the prediction
-// (currently a copy of the Profile function, will be updated once the prediction is running)
-function displayPatientPrediction($database, $patientList) {
-  if (isset($_POST['generate'])) {
-    $refTable = "PatientUsers";
-    $secondTable = "MedicalRecords";
-    $targetFullName = $_POST['selectedPatient'];
-    
-    $result = $database->getReference($refTable)->getValue();
-    $secondResult = $database->getReference($secondTable)->getValue();
-
-    if ($result) {
-      foreach ($result as $entry) {
-        if (strcasecmp(trim($entry['name']), $targetFullName) === 0) {
-          $targetID = $entry['userId'];
-          // Match found, printing the entry data
-          echo "\n\tFull Name: " . $entry['name'] . "\n";
-          echo "\tEmail: " . $entry['email'] . "\n";
-          // echo "\tInsurance: " . $entry['Insurance'] . "\n";
-          // echo "\tDoctor: " . $entry['Doctor'] . "\n";
-          // if ($entry['medicalRecords'] === 'yes') {
-            foreach ($secondResult as $entry) {
-              if (strcasecmp(trim($entry['userId']), $targetID) === 0) {
-                echo "\tAge: " . $entry['Age'] . "\n";
-                echo "\tAllergy: " . $entry['Allergy'] . "\n";
-                echo "\tAnxiety: " . $entry['Anxiety'] . "\n";
-                echo "\tChest Pain: " . $entry['Chest_pain'] . "\n";
-                echo "\tChronic Disease: " . $entry['Chronic_Disease'] . "\n";
-                echo "\tFatigue: " . $entry['Fatigue'] . "\n";
-                echo "\tHbA1c Level: " . $entry['HbA1c_level'] . "\n";
-                echo "\tSmoking: " . $entry['Smoking'] . "\n";
-                echo "\tSwallowing Difficulty: " . $entry['Swallowing_Difficulty'] . "\n";
-                echo "\tWheezing: " . $entry['Wheezing'] . "\n";
-                echo "\tYellow Fingers: " . $entry['Yellow_Fingers'] . "\n";
-                echo "\tBlood Glucose Level: " . $entry['blood_glucose_level'] . "\n";
-                echo "\tBody Mass Index: " . $entry['bmi'] . "\n";
-                echo "\tNumber of Major Vessels Coloured by Flourosopy: " . $entry['ca'] . "\n";
-                echo "\tSerum Cholestoral: " . $entry['chol'] . "\n";
-                //echo "\tChest Pain: " . $entry['cp'] . "\n";
-                echo "\tExercise Induced Angina: " . $entry['exang'] . "\n";
-                echo "\tFasting Blood Sugar: " . $entry['fbs'] . "\n";
-                echo "\tGender: " . $entry['gender'] . "\n";
-                echo "\tHeart Disease: " . $entry['heart_disease'] . "\n";
-                echo "\tHypertension: " . $entry['hypertension'] . "\n";
-                echo "\tST Depression Induced by Exercise Relative to Rest: " . $entry['oldpeak'] . "\n";
-                echo "\tResting Electocardiographic Results: " . $entry['restecg'] . "\n";
-                echo "\tSlope of Peak Exercise ST segment: " . $entry['slope'] . "\n";
-                echo "\tThal: " . $entry['thal'] . "\n";
-                echo "\tMaximum Heart Rate Achieved: " . $entry['thalach'] . "\n";
-                echo "\tResting Blood Pressure: " . $entry['trewstbps'] . "\n";
-              }
-            }
-          //}
-          break; // Exit loop when match is found
-        }
-      }
-    } else {
-        echo "No results found for the specified table.";
-    }
-  }
-}
 
 // Function that will export the information of the patient into an txt file
 function displayPatientExport($database, $patientList) {
