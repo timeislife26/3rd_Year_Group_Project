@@ -32,6 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class PayActivity extends AppCompatActivity implements DropInListener {
 
     private DropInClient dropInClient;
+    private boolean dropInLaunched = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,10 @@ public class PayActivity extends AppCompatActivity implements DropInListener {
                     viewTreeObserver.removeOnGlobalLayoutListener(this);
                 }
 
-                launchDropIn();
+                if (!dropInLaunched) {
+                    launchDropIn();
+                    dropInLaunched = true;
+                }
             }
         };
 
