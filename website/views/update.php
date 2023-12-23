@@ -1,9 +1,12 @@
 <?php
   include_once 'header.php';
 
+  include '../includes/fetch_patient_data.inc.php';
+
+  /*
   // Database connection
   require_once '../php-firebase/dbcon.php'; //'dbh.inc.php';
-  
+  /*
   // Query to fetch the list of names from DB
   $refTable = "PatientUsers";
   
@@ -18,10 +21,14 @@
       $patientList[] = $row["name"];
       $patientID[] = $row["userId"];
   }
+  */
 ?>
 
+    <script src="../includes/update_scripts.js"></script>
+
     <main>
-      <div id="container">
+
+        <div id="container">
         <h2>Profile Update</h2>
         <p>
           Select one of your patients from the drop down menu and click on "Fill Form" to enter the data 
@@ -32,28 +39,33 @@
         <form method="post">
           <div class="dropdown_list">
           <label for="patient_list">Patient Name*:&emsp;
-            <select id="patient_list" name="selectedPatient" onchange="updateSelectedUserID()">
-            <?php
-                    // Loop through names and corresponding userIDs
-                    for ($i = 0; $i < count($patientList); $i++) {
-                        echo '<option value="' . $patientID[$i] . '">' , $patientList[$i] , '</option>';
-                    }
-                    ?>
+            <select id="patient_list" name="selectedPatient">
+              <?php
+              foreach ($patientList as $patient) {
+                echo '<option value="' . $patient . '">' , $patient , '</option>';
+              }
+              ?>
             </select>
             <button type="submit" name="generate">Fill Form</button>
+            <?php
+            if (isset($_POST['generate'])) {
+              fetchPatientData($database, $patientList);
+            }
+            ?>
           </label>
           </div>
         </form>
+        
         <form action="../includes/update.inc.php" method="POST">
             <p>
-                <label>Name: <input type="text" name="name" required autocomplete="on"></label>
-                <label>Email: <input type="email" name="email" autocomplete="on"></label>
-                <label>Age: <input type="number" name="Age" min="0" max="125" required autocomplete="on"></label>
+                <label>Name: <input type="text" name="name" id="name" required autocomplete="on"></label>
+                <label>Email: <input type="email" name="email" id="email" autocomplete="on"></label>
+                <label>Age: <input type="number" name="Age" id="Age" min="0" max="125" required autocomplete="on"></label>
                 <fieldset>
                     <legend>Gender at Birth:</legend>
                     <div class="radio_btn">
-					            <label><input type="radio" name="gender" value="True">Male</label>
-					            <label><input type="radio" name="gender" value="False">Female</label>
+					            <label><input type="radio" name="gender" id="genderM" value="True">Male</label>
+					            <label><input type="radio" name="gender" id="genderF" value="False">Female</label>
                     </div>
                 </fieldset>
                 <label>Resting Blood Pressure: <input type="number" name="trewstbps" required autocomplete="on"></label>
@@ -201,37 +213,6 @@
       </div>
     </main>
   </body>
-  <script>
-    var patientID;
-
-    window.onload = function() {
-        patientID = document.getElementById("patient_list").value;
-        console.log("Initial Patient ID: ", patientID);
-        document.getElementById("selectedUserID").value = patientID;
-    };
-    function updateSelectedUserID() {
-        patientID = document.getElementById("patient_list").value;
-        console.log("Selected Patient ID: ", patientID);
-        document.getElementById("selectedUserID").value = patientID;
-    }
-    function toggleChestPainType() {
-        var chestPainRadio = document.querySelector('input[name="Chest_pain"]:checked');
-        var chestPainTypeField = document.getElementById('cpField');
-
-        if (chestPainRadio && chestPainRadio.value === 'True') {
-            chestPainTypeField.style.display = 'block';
-        } else {
-            chestPainTypeField.style.display = 'none';
-            // If chest pain is false, set chest pain type to 0
-            document.getElementById('cp').value = '0';
-        }
-    }
-    function toggleSmokingStatus(isCurrently) {
-        var smokingStatusField = document.getElementById('smokingStatus');
-        smokingStatusField.value = isCurrently ? 'True' : 'False';
-    }
-    </script>
-
 
 <?php
   include_once 'footer.php';

@@ -128,7 +128,11 @@ function displayPatientProfile($database, $patientList) {
                   echo "\tHeart Disease: False\n";
                 }
                 // hypertension - boolean
-                echo "\tHypertension: " . $entry['hypertension'] . "\n";
+                if (($entry['hypertension'] === true)) {
+                  echo "\tHypertension: True\n";
+                } else {
+                  echo "\tHypertension: False\n";
+                }
                 // oldpeak - int
                 echo "\tST depression induced by exercise: " . $entry['oldpeak'] . "\n";
                 // restecg - int (0 to 2)
@@ -267,7 +271,11 @@ function displayPatientExport($database, $patientList) {
                           $exportData .= "\tHeart Disease: False\n";
                         }
                         // hypertension - boolean
-                        $exportData .= "\tHypertension: " . $entry['hypertension'] . "\n";
+                        if (($entry['hypertension'] === true)) {
+                          $exportData .= "\tHypertension: True\n";
+                        } else {
+                          $exportData .= "\tHypertension: False\n";
+                        }
                         // oldpeak - int
                         $exportData .= "\tST depression induced by exercise: " . $entry['oldpeak'] . "\n";
                         // restecg - int (0 to 2)
