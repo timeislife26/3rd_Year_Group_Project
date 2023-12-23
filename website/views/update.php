@@ -4,7 +4,7 @@ include_once 'header.php';
 require_once '../php-firebase/dbcon.php';
 
 include '../includes/fetch_patient_data.inc.php';
-  
+
 // Query to fetch the list of names from DB
 $refTable = "PatientUsers";
 
@@ -50,6 +50,8 @@ if (isset($_POST["update"])) {
 }
 ?>
 
+<script src="../includes/update_scripts.js"></script>
+
 <main>
       <div id="container">
         <h2>Profile Update</h2>
@@ -63,12 +65,11 @@ if (isset($_POST["update"])) {
           <div class="dropdown_list">
           <label for="patient_list">Patient Name*:&emsp;
             <select id="patient_list" name="selectedPatient" onchange="updateSelectedUserID()">
-            <?php
-                    // Loop through names and corresponding userIDs
-                    for ($i = 0; $i < count($patientList); $i++) {
-                        echo '<option value="' . $patientID[$i] . '">' , $patientList[$i] , '</option>';
-                    }
-                    ?>
+            <<?php
+              foreach ($patientList as $patient) {
+                echo '<option value="' . $patient . '">' , $patient , '</option>';
+              }
+              ?>
             </select>
             <button type="submit" name="generate">Fill Form</button>
             <?php
