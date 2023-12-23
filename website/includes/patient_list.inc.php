@@ -145,6 +145,24 @@ function displayPatientProfile($database, $patientList) {
                 echo "\tMaximum Heart Rate Achieved: " . $entry['thalach'] . "\n";
                 // trewstbps - int
                 echo "\tResting Blood Pressure: " . $entry['trewstbps'] . "\n";
+                // Alcohol_Consuming - boolean
+                if (($entry['Alcohol_Consuming'] === true)) {
+                  echo "\tAlcohol Consuming: True\n";
+                } else {
+                  echo "\tAlcohol Consuming: False\n";
+                }
+                // Coughing - boolean
+                if (($entry['Coughing'] === true)) {
+                  echo "\tCoughing: True\n";
+                } else {
+                  echo "\tCoughing: False\n";
+                }
+                // Shortness_of_Breath - boolean
+                if (($entry['Shortness_of_Breath'] === true)) {
+                  echo "\tShortness of Breath: True\n";
+                } else {
+                  echo "\tShortness of Breath: False\n";
+                }
               }
             }
           //}
@@ -288,6 +306,24 @@ function displayPatientExport($database, $patientList) {
                         $exportData .= "\tMaximum Heart Rate Achieved: " . $entry['thalach'] . "\n";
                         // trewstbps - int
                         $exportData .= "\tResting Blood Pressure: " . $entry['trewstbps'] . "\n";
+                        // Alcohol_Consuming - boolean
+                        if (($entry['Alcohol_Consuming'] === true)) {
+                          $exportData .= "\tAlcohol Consuming: True\n";
+                        } else {
+                          $exportData .= "\tAlcohol Consuming: False\n";
+                        }
+                        // Coughing - boolean
+                        if (($entry['Coughing'] === true)) {
+                          $exportData .= "\tCoughing: True\n";
+                        } else {
+                          $exportData .= "\tCoughing: False\n";
+                        }
+                        // Shortness_of_Breath - boolean
+                        if (($entry['Shortness_of_Breath'] === true)) {
+                          $exportData .= "\tShortness of Breath: True\n";
+                        } else {
+                          $exportData .= "\tShortness of Breath: False\n";
+                        }
                       }
                     }
                   //}
