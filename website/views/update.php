@@ -3,10 +3,10 @@
 
   include '../includes/fetch_patient_data.inc.php';
 
-  /*
+  
   // Database connection
   require_once '../php-firebase/dbcon.php'; //'dbh.inc.php';
-  /*
+  
   // Query to fetch the list of names from DB
   $refTable = "PatientUsers";
   
@@ -21,7 +21,7 @@
       $patientList[] = $row["name"];
       $patientID[] = $row["userId"];
   }
-  */
+  
 ?>
 
     <script src="../includes/update_scripts.js"></script>
