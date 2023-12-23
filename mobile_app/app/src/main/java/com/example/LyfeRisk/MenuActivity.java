@@ -32,7 +32,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.paypal.android.sdk.payments.PaymentActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -80,6 +79,12 @@ public class MenuActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
 
 
+        if (hasPaid) {
+            dialog.dismiss();
+            Toast.makeText(MenuActivity.this, "Already Paid", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Button payButton = dialog.findViewById(R.id.payButton);
         Button freeButton = dialog.findViewById(R.id.freeButton);
 
@@ -93,7 +98,7 @@ public class MenuActivity extends AppCompatActivity {
                 // Reference to the user's database node
                 DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("PatientUsers").child(userId);
 
-                goToPayPal();
+                goToPayment();
             }
         });
 
@@ -106,6 +111,16 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent backIntent = new Intent(MenuActivity.this, LoginActivity.class);
+        try {
+            startActivity(backIntent);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadAndDisplayInterstitialAd(final Dialog dialog) {
@@ -159,12 +174,12 @@ public class MenuActivity extends AppCompatActivity {
         } catch (ActivityNotFoundException e) {
         }
     }
-    public void goToPayPal() {
+    public void goToPayment() {
         Intent paymentIntent = new Intent(MenuActivity.this, PayActivity.class);
         try {
             startActivity(paymentIntent);
         } catch (ActivityNotFoundException e) {
-            e.printStackTrace(); // You can log the exception or show a message to the user
+            e.printStackTrace();
         }
     }
     public void goToReview(View view) {
