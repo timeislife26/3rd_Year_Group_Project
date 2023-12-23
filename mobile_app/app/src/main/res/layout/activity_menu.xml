@@ -48,6 +48,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTV" />
 
+    <Button
+        android:id="@+id/predictBtn"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#90ee90"
+        android:onClick="goToPredict"
+        android:text="@string/predict"
+        android:textColor="#006400"
+        android:textColorHighlight="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/biometricsButton"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.317" />
+
     <EditText
         android:id="@+id/editTextText3"
         android:layout_width="225dp"

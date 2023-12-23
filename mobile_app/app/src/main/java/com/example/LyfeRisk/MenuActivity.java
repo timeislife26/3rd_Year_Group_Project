@@ -182,6 +182,14 @@ public class MenuActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    public void goToPredict(View view){
+        Intent intent = new Intent(MenuActivity.this, PredictActivity.class);
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+
+        }
+    }
     public void goToReview(View view) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

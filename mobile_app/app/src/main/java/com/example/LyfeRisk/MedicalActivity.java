@@ -18,11 +18,12 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MedicalActivity extends AppCompatActivity {
 
     private EditText editAge, editTrewstbps, editChol, editThalach, editOldpeak,
-            editFbs, editBMI, editHbA1cLevel, editBloodGlucoseLevel;
+            editBMI, editHbA1cLevel, editBloodGlucoseLevel;
     private CheckBox checkBoxChestPain, checkBoxMale, checkBoxFemale, checkBoxExang;
     private Spinner spinnerChestPain, spinnerRestecg, spinnerSlope, spinnerCa, spinnerThal,
             spinnerSmoking, spinnerYellowFingers, spinnerAnxiety, spinnerChronicDisease, spinnerFatigue,
-            spinnerAllergy, spinnerWheezing, spinnerSwallowingDifficulty, spinnerHypertension, spinnerHeartDisease;
+            spinnerAllergy, spinnerWheezing, spinnerSwallowingDifficulty, spinnerHypertension, spinnerHeartDisease, spinnerFbs,
+            spinnerAlchol, spinnerCoughing, spinnerSOB;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -41,7 +42,6 @@ public class MedicalActivity extends AppCompatActivity {
         editChol = findViewById(R.id.editChol);
         editThalach = findViewById(R.id.editThalach);
         editOldpeak = findViewById(R.id.editOldpeak);
-        editFbs = findViewById(R.id.editFbs);
         editBMI = findViewById(R.id.editBMI);
         editHbA1cLevel = findViewById(R.id.editHbA1cLevel);
         editBloodGlucoseLevel = findViewById(R.id.editBloodGlucoseLevel);
@@ -66,6 +66,10 @@ public class MedicalActivity extends AppCompatActivity {
         spinnerSwallowingDifficulty = findViewById(R.id.spinnerSwallowingDifficulty);
         spinnerHypertension = findViewById(R.id.spinnerHypertension);
         spinnerHeartDisease = findViewById(R.id.spinnerHeartDisease);
+        spinnerFbs = findViewById(R.id.spinnerFBS);
+        spinnerAlchol = findViewById(R.id.spinnerAlcholCon);
+        spinnerCoughing = findViewById(R.id.spinnerCoughing);
+        spinnerSOB = findViewById(R.id.spinnerSOB);
 
         ArrayAdapter<CharSequence> cpAdapter = ArrayAdapter.createFromResource(this, R.array.chest_pain, android.R.layout.simple_spinner_item);
         cpAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -89,6 +93,7 @@ public class MedicalActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> yesnoAdapter = ArrayAdapter.createFromResource(this, R.array.yesno, android.R.layout.simple_spinner_item);
         yesnoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFbs.setAdapter(yesnoAdapter);
         spinnerYellowFingers.setAdapter(yesnoAdapter);
         spinnerAnxiety.setAdapter(yesnoAdapter);
         spinnerChronicDisease.setAdapter(yesnoAdapter);
@@ -98,6 +103,9 @@ public class MedicalActivity extends AppCompatActivity {
         spinnerHypertension.setAdapter(yesnoAdapter);
         spinnerHeartDisease.setAdapter(yesnoAdapter);
         spinnerAllergy.setAdapter(yesnoAdapter);
+        spinnerSOB.setAdapter(yesnoAdapter);
+        spinnerCoughing.setAdapter(yesnoAdapter);
+        spinnerAlchol.setAdapter(yesnoAdapter);
 
         ArrayAdapter<CharSequence> smokingAdapter = ArrayAdapter.createFromResource(this, R.array.smoking, android.R.layout.simple_spinner_item);
         smokingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -161,6 +169,10 @@ public class MedicalActivity extends AppCompatActivity {
         String[] values = getResources().getStringArray(R.array.thal);
         return mapSpinnerSelection(selectedItem, values);
     }
+    private int mapSmokingHistory(String selectedItem) {
+        String[] values = getResources().getStringArray(R.array.smoking);
+        return mapSpinnerSelection(selectedItem, values);
+    }
 
     private boolean mapYesNo(String selectedItem) {
         String[] values = getResources().getStringArray(R.array.yesno);
@@ -187,7 +199,6 @@ public class MedicalActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(editAge.getText().toString())
                 || TextUtils.isEmpty(editTrewstbps.getText().toString())
                 || TextUtils.isEmpty(editChol.getText().toString())
-                || TextUtils.isEmpty(editFbs.getText().toString())
                 || TextUtils.isEmpty(editThalach.getText().toString())
                 || TextUtils.isEmpty(editOldpeak.getText().toString())
                 || TextUtils.isEmpty(editBMI.getText().toString())
@@ -232,12 +243,6 @@ public class MedicalActivity extends AppCompatActivity {
                 return;
             }
 
-            int fbs = Integer.parseInt(this.editFbs.getText().toString());
-            if (fbs < 60 || fbs > 150) {
-                Toast.makeText(this, "Enter a valid blood sugar between 60 and 150", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
             int restecg = mapRestecg(spinnerRestecg.getSelectedItem().toString());
 
             int slope = mapSlope(spinnerSlope.getSelectedItem().toString());
@@ -245,8 +250,14 @@ public class MedicalActivity extends AppCompatActivity {
             int thal = mapThal(spinnerThal.getSelectedItem().toString());
 
             boolean smoking = mapSmoking(spinnerSmoking.getSelectedItem().toString());
+            int smokingHistory = mapSmokingHistory(spinnerSmoking.getSelectedItem().toString());
+
 
             boolean yellowFingers = mapYesNo(spinnerYellowFingers.getSelectedItem().toString());
+            boolean fbs = mapYesNo(spinnerFbs.getSelectedItem().toString());
+            boolean alcholCon = mapYesNo(spinnerAlchol.getSelectedItem().toString());
+            boolean coughing = mapYesNo(spinnerCoughing.getSelectedItem().toString());
+            boolean sob = mapYesNo(spinnerSOB.getSelectedItem().toString());
             float bmi = Float.parseFloat(this.editBMI.getText().toString());
             if (bmi < 10 || bmi > 70) {
                 Toast.makeText(this, "Enter a valid BMI between 10 and 70", Toast.LENGTH_SHORT).show();
@@ -284,6 +295,7 @@ public class MedicalActivity extends AppCompatActivity {
             mDatabase.child(userUid).child("ca").setValue(ca);
             mDatabase.child(userUid).child("thal").setValue(thal);
             mDatabase.child(userUid).child("Smoking").setValue(smoking);
+            mDatabase.child(userUid).child("Smoking_history").setValue(smokingHistory);
             mDatabase.child(userUid).child("Yellow_Fingers").setValue(yellowFingers);
             mDatabase.child(userUid).child("Anxiety").setValue(anxiety);
             mDatabase.child(userUid).child("Chronic_Disease").setValue(chronicDisease);
@@ -297,7 +309,11 @@ public class MedicalActivity extends AppCompatActivity {
             mDatabase.child(userUid).child("bmi").setValue(String.format("%.2f", bmi));
             mDatabase.child(userUid).child("HbA1c_level").setValue(String.format("%.2f", hba1cLevel));
             mDatabase.child(userUid).child("blood_glucose_level").setValue(bloodGlucoseLevel);
+            mDatabase.child(userUid).child("Alcohol_Consuming").setValue(alcholCon);
+            mDatabase.child(userUid).child("Coughing").setValue(coughing);
+            mDatabase.child(userUid).child("Shortness_of_Breath").setValue(sob);
             mDatabase.child(userUid).child("userId").setValue(mAuth.getCurrentUser().getUid());
+
 
 
             Toast.makeText(this, "Medical records saved", Toast.LENGTH_SHORT).show();

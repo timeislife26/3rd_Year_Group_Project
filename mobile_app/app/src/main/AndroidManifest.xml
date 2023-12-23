@@ -15,20 +15,23 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.LyfeRisk"
-        tools:ignore="ExtraText,Instantiatable,MissingClass"
         android:windowSoftInputMode="adjustResize|stateHidden"
+        tools:ignore="ExtraText,Instantiatable,MissingClass"
         tools:targetApi="31">
+        <activity
+            android:name=".PredictActivity"
+            android:exported="false" />
         <activity
             android:name=".PayActivity"
             android:exported="false"
-            tools:ignore="AppLinkUrlError"/>
+            tools:ignore="AppLinkUrlError" />
         <activity
             android:name=".RecordsActivity"
             android:exported="false" />
         <activity
             android:name=".MedicalActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ChatActivity"
             android:exported="false" />
@@ -46,8 +49,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="lyferisk.page.link"
                     android:scheme="https"
