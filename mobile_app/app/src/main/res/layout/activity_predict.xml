@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:backgroundTint="#006400"
+    tools:context=".RecordsActivity">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="173dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="328dp"
+        app:layout_constraintBottom_toTopOf="@+id/heartDiseaseTV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_no_background" />
+
+    <TextView
+        android:id="@+id/loginTV"
+        android:layout_width="243dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="21dp"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white"
+        android:textSize="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/predictLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/textBox"
+        android:layout_width="0dp"
+        android:layout_height="574dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:background="#006400"
+        android:src="@drawable/textbubble"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/predictLogo" />
+
+
+    <EditText
+        android:id="@+id/predictLogo"
+        android:layout_width="225dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginBottom="400dp"
+        android:editable="false"
+        android:ems="10"
+        android:text="Predict"
+        android:textAlignment="center"
+        android:textColor="#006400"
+        android:textSize="34dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <TextView
+        android:id="@+id/predictText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="374dp"
+        android:text="This section will make a prediction based on your medical history. This is just an estimate. If you have worries you should contact your doctor"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/predictLogo"
+        app:layout_constraintVertical_bias="1.0" />
+
+
+    <Button
+        android:id="@+id/predictButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="246dp"
+        android:backgroundTint="#90ee90"
+        android:onClick="goToRecords"
+        android:text="Predict"
+        android:textColor="#006400"
+        android:textColorHighlight="@android:color/white"
+        android:textColorLink="@android:color/white"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/predictText"
+        app:layout_constraintVertical_bias="0.259" />
+
+    <TextView
+        android:id="@+id/heartDiseaseTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toBottomOf="@+id/predictButton"
+        app:layout_constraintVertical_bias="0.179" />
+
+    <TextView
+        android:id="@+id/LungCancerTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toBottomOf="@+id/heartDiseaseTV"
+        app:layout_constraintVertical_bias="0.179" />
+
+    <TextView
+        android:id="@+id/DiabetesTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toBottomOf="@+id/LungCancerTV"
+        app:layout_constraintVertical_bias="0.179" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

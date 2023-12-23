@@ -55,6 +55,7 @@
     <string name="menu">Menu</string>
     <string name="main_menu">Main Menu</string>
     <string name="records">Records</string>
+    <string name="predict">Predict</string>
     <string name="review">Review</string>
     <string name="credits_word">Credits</string>
     <string name="contact">Contact</string>
