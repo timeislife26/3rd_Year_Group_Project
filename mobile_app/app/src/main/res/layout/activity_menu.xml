@@ -125,8 +125,8 @@
 
     <Button
         android:id="@+id/no2faButton"
-        android:layout_width="121dp"
-        android:layout_height="50dp"
+        android:layout_width="118dp"
+        android:layout_height="46dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToReview"
@@ -135,16 +135,16 @@
         android:textColorHighlight="@android:color/white"
         android:textColorLink="@android:color/white"
         android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton2"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.834" />
+        app:layout_constraintVertical_bias="0.998" />
 
     <Button
         android:id="@+id/subButton"
         android:layout_width="157dp"
         android:layout_height="51dp"
-        android:layout_marginEnd="148dp"
+        android:layout_marginEnd="144dp"
         android:backgroundTint="#90ee90"
         android:onClick="manualPaymentPopup"
         android:text="Subscription"
@@ -152,15 +152,16 @@
         android:textColorHighlight="@android:color/white"
         android:textColorLink="@android:color/white"
         android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.905" />
+        app:layout_constraintVertical_bias="0.973" />
 
     <Button
         android:id="@+id/saveButton2"
         android:layout_width="121dp"
         android:layout_height="50dp"
+        android:layout_marginStart="19dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToSettings"
@@ -169,16 +170,20 @@
         android:textColorHighlight="@android:color/white"
         android:textColorLink="@android:color/white"
         android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/subButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.904" />
+        app:layout_constraintVertical_bias="0.973" />
 
     <Button
         android:id="@+id/contact5Button"
-        android:layout_width="157dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="158dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="604dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToCredits"
         android:text="@string/credits_word"
@@ -186,10 +191,10 @@
         android:textColorHighlight="@android:color/white"
         android:textColorLink="@android:color/white"
         android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/no2faButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textBox"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/authAppButton"
@@ -206,7 +211,7 @@
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintStart_toStartOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.737" />
+        app:layout_constraintVertical_bias="0.718" />
 
     <Button
         android:id="@+id/textButton"
