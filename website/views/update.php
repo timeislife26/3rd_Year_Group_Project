@@ -3,7 +3,7 @@ include_once 'header.php';
 
 require_once '../php-firebase/dbcon.php';
 
-include '../includes/fetch_patient_data.inc.php';
+//include '../includes/fetch_patient_data.inc.php';
 
 // Query to fetch the list of names from DB
 $refTable = "PatientUsers";
@@ -71,11 +71,13 @@ if (isset($_POST["update"])) {
               }
               ?>
             </select>
-            <button type="submit" name="generate">Fill Form</button>
+            <button type="button" name="generate" onclick="fillForm()">Fill Form</button>
             <?php
+            /*
             if (isset($_POST['generate'])) {
                 fetchPatientData($database, $patientList);
             }
+            */
             ?>
           </label>
           </div>

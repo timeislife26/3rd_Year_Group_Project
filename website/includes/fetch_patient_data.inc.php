@@ -1,4 +1,5 @@
 <?php
+
     error_reporting(E_ALL);
     // Database connection
     require_once '../php-firebase/dbcon.php'; //'dbh.inc.php';
@@ -17,7 +18,7 @@
 
     // Function to populate the form
     function fetchPatientData($database, $patientList) {
-        if (isset($_POST['generate'])) {
+        //if (isset($_POST['generate'])) {
             $refTable = "PatientUsers";
             $secondTable = "MedicalRecords";
             $targetFullName = $_POST['selectedPatient'];
@@ -69,13 +70,23 @@
                                 $formData['heart_disease'] = $entry['heart_disease'];
                             }
                         }
+
+                        echo json_encode($formData);
+
+                        /*
+                        $dataToSend = json_encode($formData);
+                        echo '<script>var dataToSend = ' . $dataToSend . ';</script>';
+                        */
+
+                        /*
                         $dataToSend = json_encode($formData);
                         echo '<script>';
                         echo 'var dataToSend = ' . $dataToSend . ';';
                         echo 'fillForm()</script>';
+                        */
                     }
                 }
             }
-        }
+        //}
     }
 ?>
