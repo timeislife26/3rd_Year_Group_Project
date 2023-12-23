@@ -1,7 +1,7 @@
 <?php
     require_once '../php-firebase/dbcon.php';
     $userID = isset($_GET["userID"]) ? $_GET["userID"] : null;
-
+    error_reporting(E_ERROR | E_PARSE);
 
         $medKey = existingPatientInfo($userID, $database);
         if ($medKey != false){
@@ -136,7 +136,7 @@
             }
             */
 
-            $full_response = "";
+            $full_response = "\n";
             //Sending heart disease info to the cloud function:
             $heart_function_url = 'https://on-request-heart-ef42g3nnla-uc.a.run.app';
 
@@ -263,7 +263,7 @@
         $refTable = "MedicalRecords";
         $result = $database->getReference($refTable)->getValue();
         foreach ($result as $key => $row){
-            error_log("Row content: " . print_r($row, true)); // Log the content of $row
+            
             if (strcasecmp($row["userID"], $id) === 0){
             //if ($row["userID"] === $id) {
                 return $key; // Found the ID, return the key

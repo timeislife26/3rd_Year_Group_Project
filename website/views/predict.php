@@ -13,11 +13,7 @@
   $patientList = array();
   $patientID = array();
   
-  // Getting names and storing them in array
-  foreach ($result as $key => $row){
-      $patientList[] = $row["name"];
-      $patientID[] = $row["userId"];
-  }
+
 ?>
     
     <main>
@@ -33,6 +29,8 @@
             <?php
             foreach ($result as $entry) {
               if (strcasecmp(trim($entry['linkedDoctorIMC']), $_SESSION['imc']) === 0) {
+                $patientList[] = $entry['name'];
+                $patientID[] = $entry['userID'];
                 echo '<option value="' . $entry['name'] . '">' , $entry['name'] , '</option>';
               }
             }
@@ -52,17 +50,20 @@
   </body>
   <script>
     var patientID;
+    var selectedIndex
 
-    window.onload = function() {
-        patientID = document.getElementById("patient_list").value;
-        console.log("Initial Patient ID: ", patientID);
-        document.getElementById("selectedUserID").value = patientID;
-    };
-    function updateSelectedUserID() {
-        patientID = document.getElementById("patient_list").value;
-        console.log("Selected Patient ID: ", patientID);
-        document.getElementById("selectedUserID").value = patientID;
-    }
+window.onload = function() {
+    selectedIndex = document.getElementById("patient_list").selectedIndex;
+    patientID = <?php echo json_encode($patientID); ?>; 
+    console.log("Initial Patient ID: ", patientID);
+    document.getElementById("selectedUserID").value = patientID[selectedIndex];
+};
+function updateSelectedUserID() {
+    selectedIndex = document.getElementById("patient_list").selectedIndex;
+    patientID = <?php echo json_encode($patientID); ?>; 
+    console.log("Selected Patient ID: ", patientID[selectedIndex]);
+    document.getElementById("selectedUserID").value = patientID[selectedIndex];
+}
 
     //Ajax
     function getPrediction(){
@@ -70,9 +71,9 @@
 
       console.log("Clicked");
       var x = new XMLHttpRequest();
-      var url = "../includes/predict.inc.php?userID=" + patientID;
+      var url = "../includes/predict.inc.php?userID=" + patientID[selectedIndex];
       
-      console.log("Selected Patient ID: ", patientID);
+      console.log("Selected Patient ID: ", patientID[selectedIndex]);
 
 
       x.open("GET", url);

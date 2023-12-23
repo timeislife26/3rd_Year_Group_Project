@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ERROR | E_PARSE);
 // Database connection
 require_once '../php-firebase/dbcon.php'; //'dbh.inc.php';
 
@@ -28,7 +28,7 @@ function displayPatientProfile($database, $patientList) {
     if ($result) {
       foreach ($result as $entry) {
         if (strcasecmp(trim($entry['name']), $targetFullName) === 0) {
-          $targetID = $entry['userId'];
+          $targetID = $entry['userID'];
           // Match found, printing the entry data
           echo "\n\tFull Name: " . $entry['name'] . "\n";
           echo "\tEmail: " . $entry['email'] . "\n";
@@ -38,7 +38,7 @@ function displayPatientProfile($database, $patientList) {
           // echo "\tDoctor: " . $entry['Doctor'] . "\n";
           // if ($entry['medicalRecords'] === 'yes') {
             foreach ($secondResult as $entry) {
-              if (isset($entry['userId']) && strcasecmp(trim($entry['userId']), $targetID) === 0) {
+              if (isset($entry['userID']) && strcasecmp(trim($entry['userID']), $targetID) === 0) {
                 // Age - int
                 echo "\tAge: " . $entry['Age'] . "\n";
                 // Allergy - boolean
@@ -171,7 +171,7 @@ function displayPatientExport($database, $patientList) {
       if ($result) {
           foreach ($result as $entry) {
               if (strcasecmp(trim($entry['name']), $targetFullName) === 0) {
-                  $targetID = $entry['userId'];
+                  $targetID = $entry['userID'];
                   // Match found, prepare the data for export
                   $exportData = "\n\tFull Name: " . $entry['name'] . "\n";
                   $exportData .= "\tEmail: " . $entry['email'] . "\n";
@@ -181,7 +181,7 @@ function displayPatientExport($database, $patientList) {
                   // echo "\tDoctor: " . $entry['Doctor'] . "\n";
                   // if ($entry['medicalRecords'] === 'yes') {
                     foreach ($secondResult as $entry) {
-                      if (strcasecmp(trim($entry['userId']), $targetID) === 0) {
+                      if (strcasecmp(trim($entry['userID']), $targetID) === 0) {
                         // Age - int
                         $exportData .= "\tAge: " . $entry['Age'] . "\n";
                         // Allergy - boolean
