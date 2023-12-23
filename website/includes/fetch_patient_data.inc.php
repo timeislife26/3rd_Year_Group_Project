@@ -37,9 +37,8 @@
 
                         foreach ($secondResult as $entry) {
                             if (isset($entry['userId']) && strcasecmp(trim($entry['userId']), $targetID) === 0) {
-                                $formData['Age'] = (string)$entry['Age'];
-                                $formData['gender'] = (string)$entry['gender'];
-                                /*
+                                $formData['Age'] = $entry['Age'];
+                                $formData['gender'] = $entry['gender'];
                                 $formData['trewstbps'] = $entry['trewstbps'];
                                 $formData['chol'] = $entry['chol'];
                                 $formData['fbs'] = $entry['fbs'];
@@ -65,16 +64,15 @@
                                 $formData['Wheezing'] = $entry['Wheezing'];
                                 $formData['Swallowing_Difficulty'] = $entry['Swallowing_Difficulty'];
                                 $formData['Chest_pain'] = $entry['Chest_pain'];
-                                //$formData['cp'] = $entry['cp'];
+                                $formData['cp'] = $entry['cp'];
                                 $formData['hypertension'] = $entry['hypertension'];
                                 $formData['heart_disease'] = $entry['heart_disease'];
-                                */
                             }
                         }
                         $dataToSend = json_encode($formData);
                         echo '<script>';
                         echo 'var dataToSend = ' . $dataToSend . ';';
-                        echo 'fillForm(dataToSend)</script>';
+                        echo 'fillForm()</script>';
                     }
                 }
             }
