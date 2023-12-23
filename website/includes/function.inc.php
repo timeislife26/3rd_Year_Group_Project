@@ -66,7 +66,7 @@ function emailExists($database,$email){
     }*/
 }
 
-function createUser($auth,$database,$name, $imc, $email, $password){
+function createUser($auth,$database,$name, $imc, $email, $password, $DOB, $gender, $address, $phone){
     $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
     $userProperties = [
         'fullName'=>$name,
@@ -86,9 +86,13 @@ function createUser($auth,$database,$name, $imc, $email, $password){
             'fullName'=>$name,
             'emailVerified'=> false,
             'imc'=>$imc,
+            'dob'=>$DOB,
+            'gender'=>$gender,
+            'address'=>$address,
+            'phone'=>$phone
         ];
         $postRef = $database->getReference($refTable)->push($postData);
-        header("location: ../views/menu.php");
+        header("location: ../includes/logout.inc.php");
         exit();
     }
     else{
