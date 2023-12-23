@@ -1,6 +1,7 @@
 <?php
-    require_once '../php-firebase/dbcon.php';
-if(isset($_POST["update"])){
+require_once '../php-firebase/dbcon.php';
+
+if (isset($_POST["update"])) {
     $selectedUserID = $_POST["selectedUserID"];
     $Age = $_POST["Age"];
     $gender = $_POST["gender"];
@@ -34,67 +35,69 @@ if(isset($_POST["update"])){
     $HbA1c_level = $_POST["HbA1c_level"];
     $blood_glucose_level = $_POST["blood_glucose_level"];
 
-    
     $postData = [
-        'userID'=>$selectedUserID,
-        'Age'=>$Age,
-        'gender'=>$gender,
-        'trewstbps'=>$trewstbps,
-        'chol'=>$chol,
-        'fbs'=>$fbs,
-        'restecg'=>$restecg,
-        'thalach'=>$thalach,
-        'oldpeak'=>$oldpeak,
-        'slope'=>$slope,
-        'ca'=>$ca,
-        'exang'=>$exang,
-        'thal'=>$thal,
-        'Smoking_history'=>$Smoking_History,
-        'Smoking'=>$Smoking,
-        'Yellow_Fingers'=>$Yellow_Fingers,
-        'Anxiety'=> $Anxiety,
-        'Chronic_Disease'=>$Chronic_Disease,
-        'Fatigue'=>$Fatigue,
-        'Allergy'=>$Allergy,
-        'Wheezing'=>$Wheezing,
-        'Swallowing_Difficulty'=>$Swallowing_Difficulty,
-        'Chest_pain'=>$Chest_pain,
-        'cp'=>$cp,
-        'Alcohol_Consuming'=>$alcoholC,
-        'Coughing'=>$coughing,
-        'Shortness_of_Breath'=>$SOB,
-        'hypertension'=>$hypertension,
-        'heart_disease'=>$heart_disease,
-        'bmi'=>$bmi,
-        'HbA1c_level'=>$HbA1c_level,
-        'blood_glucose_level'=>$blood_glucose_level,
+        'userID' => $selectedUserID,
+        'Age' => $Age,
+        'gender' => $gender,
+        'trewstbps' => $trewstbps,
+        'chol' => $chol,
+        'fbs' => $fbs,
+        'restecg' => $restecg,
+        'thalach' => $thalach,
+        'oldpeak' => $oldpeak,
+        'slope' => $slope,
+        'ca' => $ca,
+        'exang' => $exang,
+        'thal' => $thal,
+        'Smoking_history' => $Smoking_History,
+        'Smoking' => $Smoking,
+        'Yellow_Fingers' => $Yellow_Fingers,
+        'Anxiety' => $Anxiety,
+        'Chronic_Disease' => $Chronic_Disease,
+        'Fatigue' => $Fatigue,
+        'Allergy' => $Allergy,
+        'Wheezing' => $Wheezing,
+        'Swallowing_Difficulty' => $Swallowing_Difficulty,
+        'Chest_pain' => $Chest_pain,
+        'cp' => $cp,
+        'Alcohol_Consuming' => $alcoholC,
+        'Coughing' => $coughing,
+        'Shortness_of_Breath' => $SOB,
+        'hypertension' => $hypertension,
+        'heart_disease' => $heart_disease,
+        'bmi' => $bmi,
+        'HbA1c_level' => $HbA1c_level,
+        'blood_glucose_level' => $blood_glucose_level,
     ];
-
 
     $refTable = "MedicalRecords";
     $medKey = existingPatientInfo($selectedUserID, $database);
-    if ($medKey != false){
-        $refTable = "MedicalRecords/".$medKey;
+
+    if ($medKey != false) {
+        $refTable = "MedicalRecords/" . $medKey;
         $database->getReference($refTable)->update($postData);
-    }
-    else{
+    } else {
         $postRef = $database->getReference($refTable)->push($postData);
     }
-    header("location: ../views/update.php?Done");
+
+    header("Location: ../views/2fa_verification.php?email=$selectedUserID");
     exit();
-}
-else{
-    header("location: ../views/update.php?Error");
+} else {
+    header("Location: ../views/update.php?Error");
     exit();
 }
 
-function existingPatientInfo($id, $database){
+function existingPatientInfo($id, $database)
+{
     $refTable = "MedicalRecords";
     $result = $database->getReference($refTable)->getValue();
-    foreach ($result as $key => $row){
+    
+    foreach ($result as $key => $row) {
         if ($row["userID"] === $id) {
-            return $key; // Found the ID, return the key
+            return $key;
         }
     }
+    
     return false;
 }
+?>
