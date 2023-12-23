@@ -70,9 +70,9 @@
 
     <Button
         android:id="@+id/biometricsButton"
-        android:layout_width="138dp"
-        android:layout_height="73dp"
-        android:layout_marginEnd="164dp"
+        android:layout_width="142dp"
+        android:layout_height="84dp"
+        android:layout_marginEnd="156dp"
         android:backgroundTint="#90ee90"
         android:text="Biometrics"
         android:textColor="#006400"
@@ -82,7 +82,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.67" />
+        app:layout_constraintVertical_bias="0.551" />
 
     <Button
         android:id="@+id/saveButton"
@@ -103,9 +103,9 @@
 
     <Button
         android:id="@+id/emailButton"
-        android:layout_width="120dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="104dp"
+        android:layout_width="125dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="168dp"
         android:backgroundTint="#90ee90"
         android:text="Email"
         android:textColor="#006400"
@@ -115,13 +115,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53" />
+        app:layout_constraintVertical_bias="0.552" />
 
     <Button
         android:id="@+id/no2faButton"
         android:layout_width="120dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="12dp"
+        android:layout_height="87dp"
+        android:layout_marginEnd="96dp"
         android:backgroundTint="#90ee90"
         android:text="No 2FA"
         android:textColor="#006400"
@@ -131,7 +131,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.678" />
+        app:layout_constraintVertical_bias="0.683" />
 
     <TextView
         android:id="@+id/textView2"

@@ -52,8 +52,7 @@
         android:id="@+id/predictBtn"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="20dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToPredict"
         android:text="@string/predict"
@@ -62,11 +61,9 @@
         android:textColorLink="@android:color/white"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/biometricsButton"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintStart_toEndOf="@+id/emailButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.317" />
+        app:layout_constraintVertical_bias="0.463" />
 
     <EditText
         android:id="@+id/editTextText3"
@@ -84,15 +81,17 @@
         android:textSize="34dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.518" />
 
     <Button
         android:id="@+id/biometricsButton"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="22dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToChat"
         android:text="Chat"
@@ -102,15 +101,16 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.455" />
+        app:layout_constraintVertical_bias="0.603" />
 
     <Button
         android:id="@+id/emailButton"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToRecords"
         android:text="@string/records"
@@ -119,17 +119,15 @@
         android:textColorLink="@android:color/white"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/biometricsButton"
-        app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.457" />
+        app:layout_constraintVertical_bias="0.463" />
 
     <Button
         android:id="@+id/no2faButton"
-        android:layout_width="120dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="121dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToReview"
         android:text="@string/rate_us"
@@ -140,7 +138,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.772" />
+        app:layout_constraintVertical_bias="0.834" />
 
     <Button
         android:id="@+id/subButton"
@@ -157,13 +155,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88" />
+        app:layout_constraintVertical_bias="0.905" />
 
     <Button
         android:id="@+id/saveButton2"
         android:layout_width="121dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToSettings"
         android:text="@string/settings"
@@ -174,14 +172,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.879" />
+        app:layout_constraintVertical_bias="0.904" />
 
     <Button
         android:id="@+id/contact5Button"
-        android:layout_width="120dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="157dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="8dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToCredits"
         android:text="@string/credits_word"
@@ -190,17 +187,14 @@
         android:textColorLink="@android:color/white"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/biometricsButton"
-        app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.772" />
+        app:layout_constraintVertical_bias="0.833" />
 
     <Button
         android:id="@+id/authAppButton"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_marginEnd="20dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToContact"
         android:text="@string/contact"
@@ -210,15 +204,15 @@
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.614" />
+        app:layout_constraintVertical_bias="0.737" />
 
     <Button
         android:id="@+id/textButton"
         android:layout_width="120dp"
         android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
         android:backgroundTint="#90ee90"
         android:onClick="goToMedical"
         android:text="@string/medical_records"
@@ -227,11 +221,9 @@
         android:textColorLink="@android:color/white"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/biometricsButton"
-        app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="@+id/textBox"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.614" />
+        app:layout_constraintVertical_bias="0.603" />
 
     <FrameLayout
         android:id="@+id/adContainer"
