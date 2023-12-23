@@ -17,6 +17,7 @@ import com.braintreepayments.api.DropInRequest;
 import com.braintreepayments.api.DropInResult;
 import com.braintreepayments.api.GooglePayRequest;
 import com.braintreepayments.api.PayPalCheckoutRequest;
+import com.braintreepayments.api.PayPalPaymentIntent;
 import com.braintreepayments.api.PayPalVaultRequest;
 import com.braintreepayments.api.ThreeDSecureRequest;
 import com.braintreepayments.api.UserCanceledException;
@@ -31,7 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 public class PayActivity extends AppCompatActivity implements DropInListener {
 
     private DropInClient dropInClient;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +58,19 @@ public class PayActivity extends AppCompatActivity implements DropInListener {
     private void launchDropIn() {
         DropInRequest dropInRequest = new DropInRequest();
 
+//        PayPalVaultRequest payPalRequest = new PayPalVaultRequest();
+//        payPalRequest.setDisplayName("LyfeRisk");
+//        dropInRequest.setPayPalRequest(payPalRequest);
 
-        dropInRequest.setPayPalDisabled(true);
+        PayPalCheckoutRequest payPalCheckoutRequest = new PayPalCheckoutRequest("2.00");
+        payPalCheckoutRequest.setCurrencyCode("EUR");
+        payPalCheckoutRequest.setBillingAgreementDescription("This is a monthly payment to LyfeRisk");
+        payPalCheckoutRequest.setIntent(PayPalPaymentIntent.SALE);
+        payPalCheckoutRequest.setDisplayName("LyfeRisk");
+        payPalCheckoutRequest.setShouldRequestBillingAgreement(true);
+
+
+        dropInRequest.setPayPalDisabled(false);
         GooglePayRequest googlePayRequest = new GooglePayRequest();
         googlePayRequest.setTransactionInfo(TransactionInfo.newBuilder()
                 .setTotalPrice("2.00")
@@ -99,6 +110,12 @@ public class PayActivity extends AppCompatActivity implements DropInListener {
     public void onDropInFailure(@NonNull Exception error) {
         if (error instanceof UserCanceledException) {
             Toast.makeText(PayActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+            Intent menuIntent = new Intent(PayActivity.this, MenuActivity.class);
+            try {
+                startActivity(menuIntent);
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+            }
             Log.e("DropInFailure", "User canceled the operation");
         } else {
             Log.e("DropInFailure", "Error: " + error.getMessage());
