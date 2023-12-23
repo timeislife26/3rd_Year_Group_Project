@@ -181,27 +181,46 @@ public class RecordsActivity extends AppCompatActivity {
                     policyNumEditText.setVisibility(View.GONE);
                     phoneNoEditText.setVisibility(View.GONE);
                     detailsTextView.setText("");
-
-                    mDoctorDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot doctorSnapshot : dataSnapshot.getChildren()) {
-                                String doctorName = doctorSnapshot.child("fullName").getValue(String.class);
-                                String doctorIMC = doctorSnapshot.child("imc").getValue(String.class);
-                                if (doctorName != null) {
-                                    detailsTextView.setText("Name: " + doctorName + "\n");
-                                    detailsTextView.append("IMC: " + doctorIMC + "\n");
-                                } else {
-                                    detailsTextView.setText("No Doctor information found.");
-                                }
+                        public void onDataChange(@NonNull DataSnapshot userSnapshot) {
+                            String userId = mAuth.getCurrentUser().getUid();
+                            String linkedDoctorIMC = userSnapshot.child(userId).child("linkedDoctorIMC").getValue(String.class);
+
+                            if (linkedDoctorIMC != null && !linkedDoctorIMC.isEmpty()) {
+                                mDoctorDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot doctorSnapshot) {
+                                        for (DataSnapshot doctorData : doctorSnapshot.getChildren()) {
+                                            String doctorName = doctorData.child("fullName").getValue(String.class);
+                                            String doctorIMC = doctorData.child("imc").getValue(String.class);
+
+                                            if (doctorIMC != null && doctorIMC.equals(linkedDoctorIMC)) {
+                                                detailsTextView.setText("Name: " + doctorName + "\n");
+                                                detailsTextView.append("IMC: " + doctorIMC + "\n");
+                                                return;
+                                            }
+                                        }
+
+                                        detailsTextView.setText("No Doctor information found.");
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        detailsTextView.setText("Error retrieving data");
+                                    }
+                                });
+                            } else {
+                                detailsTextView.setText("No Doctor information found.");
                             }
                         }
 
                         @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            detailsTextView.setText("Error retrieving data");
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            detailsTextView.setText("Error retrieving user data");
                         }
                     });
+
                 } else if ("Insurance".equals(selectedOption)) {
                     displayText.setText("Please enter your Insurance's Info");
                     infoTextView.setVisibility(View.GONE);
