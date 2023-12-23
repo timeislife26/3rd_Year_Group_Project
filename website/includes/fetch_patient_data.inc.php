@@ -18,7 +18,7 @@
 
     // Function to populate the form
     function fetchPatientData($database, $patientList) {
-        //if (isset($_POST['generate'])) {
+        if (isset($_POST['selectedPatient'])) {
             $refTable = "PatientUsers";
             $secondTable = "MedicalRecords";
             $targetFullName = $_POST['selectedPatient'];
@@ -71,22 +71,26 @@
                             }
                         }
 
+                        //header("Access-Control-Allow-Origin: *");
+                        header("Content-Type: application/json");
+                        //ob_end_clean();
+
+                        //print '' . json_encode($formData) . '';
+
                         echo json_encode($formData);
 
-                        /*
-                        $dataToSend = json_encode($formData);
-                        echo '<script>var dataToSend = ' . $dataToSend . ';</script>';
-                        */
-
-                        /*
-                        $dataToSend = json_encode($formData);
-                        echo '<script>';
-                        echo 'var dataToSend = ' . $dataToSend . ';';
-                        echo 'fillForm()</script>';
-                        */
+                        //$dataToSend = json_encode($formData);
+                        //echo '<script>var dataToSend = ' . $dataToSend . ';</script>';
+                        
+                        //$dataToSend = json_encode($formData);
+                        //echo '<script>';
+                        //echo 'var dataToSend = ' . $dataToSend . ';';
+                        //echo 'alert(dataToSend)';
+                        //echo 'populateForm(dataToSend)';
+                        //echo '</script>';
                     }
                 }
             }
-        //}
+        }
     }
 ?>

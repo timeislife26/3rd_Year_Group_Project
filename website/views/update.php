@@ -3,7 +3,7 @@ include_once 'header.php';
 
 require_once '../php-firebase/dbcon.php';
 
-//include '../includes/fetch_patient_data.inc.php';
+include '../includes/fetch_patient_data.inc.php';
 
 // Query to fetch the list of names from DB
 $refTable = "PatientUsers";
