@@ -12,6 +12,7 @@
           <label>Email*: <input type="email" name="email" autocomplete="on"></label>
           <label>Password*: <input type="password" name="password" required></label>
           <label>Confirm Password*: <input type="password" name="confirm-password" required></label>
+          <label>IMC: <input type="text" name="IMC" autocomplete="on" required></label>
           <label>Address: <input type="text" name="address" autocomplete="on"></label>
           <label>Phone Number: <input type="tel" name="phone" autocomplete="on"></label>
           <label>Date of Birth: <input type="date" name="dob"></label>

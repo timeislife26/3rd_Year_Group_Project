@@ -7,6 +7,10 @@ if(isset($_POST["submit"])){
     $imc = $_POST["IMC"];
     $password = $_POST["password"];
     $cpassword = $_POST["confirm-password"];
+    $pNumber = $_POST["phone"];
+    $Address = $_POST["address"];
+    $DOB = $_POST["dob"];
+    $gender = $_POST["gender"];
 
     require_once '../php-firebase/dbcon.php';//'dbh.inc.php';
     require_once 'function.inc.php';
@@ -30,7 +34,7 @@ if(isset($_POST["submit"])){
     }*/
     if (ValidPassword($password)){
 
-    createUser($auth,$database,$name,$imc,$email,$password);
+    createUser($auth,$database,$name,$imc,$email,$password, $DOB, $gender, $Address, $pNumber);
     }
     else {
         header("location: ../views/register.php?error=invalidpassword");

@@ -69,7 +69,7 @@ if (isset($_POST["update"])) {
               foreach ($result as $entry) {
                 if (strcasecmp(trim($entry['linkedDoctorIMC']), $_SESSION['imc']) === 0) {
                     $patientList[] = $entry['name'];
-                    $patientID[] = $entry['userId'];
+                    $patientID[] = $entry['userID'];
                   echo '<option value="' . $entry['name'] . '">' , $entry['name'] , '</option>';
                 }
               }
@@ -100,7 +100,6 @@ if (isset($_POST["update"])) {
                 </fieldset>
                 <label>Resting Blood Pressure: <input type="number" name="trewstbps" id="trewstbps" required autocomplete="on"></label>
                 <label>Serum Cholestoral: <input type="number" name="chol" id="chol" required autocomplete="on"></label>
-                <label>Fasting Blood Sugar: <input type="number" name="fbs" id="fbs" required autocomplete="on"></label>
                 <label>Resting Electocardiographic Results: <input type="number" name="restecg" id="restecg" min="0" max="2" required autocomplete="on"></label>
                 <label>Maximum Heart Rate Achieved: <input type="number" name="thalach" id="thalach" required autocomplete="on"></label>
                 <label>ST Depression Induced by Exercise Relative to Rest: <input type="number" name="oldpeak" id="oldpeak" required autocomplete="on"></label>
@@ -114,6 +113,13 @@ if (isset($_POST["update"])) {
                     <div class="radio_btn">
 					            <label><input type="radio" name="exang" id="exangT" value="True">Yes</label>
 					            <label><input type="radio" name="exang" id="exangF" value="False">No</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Is Fasting Blood Sugar above 120:</legend>
+                    <div class="radio_btn">
+					    <label><input type="radio" name="fbs" value="True">Yes</label>
+					    <label><input type="radio" name="fbs" value="False">No</label>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -275,8 +281,46 @@ if (isset($_POST["update"])) {
         var smokingStatusField = document.getElementById('smokingStatus');
         smokingStatusField.value = isCurrently ? 'True' : 'False';
     }
+    function fillForm() {
+    var selectedUserID = document.getElementById("selectedUserID").value;
+    var x = new XMLHttpRequest();
+    var url = "../includes/fillForm.inc.php?fillID=" + selectedUserID;
 
-    </script>
+    console.log("Sent Message: ", selectedUserID);
+
+    x.open("GET", url);
+    x.onreadystatechange = function () {
+        if (x.readyState == 4 && x.status == 200) {
+            // Handle the response if needed
+            var responseData = JSON.parse(x.responseText);
+
+            // Check if userData is defined before accessing Age
+            if (responseData.userData) {
+                document.getElementById("Age").value = responseData.userData.Age;
+                document.getElementById("trewstbps").value = responseData.userData.trewstbps;
+                document.getElementById("chol").value = responseData.userData.chol;
+                //document.getElementById("fbs").value = responseData.userData.fbs;
+                document.getElementById("restecg").value = responseData.userData.restecg;
+                document.getElementById("thalach").value = responseData.userData.thalach;
+                document.getElementById("oldpeak").value = responseData.userData.oldpeak;
+                document.getElementById("slope").value = responseData.userData.slope;
+                document.getElementById("ca").value = responseData.userData.ca;
+                document.getElementById("bmi").value = responseData.userData.bmi;
+                document.getElementById("HbA1c_level").value = responseData.userData.HbA1c_level;
+                document.getElementById("blood_glucose_level").value = responseData.userData.blood_glucose_level;
+                console.log("fbs value:", responseData.userData.fbs);
+                document.getElementById("fbs").checked = "True";
+
+
+            } else {
+                console.error("User data not found");
+            }
+        }
+    };
+    x.send();
+}
+
+</script>
 
 <?php
 include_once 'footer.php';

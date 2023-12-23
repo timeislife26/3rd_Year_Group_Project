@@ -97,7 +97,7 @@ public class RecordsActivity extends AppCompatActivity {
                                             Integer cp = dataSnapshot.child("cp").getValue(Integer.class);
                                             Integer trewstbps = dataSnapshot.child("trewstbps").getValue(Integer.class);
                                             Integer chol = dataSnapshot.child("chol").getValue(Integer.class);
-                                            Integer fbs = dataSnapshot.child("fbs").getValue(Integer.class);
+                                            Boolean fbs = dataSnapshot.child("fbs").getValue(Boolean.class);
                                             Integer restecg = dataSnapshot.child("restecg").getValue(Integer.class);
                                             Integer thalach = dataSnapshot.child("thalach").getValue(Integer.class);
                                             Boolean exang = dataSnapshot.child("exang").getValue(Boolean.class);
@@ -106,6 +106,7 @@ public class RecordsActivity extends AppCompatActivity {
                                             Integer ca = dataSnapshot.child("ca").getValue(Integer.class);
                                             Integer thal = dataSnapshot.child("thal").getValue(Integer.class);
                                             Boolean smoking = dataSnapshot.child("Smoking").getValue(Boolean.class);
+                                            Integer smokingHistory = dataSnapshot.child("Smoking_history").getValue(Integer.class);
                                             Boolean yellowFingers = dataSnapshot.child("Yellow_Fingers").getValue(Boolean.class);
                                             Boolean anxiety = dataSnapshot.child("Anxiety").getValue(Boolean.class);
                                             Boolean chronicDisease = dataSnapshot.child("Chronic_Disease").getValue(Boolean.class);
@@ -116,6 +117,9 @@ public class RecordsActivity extends AppCompatActivity {
                                             Boolean hasChestPain = dataSnapshot.child("Chest_pain").getValue(Boolean.class);
                                             Boolean hypertension = dataSnapshot.child("hypertension").getValue(Boolean.class);
                                             Boolean heartDisease = dataSnapshot.child("heart_disease").getValue(Boolean.class);
+                                            Boolean alcholCon = dataSnapshot.child("Alcohol_Consuming").getValue(Boolean.class);
+                                            Boolean coughing = dataSnapshot.child("Coughing").getValue(Boolean.class);
+                                            Boolean sob = dataSnapshot.child("Shortness_of_Breath").getValue(Boolean.class);
                                             String bmi = dataSnapshot.child("bmi").getValue(String.class);
                                             String hba1cLevel = dataSnapshot.child("HbA1c_level").getValue(String.class);
                                             Integer bloodGlucoseLevel = dataSnapshot.child("blood_glucose_level").getValue(Integer.class);
@@ -153,7 +157,8 @@ public class RecordsActivity extends AppCompatActivity {
                                                     age, gender, cp, trewstbps, chol, fbs, restecg, thalach, exang, oldpeak,
                                                     slope, ca, thal, smoking, yellowFingers, anxiety, chronicDisease, fatigue,
                                                     allergy, wheezing, swallowingDifficulty, hasChestPain, hypertension,
-                                                    heartDisease, bmi, hba1cLevel, bloodGlucoseLevel
+                                                    heartDisease, bmi, hba1cLevel, bloodGlucoseLevel, smokingHistory, alcholCon,
+                                                    coughing, sob
                                             );
                                         } catch (NullPointerException e) {
                                             e.printStackTrace();
@@ -364,12 +369,13 @@ public class RecordsActivity extends AppCompatActivity {
     }
 
     private void displayRecords(
-            int age, boolean gender, int cp, int trewstbps, int chol, int fbs,
+            int age, boolean gender, int cp, int trewstbps, int chol, boolean fbs,
             int restecg, int thalach, boolean exang, String oldpeak, int slope, int ca,
             int thal, boolean smoking, boolean yellowFingers, boolean anxiety,
             boolean chronicDisease, boolean fatigue, boolean allergy, boolean wheezing,
             boolean swallowingDifficulty, boolean hasChestPain, boolean hypertension,
-            boolean heartDisease, String bmi, String hba1cLevel, int bloodGlucoseLevel) {
+            boolean heartDisease, String bmi, String hba1cLevel, int bloodGlucoseLevel, int smoking_history,
+            boolean alcholCon, boolean coughing, boolean sob) {
 
         // Display the medical record information
         infoTextView.append("Medical History:\n");
@@ -378,7 +384,7 @@ public class RecordsActivity extends AppCompatActivity {
         infoTextView.append("Chest Pain Type: " + cp + "\n");
         infoTextView.append("Resting Blood Pressure: " + trewstbps + "\n");
         infoTextView.append("Cholesterol: " + chol + "\n");
-        infoTextView.append("Fasting Blood Sugar: " + fbs + "\n");
+        infoTextView.append("Fasting Blood Sugar above 120: " + (fbs ? "Yes" : "No") + "\n");
         infoTextView.append("Resting Electrocardiographic Results: " + restecg + "\n");
         infoTextView.append("Maximum Heart Rate Achieved: " + thalach + "\n");
         infoTextView.append("Exercise Induced Angina: " + (exang ? "Yes" : "No") + "\n");
@@ -387,6 +393,7 @@ public class RecordsActivity extends AppCompatActivity {
         infoTextView.append("Number of Major Vessels Colored by Fluoroscopy: " + ca + "\n");
         infoTextView.append("Thal: " + thal + "\n");
         infoTextView.append("Smoking: " + (smoking ? "Yes" : "No") + "\n");
+        infoTextView.append("Smoking_history: " + smoking_history + "\n");
         infoTextView.append("Yellow Fingers: " + (yellowFingers ? "Yes" : "No") + "\n");
         infoTextView.append("Anxiety: " + (anxiety ? "Yes" : "No") + "\n");
         infoTextView.append("Chronic Disease: " + (chronicDisease ? "Yes" : "No") + "\n");
@@ -400,5 +407,8 @@ public class RecordsActivity extends AppCompatActivity {
         infoTextView.append("BMI: " + bmi + "\n");
         infoTextView.append("HbA1c Level: " + hba1cLevel + "\n");
         infoTextView.append("Blood Glucose Level: " + bloodGlucoseLevel + "\n");
+        infoTextView.append("Alcohol Consumption: " + (alcholCon ? "Yes" : "No") + "\n");
+        infoTextView.append("Coughing: " + (coughing ? "Yes" : "No") + "\n");
+        infoTextView.append("Shortness of Breath: " + (sob ? "Yes" : "No") + "\n");
     }
 }

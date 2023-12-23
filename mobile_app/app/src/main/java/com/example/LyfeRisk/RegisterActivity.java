@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         // Store additional user information in the database
                         Map<String, Object> userValues = new HashMap<>();
-                        userValues.put("userId", user.getUid());
+                        userValues.put("userID", user.getUid());
                         userValues.put("name", name);
                         userValues.put("email", email);
                         userValues.put("isPaid", false);

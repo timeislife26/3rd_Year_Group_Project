@@ -38,7 +38,7 @@
             $bmi = $result["bmi"];
             $HbA1c_level = $result["HbA1c_level"];
             $blood_glucose_level = $result["blood_glucose_level"];
-            if ($Allergy === "True"){
+           /* if ($Allergy === "True"){
                 $Allergy = 1;
             }
             else{
@@ -134,7 +134,7 @@
             else{
                 $heart_disease = 0;
             }
-            
+            */
 
             $full_response = "";
             //Sending heart disease info to the cloud function:
@@ -263,7 +263,9 @@
         $refTable = "MedicalRecords";
         $result = $database->getReference($refTable)->getValue();
         foreach ($result as $key => $row){
-            if ($row["userID"] === $id) {
+            error_log("Row content: " . print_r($row, true)); // Log the content of $row
+            if (strcasecmp($row["userID"], $id) === 0){
+            //if ($row["userID"] === $id) {
                 return $key; // Found the ID, return the key
             }
         }

@@ -312,7 +312,7 @@ public class MedicalActivity extends AppCompatActivity {
             mDatabase.child(userUid).child("Alcohol_Consuming").setValue(alcholCon);
             mDatabase.child(userUid).child("Coughing").setValue(coughing);
             mDatabase.child(userUid).child("Shortness_of_Breath").setValue(sob);
-            mDatabase.child(userUid).child("userId").setValue(mAuth.getCurrentUser().getUid());
+            mDatabase.child(userUid).child("userID").setValue(mAuth.getCurrentUser().getUid());
 
 
 

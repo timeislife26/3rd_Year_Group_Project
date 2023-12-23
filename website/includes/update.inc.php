@@ -1,9 +1,7 @@
 <?php
 require_once '../php-firebase/dbcon.php';
 
-//$fillId = isset($_GET["fillID"]) ? $_GET["fillID"] : null;
-
-
+echo $_POST["userID"];
 
 if (isset($_POST["update"])) {
     $selectedUserID = $_POST["selectedUserID"];
@@ -86,8 +84,7 @@ if (isset($_POST["update"])) {
     echo $selectedUserID;
     header("location: ../views/update.php?updated");
     exit();
-    /*header("Location: ../views/2fa_verification.php?email=$selectedUserID");
-    exit();*/
+
 } else {
     header("Location: ../views/update.php?Error");
     exit();
@@ -106,4 +103,6 @@ function existingPatientInfo($id, $database)
     
     return false;
 }
+
+
 ?>
