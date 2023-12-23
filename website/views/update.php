@@ -15,10 +15,10 @@ $patientList = array();
 $patientID = array();
 
 // Getting names and storing them in array
-foreach ($result as $key => $row){
+/*foreach ($result as $key => $row){
     $patientList[] = $row["name"];
     $patientID[] = $row["userId"];
-}
+}*/
 
 if (isset($_POST["update"])) {
     $name = $_POST["name"];
@@ -68,6 +68,8 @@ if (isset($_POST["update"])) {
             <<?php
               foreach ($result as $entry) {
                 if (strcasecmp(trim($entry['linkedDoctorIMC']), $_SESSION['imc']) === 0) {
+                    $patientList[] = $entry['name'];
+                    $patientID[] = $entry['userId'];
                   echo '<option value="' . $entry['name'] . '">' , $entry['name'] , '</option>';
                 }
               }
@@ -138,6 +140,27 @@ if (isset($_POST["update"])) {
                     <div class="radio_btn">
 					            <label><input type="radio" name="Yellow_Fingers" id="Yellow_FingersT" value="True">Yes</label>
 					            <label><input type="radio" name="Yellow_Fingers" id="Yellow_FingersF" value="False">No</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Alcohol Consuming:</legend>
+                    <div class="radio_btn">
+					    <label><input type="radio" name="Alcohol_Consuming" value="True">Yes</label>
+					    <label><input type="radio" name="Alcohol_Consuming" value="False">No</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Coughing:</legend>
+                    <div class="radio_btn">
+					    <label><input type="radio" name="Coughing" value="True">Yes</label>
+					    <label><input type="radio" name="Coughing" value="False">No</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Shortness of Breath:</legend>
+                    <div class="radio_btn">
+					    <label><input type="radio" name="Shortness_of_Breath" value="True">Yes</label>
+					    <label><input type="radio" name="Shortness_of_Breath" value="False">No</label>
                     </div>
                 </fieldset>
                 <fieldset>
@@ -220,6 +243,40 @@ if (isset($_POST["update"])) {
       </div>
     </main>
   </body>
+  <script>
+    var patientID;
+
+    window.onload = function() {
+        var selectedIndex = document.getElementById("patient_list").selectedIndex;
+        patientID = <?php echo json_encode($patientID); ?>; 
+        console.log("Initial Patient ID: ", patientID);
+        document.getElementById("selectedUserID").value = patientID[selectedIndex];
+    };
+    function updateSelectedUserID() {
+        var selectedIndex = document.getElementById("patient_list").selectedIndex;
+        patientID = <?php echo json_encode($patientID); ?>; 
+        console.log("Selected Patient ID: ", patientID[selectedIndex]);
+        document.getElementById("selectedUserID").value = patientID[selectedIndex];
+}
+
+    function toggleChestPainType() {
+        var chestPainRadio = document.querySelector('input[name="Chest_pain"]:checked');
+        var chestPainTypeField = document.getElementById('cpField');
+
+        if (chestPainRadio && chestPainRadio.value === 'True') {
+            chestPainTypeField.style.display = 'block';
+        } else {
+            chestPainTypeField.style.display = 'none';
+            // If chest pain is false, set chest pain type to 0
+            document.getElementById('cp').value = '0';
+        }
+    }
+    function toggleSmokingStatus(isCurrently) {
+        var smokingStatusField = document.getElementById('smokingStatus');
+        smokingStatusField.value = isCurrently ? 'True' : 'False';
+    }
+
+    </script>
 
 <?php
 include_once 'footer.php';

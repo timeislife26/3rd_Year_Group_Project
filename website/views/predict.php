@@ -66,6 +66,8 @@
 
     //Ajax
     function getPrediction(){
+      document.getElementById("info").value = "loading...";
+
       console.log("Clicked");
       var x = new XMLHttpRequest();
       var url = "../includes/predict.inc.php?userID=" + patientID;

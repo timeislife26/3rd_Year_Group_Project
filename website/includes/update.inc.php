@@ -1,39 +1,43 @@
 <?php
 require_once '../php-firebase/dbcon.php';
 
+//$fillId = isset($_GET["fillID"]) ? $_GET["fillID"] : null;
+
+
+
 if (isset($_POST["update"])) {
     $selectedUserID = $_POST["selectedUserID"];
-    $Age = $_POST["Age"];
-    $gender = $_POST["gender"];
-    $trewstbps = $_POST["trewstbps"];
-    $chol = $_POST["chol"];
-    $fbs = $_POST["fbs"];
-    $restecg = $_POST["restecg"];
-    $thalach = $_POST["thalach"];
-    $oldpeak = $_POST["oldpeak"];
-    $slope = $_POST["slope"];
-    $ca = $_POST["ca"];
-    $exang = $_POST["exang"];
-    $thal = $_POST["thal"];
-    $Smoking_History = $_POST["Smoking_history"];
-    $Smoking = $_POST["smokingStatus"];
-    $Yellow_Fingers = $_POST["Yellow_Fingers"];
-    $Anxiety = $_POST["Anxiety"];
-    $Chronic_Disease = $_POST["Chronic_Disease"];
-    $Fatigue = $_POST["Fatigue"];
-    $Allergy = $_POST["Allergy"];
-    $Wheezing = $_POST["Wheezing"];
-    $Swallowing_Difficulty = $_POST["Swallowing_Difficulty"];
-    $Chest_pain = $_POST["Chest_pain"];
-    $cp = $_POST["cp"];
-    $alcoholC = $_POST["Alcohol_Consuming"];
-    $coughing = $_POST["Coughing"];
-    $SOB = $_POST["Shortness_of_Breath"];
-    $hypertension = $_POST["hypertension"];
-    $heart_disease = $_POST["heart_disease"];
+    $Age = (int)$_POST["Age"];
+    $gender = (boolean)$_POST["gender"];
+    $trewstbps = (int)$_POST["trewstbps"];
+    $chol = (int)$_POST["chol"];
+    $fbs = (boolean)$_POST["fbs"];
+    $restecg = (int)$_POST["restecg"];
+    $thalach = (int)$_POST["thalach"];
+    $oldpeak = (string)$_POST["oldpeak"];
+    $slope = (int)$_POST["slope"];
+    $ca = (int)$_POST["ca"];
+    $exang = (boolean)$_POST["exang"];
+    $thal = (int)$_POST["thal"];
+    $Smoking_History = (int)$_POST["Smoking_history"];
+    $Smoking = (boolean)$_POST["smokingStatus"];
+    $Yellow_Fingers = (boolean)$_POST["Yellow_Fingers"];
+    $Anxiety = (boolean)$_POST["Anxiety"];
+    $Chronic_Disease = (boolean)$_POST["Chronic_Disease"];
+    $Fatigue = (boolean)$_POST["Fatigue"];
+    $Allergy = (boolean)$_POST["Allergy"];
+    $Wheezing = (boolean)$_POST["Wheezing"];
+    $Swallowing_Difficulty = (boolean)$_POST["Swallowing_Difficulty"];
+    $Chest_pain = (boolean)$_POST["Chest_pain"];
+    $cp = (int)$_POST["cp"];
+    $alcoholC = (boolean)$_POST["Alcohol_Consuming"];
+    $coughing = (boolean)$_POST["Coughing"];
+    $SOB = (boolean)$_POST["Shortness_of_Breath"];
+    $hypertension = (boolean)$_POST["hypertension"];
+    $heart_disease = (boolean)$_POST["heart_disease"];
     $bmi = $_POST["bmi"];
     $HbA1c_level = $_POST["HbA1c_level"];
-    $blood_glucose_level = $_POST["blood_glucose_level"];
+    $blood_glucose_level = (int)$_POST["blood_glucose_level"];
 
     $postData = [
         'userID' => $selectedUserID,
@@ -79,9 +83,11 @@ if (isset($_POST["update"])) {
     } else {
         $postRef = $database->getReference($refTable)->push($postData);
     }
-
-    header("Location: ../views/2fa_verification.php?email=$selectedUserID");
+    echo $selectedUserID;
+    header("location: ../views/update.php?updated");
     exit();
+    /*header("Location: ../views/2fa_verification.php?email=$selectedUserID");
+    exit();*/
 } else {
     header("Location: ../views/update.php?Error");
     exit();
