@@ -66,10 +66,12 @@ if (isset($_POST["update"])) {
           <label for="patient_list">Patient Name*:&emsp;
             <select id="patient_list" name="selectedPatient" onchange="updateSelectedUserID()">
             <<?php
-              foreach ($patientList as $patient) {
-                echo '<option value="' . $patient . '">' , $patient , '</option>';
+              foreach ($result as $entry) {
+                if (strcasecmp(trim($entry['linkedDoctorIMC']), $_SESSION['imc']) === 0) {
+                  echo '<option value="' . $entry['name'] . '">' , $entry['name'] , '</option>';
+                }
               }
-              ?>
+            ?>
             </select>
             <button type="button" name="generate" onclick="fillForm()">Fill Form</button>
             <?php

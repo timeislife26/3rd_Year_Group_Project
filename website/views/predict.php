@@ -31,11 +31,12 @@
         <label for="patient_list">Patient Name*:&emsp;
             <select id="patient_list" name="selectedPatient" onchange="updateSelectedUserID()">
             <?php
-                    // Loop through names and corresponding userIDs
-                    for ($i = 0; $i < count($patientList); $i++) {
-                        echo '<option value="' . $patientID[$i] . '">' , $patientList[$i] , '</option>';
-                    }
-                    ?>
+            foreach ($result as $entry) {
+              if (strcasecmp(trim($entry['linkedDoctorIMC']), $_SESSION['imc']) === 0) {
+                echo '<option value="' . $entry['name'] . '">' , $entry['name'] , '</option>';
+              }
+            }
+            ?>
             </select>
             <input type="hidden" name="selectedUserID" id="selectedUserID">
             <button onclick="getPrediction()" name="generate">Generate</button>
