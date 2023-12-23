@@ -1,5 +1,5 @@
 
-/*
+
 var patientID;
 
 window.onload = function() {
@@ -12,7 +12,7 @@ function updateSelectedUserID() {
     console.log("Selected Patient ID: ", patientID);
     document.getElementById("selectedUserID").value = patientID;
 }
-*/
+
 function toggleChestPainType() {
     var chestPainRadio = document.querySelector('input[name="Chest_pain"]:checked');
     var chestPainTypeField = document.getElementById('cpField');
