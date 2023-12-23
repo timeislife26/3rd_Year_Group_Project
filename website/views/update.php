@@ -1,4 +1,5 @@
 <?php
+    header('Accept: application/json');
   include_once 'header.php';
 
   include '../includes/fetch_patient_data.inc.php';
@@ -48,9 +49,11 @@
             </select>
             <button type="submit" name="generate">Fill Form</button>
             <?php
+            
             if (isset($_POST['generate'])) {
               fetchPatientData($database, $patientList);
             }
+            
             ?>
           </label>
           </div>

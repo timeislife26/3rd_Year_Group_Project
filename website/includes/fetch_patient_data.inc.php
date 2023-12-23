@@ -71,16 +71,10 @@
                                 */
                             }
                         }
-
-                        echo json_encode($formData);
-                        /*
-                        $jsonData = json_encode($formData);
-
+                        $dataToSend = json_encode($formData);
                         echo '<script>';
-                        echo 'var jsonData = ' . $jsonData . ';';
-                        echo 'populateForm(jsonData);'; // Call your JavaScript function with the data
-                        echo '</script>';
-                        */
+                        echo 'var dataToSend = ' . $dataToSend . ';';
+                        echo 'fillForm(dataToSend)</script>';
                     }
                 }
             }
