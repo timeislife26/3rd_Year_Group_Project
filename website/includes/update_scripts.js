@@ -43,9 +43,9 @@ function fillForm() {
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
+            alert("this is " + xhr.responseText) // WHY IS THIS EMPTY???!!!!!!
             // Parse the JSON response
             var data = JSON.parse(xhr.responseText);
-            alert(data);
                         
             // Populate the form fields
             populateForm(data);
@@ -53,7 +53,7 @@ function fillForm() {
     };
 
     // Send the request with the selected patient's ID
-    xhr.send("selectedPatientID=" + selectedPatientID);
+    xhr.send('selectedPatient=' + selectedPatientID);
 }
 
 function populateForm(data) {
@@ -65,7 +65,7 @@ function populateForm(data) {
     } else {
         document.getElementById("genderF").checked = true;
     }
-    /*
+    
     document.getElementById("trewstbps").value = data.trewstbps;
     document.getElementById("chol").value = data.chol;
     document.getElementById("fbs").value = data.fbs;
@@ -155,5 +155,5 @@ function populateForm(data) {
     } else {
         document.getElementById("heart_diseaseF").checked = true;
     }
-    */
+    
 }
