@@ -35,6 +35,21 @@ function passwordMatch($password,$cpassword){
 
 function emailExists($database,$email){
     
+    
+    $refTable = "DoctorUsers";
+    $result = $database->getReference($refTable)->getValue();
+
+    if ($result > 0) {
+        foreach ($result as $key => $value) {
+            if ($value["email"] === $email) {
+                return $value;
+            }
+        }
+
+        return false;
+    } else {
+        return false;
+    }
     /*
     $refTable = "DoctorUsers";
     $result = $database->getReference($refTable)->getValue();
@@ -63,7 +78,6 @@ function createUser($auth,$database,$name, $imc, $email, $password){
     
     $refTable = "DoctorUsers";
     $newUser = $auth->createUser($userProperties);
-    //$emailExists = emailExists($database, $email);
     if($newUser){
         session_start();
         loginUser($auth,$database,$email,$password, false);
@@ -136,7 +150,6 @@ function loginUser($auth,$database, $email, $password, $redirect){
     }
     */
     
-    //For Authentication
     try {
         //$user = $auth->getUserByEmail($email);
         
@@ -160,11 +173,10 @@ function loginUser($auth,$database, $email, $password, $redirect){
                 exit();
             }
 
-        } catch (\Throwable $e) { //catch (FailedToVerifyToken $e) {
+        } catch (\Throwable $e) { 
             echo 'The token is invalid: '.$e->getMessage();
         }
     } catch (\Kreait\Firebase\Exception\Auth\UserNotFound | Kreait\Firebase\Auth\SignIn\FailedToSignIn $e) {
-        //echo $e->getMessage();
         header("location: ../views/login.php?error=wronglogin");
         exit();
     }
