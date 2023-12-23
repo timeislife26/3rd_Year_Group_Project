@@ -86,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
                         userValues.put("email", email);
                         userValues.put("isPaid", false);
                         userValues.put("auth", 0);
+                        userValues.put("linkedDoctorIMC","");
 
 
                         // Use the user's UID as the key for the database entry
