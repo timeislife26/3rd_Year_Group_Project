@@ -35,7 +35,6 @@ function toggleSmokingStatus(isCurrently) {
 function fillForm() {
     // Get the selected patient's ID
     var selectedPatientID = document.getElementById("patient_list").value;
-    console.log("Selected Patient ID: ", selectedPatientID);
     
     // Make an AJAX request to fetch data
     var xhr = new XMLHttpRequest();
@@ -46,8 +45,7 @@ function fillForm() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             // Parse the JSON response
             var data = JSON.parse(xhr.responseText);
-            
-            
+                        
             // Populate the form fields
             populateForm(data);
             /*

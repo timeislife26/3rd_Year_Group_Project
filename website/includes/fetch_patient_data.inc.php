@@ -37,8 +37,8 @@
 
                         foreach ($secondResult as $entry) {
                             if (isset($entry['userId']) && strcasecmp(trim($entry['userId']), $targetID) === 0) {
-                                $formData['Age'] = $entry['Age'];
-                                $formData['gender'] = $entry['gender'];
+                                $formData['Age'] = (string)$entry['Age'];
+                                $formData['gender'] = (string)$entry['gender'];
                                 /*
                                 $formData['trewstbps'] = $entry['trewstbps'];
                                 $formData['chol'] = $entry['chol'];
