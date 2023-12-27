@@ -1,0 +1,1 @@
+We removed API for security reason. It still has the api key on the file in cloud function so the http requests should still work
