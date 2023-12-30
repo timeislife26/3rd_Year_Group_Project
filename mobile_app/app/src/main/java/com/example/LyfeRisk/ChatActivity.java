@@ -17,8 +17,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -32,15 +38,34 @@ public class ChatActivity extends AppCompatActivity {
         TextView userMessage = findViewById(R.id.userMessage);
         TextView botMessage = findViewById(R.id.botMessage);
         EditText inputMessage = findViewById(R.id.inputET);
+        JSONArray messagesArray = new JSONArray();
 
         chatSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 userMessage.setText(inputMessage.getText());
                 botMessage.setText("Loading...");
+
+                // Assuming userMessage is a MaterialTextView
+                String userMessageContent = inputMessage.getText().toString();
+
+                // Create a JSONObject for the user message
+                JSONObject userMessageObject = new JSONObject();
+                try {
+                    userMessageObject.put("role", "user");
+                    userMessageObject.put("content", userMessageContent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                // Add the user message object to the array
+                messagesArray.put(userMessageObject);
+
+
+
                 JSONObject chatMessage = new JSONObject();
                 try {
-                    chatMessage.put("message", inputMessage.getText());
+                    chatMessage.put("message", messagesArray);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -51,6 +76,15 @@ public class ChatActivity extends AppCompatActivity {
                 StringRequest docBotRequest = new StringRequest(Request.Method.POST, docBotURL, response -> {
                     Log.d("CloudFunctionResponse", response);
                     botMessage.setText(response);
+                    JSONObject botResponseObject = new JSONObject();
+                    try {
+                        botResponseObject.put("role", "assistant");
+                        botResponseObject.put("content", response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    messagesArray.put(botResponseObject);
+
                 }, error -> {
                     // Handle error
                     Log.e("CloudFunctionError", "Error sending data to Cloud Function: " + error.toString());

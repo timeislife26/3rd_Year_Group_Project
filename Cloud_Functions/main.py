@@ -100,17 +100,12 @@ def on_request_docBot(req: https_fn.Request) -> https_fn.Response:
     if req.method == 'POST':
         data = req.get_json()
         client = OpenAI(
-            api_key="Enter your api key here"
+            api_key="Enter your own API key here"
         )
-        pronmpt = data['message']
+        prompt = data['message']
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
-            messages=[
-                {
-                    "role": "user",
-                    "content": pronmpt
-                }
-            ],
+            messages=prompt,
             stream=False
         )
         return https_fn.Response(response.choices[0].message.content)
