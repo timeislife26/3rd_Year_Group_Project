@@ -75,7 +75,7 @@ public class PayActivity extends AppCompatActivity implements DropInListener {
         payPalCheckoutRequest.setShouldRequestBillingAgreement(true);
 
 
-        dropInRequest.setPayPalDisabled(false);
+        dropInRequest.setPayPalDisabled(true);
         GooglePayRequest googlePayRequest = new GooglePayRequest();
         googlePayRequest.setTransactionInfo(TransactionInfo.newBuilder()
                 .setTotalPrice("2.00")
