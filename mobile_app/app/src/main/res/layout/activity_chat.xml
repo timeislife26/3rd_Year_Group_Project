@@ -40,64 +40,31 @@
         android:id="@+id/textBox"
         android:layout_width="314dp"
         android:layout_height="574dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:background="#006400"
         android:src="@drawable/textbubble"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.443"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTV" />
-
-    <EditText
-        android:id="@+id/inputET"
-        android:layout_width="225dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="44dp"
-        android:ems="10"
-        android:text="Chatbot"
-        android:textAlignment="center"
-        android:textColor="#006400"
-        android:textSize="34dp"
-        app:layout_constraintEnd_toEndOf="@+id/textBox"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textBox"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
-
-    <EditText
-        android:id="@+id/editTextTextMultiLine2"
-        android:layout_width="244dp"
-        android:layout_height="216dp"
-        android:layout_marginTop="199dp"
-        android:layout_marginBottom="160dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="@+id/textBox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="207dp"
         android:layout_height="69dp"
-        android:layout_marginBottom="30dp"
         android:text="Please ask the bot whatever issues you are having and it will try and help!"
         android:textAlignment="center"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textBox"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textBox" />
+
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="248dp"
         android:layout_height="102dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="57dp"
         android:layout_marginBottom="29dp"
         android:onClick="goToContact"
         android:text="Disclaimer: This chatbot is not responsible for bad thougts or full proper health advice! If you need medical help, please click here to go to our contact page!"
@@ -105,53 +72,64 @@
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/textBox"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine2" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="321dp"
-        android:layout_height="282dp"
-        android:layout_marginStart="44dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389"
-        app:srcCompat="@drawable/chatbotinprogress" />
-
-    <TextView
-        android:id="@+id/userMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.77"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginTV" />
-
-    <TextView
-        android:id="@+id/botMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.263"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userMessage" />
+        app:layout_constraintTop_toBottomOf="@+id/inputET"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/chatSendBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="4dp"
         android:clickable="true"
         app:layout_constraintEnd_toEndOf="@+id/textBox"
-        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintHorizontal_bias="0.619"
         app:layout_constraintStart_toEndOf="@+id/inputET"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/FLayout"
         app:srcCompat="@android:drawable/ic_media_play" />
+
+    <FrameLayout
+
+        android:id="@+id/FLayout"
+        android:layout_width="309dp"
+        android:layout_height="287dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/textBox"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toTopOf="@+id/textBox">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/chatbotinprogress"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textBox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RCchat"
+            android:layout_width="match_parent"
+            android:layout_height="359dp" />
+
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/inputET"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Chatbot"
+        android:textAlignment="center"
+        android:textColor="#006400"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textBox"
+        app:layout_constraintTop_toBottomOf="@+id/FLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
