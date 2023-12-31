@@ -1,6 +1,9 @@
 package com.example.LyfeRisk;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -25,9 +28,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
-public class ChatActivity extends AppCompatActivity {
-
+public class ChatActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
+    List<String> messages;
+    List<String> responses;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,19 +40,19 @@ public class ChatActivity extends AppCompatActivity {
         // Makes the app in portrait mode only
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         FloatingActionButton chatSend = findViewById(R.id.chatSendBtn);
-        TextView userMessage = findViewById(R.id.userMessage);
-        TextView botMessage = findViewById(R.id.botMessage);
         EditText inputMessage = findViewById(R.id.inputET);
+        messages = new ArrayList<>();
+        responses = new ArrayList<>();
         JSONArray messagesArray = new JSONArray();
 
         chatSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userMessage.setText(inputMessage.getText());
-                botMessage.setText("Loading...");
 
                 // Assuming userMessage is a MaterialTextView
                 String userMessageContent = inputMessage.getText().toString();
+                messages.add(userMessageContent);
+
 
                 // Create a JSONObject for the user message
                 JSONObject userMessageObject = new JSONObject();
@@ -75,15 +80,17 @@ public class ChatActivity extends AppCompatActivity {
 
                 StringRequest docBotRequest = new StringRequest(Request.Method.POST, docBotURL, response -> {
                     Log.d("CloudFunctionResponse", response);
-                    botMessage.setText(response);
                     JSONObject botResponseObject = new JSONObject();
                     try {
                         botResponseObject.put("role", "assistant");
                         botResponseObject.put("content", response);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     messagesArray.put(botResponseObject);
+                    responses.add(response);
+                    createRecyclerView(messages, responses);
 
                 }, error -> {
                     // Handle error
@@ -100,6 +107,7 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 };
                 queue.add(docBotRequest);
+
             }
         });
     }
@@ -110,5 +118,17 @@ public class ChatActivity extends AppCompatActivity {
         } catch (ActivityNotFoundException e) {
 
         }
+    }
+    private void createRecyclerView(List<String> prompts, List<String> responses){
+        RecyclerView recyclerView = findViewById(R.id.RCchat);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        MyRecyclerViewAdapter myRecyclerViewAdapter = new MyRecyclerViewAdapter(prompts, responses,this);
+        myRecyclerViewAdapter.setClickListener(this);
+        recyclerView.setAdapter(myRecyclerViewAdapter);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
     }
 }
