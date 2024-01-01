@@ -87,7 +87,7 @@ def on_request_diabetes(req: https_fn.Request) -> https_fn.Response:
             diabetes_prediction = loaded_model.predict([[gender,age,hypertension,heart_disease,smoking_history,bmi,HbA1c,blood_glucose_level]])
             diabetes_disease_str = "Diabetes: "
             if diabetes_prediction[0] == 0:
-                diabetes_disease_str += "Based on this persons medical records, there is a possibility that they may have diabtese.\n"
+                diabetes_disease_str += "Based on this persons medical records, there is a possibility that they may have diabetes.\n"
             else:
                 diabetes_disease_str += "Based on this persons medical records, it seems unlikely that they may have diabetes.\n"
             return https_fn.Response(diabetes_disease_str)
