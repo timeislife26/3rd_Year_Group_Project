@@ -246,7 +246,7 @@ public class RecordsActivity extends AppCompatActivity {
                                 if (dataSnapshot.exists()) {
                                     String insuranceName = dataSnapshot.child("insuranceName").getValue(String.class);
                                     String insuranceTelNum = dataSnapshot.child("insuranceTelNum").getValue(String.class);
-                                    int insurancePolicyNum = dataSnapshot.child("insurancePolicyNum").getValue(Integer.class);
+                                    Integer insurancePolicyNum = dataSnapshot.child("insurancePolicyNum").getValue(Integer.class);
 
                                     if (insuranceName != null) {
                                         // Display the current insurance information in detailsTextView
