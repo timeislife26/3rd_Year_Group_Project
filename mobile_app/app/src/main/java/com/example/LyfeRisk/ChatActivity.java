@@ -52,7 +52,7 @@ public class ChatActivity extends AppCompatActivity implements MyRecyclerViewAda
                 // Assuming userMessage is a MaterialTextView
                 String userMessageContent = inputMessage.getText().toString();
                 messages.add(userMessageContent);
-
+                inputMessage.setText("");
 
                 // Create a JSONObject for the user message
                 JSONObject userMessageObject = new JSONObject();
