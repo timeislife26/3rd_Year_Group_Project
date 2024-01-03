@@ -89,7 +89,8 @@ function createUser($auth,$database,$name, $imc, $email, $password, $DOB, $gende
             'dob'=>$DOB,
             'gender'=>$gender,
             'address'=>$address,
-            'phone'=>$phone
+            'phone'=>$phone,
+            'email'=>$email
         ];
         $postRef = $database->getReference($refTable)->push($postData);
         header("location: ../includes/logout.inc.php");
