@@ -1,23 +1,18 @@
 package com.example.LyfeRisk;
-
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.Random;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -54,7 +49,11 @@ public class SettingsActivity extends AppCompatActivity {
         biometricsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                manageAuth(2);
+                if (isBiometricAvailable()) {
+                    manageAuth(2);
+                } else {
+                    Toast.makeText(SettingsActivity.this, "Biometrics not available on this device", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -72,6 +71,10 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isBiometricAvailable() {
+        BiometricManager biometricManager = BiometricManager.from(this);
+        return biometricManager.canAuthenticate() == BiometricManager.BIOMETRIC_SUCCESS;
+    }
 
     public void saveAndQuit(View view) {
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
