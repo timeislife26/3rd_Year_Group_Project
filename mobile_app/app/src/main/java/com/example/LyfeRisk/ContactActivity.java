@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -50,20 +51,45 @@ public class ContactActivity extends AppCompatActivity {
     }
 
     public void callDoctor(View view) {
-        // Retrieve doctor's phone number from the database
-        mDoctorDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        String currentUserId = mAuth.getCurrentUser().getUid();
+
+        mDatabase.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String telNum = dataSnapshot.child("telNum").getValue(String.class);
-                    makeCall(telNum);
+                    String linkedDoctorIMC = dataSnapshot.child("linkedDoctorIMC").getValue(String.class);
+                    Log.d("ContactActivity", "Linked Doctor IMC: " + linkedDoctorIMC);
+
+                    mDoctorDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot doctorSnapshot) {
+
+                            for (DataSnapshot doctorData : doctorSnapshot.getChildren()) {
+                                String doctorIMC = doctorData.child("imc").getValue(String.class);
+
+                                if (doctorIMC != null && doctorIMC.equals(linkedDoctorIMC)) {
+                                    String telNum = doctorData.child("phone").getValue(String.class);
+                                    makeCall(telNum);
+                                    return;
+                                }
+                            }
+
+                            Toast.makeText(ContactActivity.this, "Doctor not found", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(ContactActivity.this, "Error retrieving doctor data", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(ContactActivity.this, "Patient data not found", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle the error if any
-                Toast.makeText(ContactActivity.this, "Error retrieving doctor's phone number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ContactActivity.this, "Error retrieving patient data", Toast.LENGTH_SHORT).show();
             }
         });
     }
