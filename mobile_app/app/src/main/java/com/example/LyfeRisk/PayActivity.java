@@ -2,6 +2,7 @@ package com.example.LyfeRisk;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +38,7 @@ public class PayActivity extends AppCompatActivity implements DropInListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         dropInClient = new DropInClient(this, "sandbox_9qtnsks5_vbw2373f6jwdzs4k");
 

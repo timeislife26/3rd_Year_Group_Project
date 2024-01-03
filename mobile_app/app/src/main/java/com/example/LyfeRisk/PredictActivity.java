@@ -44,6 +44,8 @@ public class PredictActivity extends AppCompatActivity {
         TextView heartTv = findViewById(R.id.heartDiseaseTV);
         TextView lungTV = findViewById(R.id.LungCancerTV);
         TextView diabetesTV = findViewById(R.id.DiabetesTV);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         mAuth = FirebaseAuth.getInstance();
         mMedicalDatabase = FirebaseDatabase.getInstance().getReference("MedicalRecords");

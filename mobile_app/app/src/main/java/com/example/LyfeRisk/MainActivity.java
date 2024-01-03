@@ -1,6 +1,8 @@
 package com.example.LyfeRisk;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -33,5 +35,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }

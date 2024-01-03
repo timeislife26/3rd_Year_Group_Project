@@ -2,6 +2,7 @@ package com.example.LyfeRisk;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -162,6 +163,16 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        Intent backIntent = new Intent(LoginActivity.this, MainActivity.class);
+        try {
+            startActivity(backIntent);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void performBiometricAuthentication() {
         // Display biometric authentication prompt
