@@ -37,9 +37,53 @@ public class ContactActivity extends AppCompatActivity {
     }
 
     public void emailDoctor(View view) {
-        String email = "LyfeRisk@dr.com";
+        String currentUserId = mAuth.getCurrentUser().getUid();
+
+        mDatabase.child(currentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String linkedDoctorIMC = dataSnapshot.child("linkedDoctorIMC").getValue(String.class);
+                    Log.d("ContactActivity", "Linked Doctor IMC: " + linkedDoctorIMC);
+
+                    mDoctorDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot doctorSnapshot) {
+
+                            for (DataSnapshot doctorData : doctorSnapshot.getChildren()) {
+                                String doctorIMC = doctorData.child("imc").getValue(String.class);
+
+                                if (doctorIMC != null && doctorIMC.equals(linkedDoctorIMC)) {
+                                    String docEmail = doctorData.child("email").getValue(String.class);
+                                    makeEmail(docEmail);
+                                    return;
+                                }
+                            }
+
+                            Toast.makeText(ContactActivity.this, "Doctor not found", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(ContactActivity.this, "Error retrieving doctor data", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(ContactActivity.this, "Patient data not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(ContactActivity.this, "Error retrieving patient data", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void makeEmail(String docEmail){
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-        emailIntent.setData(Uri.parse("mailto:" + email));
+        emailIntent.setData(Uri.parse("mailto:" + docEmail));
         startActivity(emailIntent);
     }
 
